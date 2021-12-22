@@ -18,7 +18,7 @@ class MovieDetailDataLayer {
   Future<MovieDetailDataModel> getMovieDetail(int id) async {
     final movieRequest = Uri.https(
       _baseURL,
-      '/4/movie/$id',
+      '/3/movie/$id',
       {
         'api_key': _apiKey,
         'language': 'en-US',

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_market_place/detail_page/bloc/movie_detail_bloc.dart';
+import 'package:movie_market_place/detail_page/data_layer/movie_detail_data_layer.dart';
+import 'package:movie_market_place/detail_page/repository_layer/movie_detail_repo_layer.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/data_layer/movie_data_layer.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
@@ -9,10 +12,13 @@ import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.d
 void main() {
   MovieDataLayer _movieProvider = MovieDataLayer();
   MovieRepoLayer movieRepository = MovieRepoLayer(_movieProvider);
+  MovieDetailDataLayer _movieDetailProvider = MovieDetailDataLayer();
+  MovieDetailRepoLayer movieDetailRepository = MovieDetailRepoLayer(_movieDetailProvider);
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: movieRepository),
+        RepositoryProvider.value(value: movieDetailRepository),
       ],
       child: const MyApp(),
     ),

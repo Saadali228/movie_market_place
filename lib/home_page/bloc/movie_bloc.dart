@@ -13,7 +13,7 @@ part 'movie_state.dart';
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final MovieRepoLayer movieRepository;
 
-  MovieBloc(this.movieRepository) : super(MovieState()) {
+  MovieBloc(this.movieRepository) : super(const MovieState()) {
     on<MovieFetched>(
       (event, emit) async {
         emit(

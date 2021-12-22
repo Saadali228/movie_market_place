@@ -12,7 +12,7 @@ part 'movie_detail_state.dart';
 
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final MovieDetailRepoLayer movieRepository;
-  int id;
+  final int id;
 
   MovieDetailBloc(this.movieRepository,this.id) : super(const MovieDetailState()) {
     on<MovieDetailFetched>(

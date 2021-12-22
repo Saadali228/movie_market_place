@@ -11,6 +11,25 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => MovieDetailBloc(
+        RepositoryProvider.of(context),
+        id,
+      ),
+      child: DetailView(
+        id: id,
+      ),
+    );
+  }
+}
+
+class DetailView extends StatelessWidget {
+  final int id;
+
+  const DetailView({Key? key, required this.id}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff2d2d2d),
       body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
