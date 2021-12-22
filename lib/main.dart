@@ -4,11 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/data_layer/movie_data_layer.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
-import 'package:movie_market_place/home_page/repository_layer/repository_data_layer.dart';
+import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.dart';
 
 void main() {
   MovieDataLayer _movieProvider = MovieDataLayer();
-  MovieRepository movieRepository = MovieRepository(_movieProvider);
+  MovieRepoLayer movieRepository = MovieRepoLayer(_movieProvider);
   runApp(
     MultiRepositoryProvider(
       providers: [

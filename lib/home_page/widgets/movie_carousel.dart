@@ -31,7 +31,7 @@ class MovieCarousel extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.network(
-                      item.image, fit: BoxFit.cover, width: mWidth,
+                      'https://image.tmdb.org/t/p/w500/${item.image}', fit: BoxFit.cover, width: mWidth,
                   ),
                   Container(
                     width: mWidth,

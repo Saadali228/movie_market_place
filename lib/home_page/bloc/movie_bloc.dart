@@ -4,14 +4,14 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
-import 'package:movie_market_place/home_page/repository_layer/repository_data_layer.dart';
+import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.dart';
 
 part 'movie_event.dart';
 
 part 'movie_state.dart';
 
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
-  final MovieRepository movieRepository;
+  final MovieRepoLayer movieRepository;
 
   MovieBloc(this.movieRepository) : super(MovieState()) {
     on<MovieFetched>(

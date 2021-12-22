@@ -2,10 +2,10 @@ part of 'movie_bloc.dart';
 
 enum MovieStatus { initial, loading, loaded, error }
 
-class MovieState {
+class MovieState extends Equatable {
   final MovieStatus movieStatus;
   final List<MovieRepoModel> movieList;
-  MovieState({
+  const MovieState({
     this.movieStatus = MovieStatus.initial,
     this.movieList = const [],
   });
@@ -16,6 +16,7 @@ class MovieState {
         movieStatus: movieStatus ?? this.movieStatus);
   }
 
+  @override
   List<Object> get props => [movieStatus, movieList];
 }
 

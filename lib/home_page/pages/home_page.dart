@@ -13,19 +13,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff2d2d2d),
-      // appBar: AppBar(
-      //   shadowColor: Colors.transparent,
-      //   backgroundColor: Colors.transparent,
-      //   centerTitle: true,
-      //   title: const Text(
-      //     'Movie Mart',
-      //     style: TextStyle(
-      //       color: Colors.white,
-      //       fontWeight: FontWeight.w600,
-      //       fontSize: 40.0,
-      //     ),
-      //   ),
-      // ),
       body: BlocBuilder<MovieBloc, MovieState>(
         builder: (context, state) {
           switch (state.movieStatus) {
@@ -88,7 +75,7 @@ class _MovieLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeMovie(movieList: movieList);
+    return MovieHomePage(movieList: movieList);
   }
 }
 

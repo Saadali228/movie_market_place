@@ -5,10 +5,10 @@ import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_
 import 'package:movie_market_place/home_page/widgets/movie_discover.dart';
 import 'package:movie_market_place/home_page/widgets/movie_popular.dart';
 
-class HomeMovie extends StatelessWidget {
+class MovieHomePage extends StatelessWidget {
   final List<MovieRepoModel> movieList;
 
-  const HomeMovie({Key? key, required this.movieList}) : super(key: key);
+  const MovieHomePage({Key? key, required this.movieList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,7 @@ class HomeMovie extends StatelessWidget {
         const SizedBox(height: 30),
         MovieCarousel(movieList: movieList),
         const SizedBox(height: 10),
-        MovieDiscover(movieList: movieList),
-        const SizedBox(height: 10),
+        const MovieDiscover(),
         MoviePopular(movieList: movieList),
       ],
     );
