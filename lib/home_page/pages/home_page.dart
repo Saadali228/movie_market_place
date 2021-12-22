@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_market_place/cart/pages/cart_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/pages/movie.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
@@ -12,6 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: const CartDrawer(),
       backgroundColor: const Color(0xff2d2d2d),
       body: BlocBuilder<MovieBloc, MovieState>(
         builder: (context, state) {
