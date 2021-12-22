@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          textTheme: GoogleFonts.poppinsTextTheme(),
+          textTheme: GoogleFonts.mulishTextTheme(),
         ),
         home: const HomePage(),
       ),

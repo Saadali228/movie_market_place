@@ -3,19 +3,22 @@ import 'package:equatable/equatable.dart';
 class MovieDataModel extends Equatable {
   final int id;
   final String title;
-  final String posterPath;
+  final String image;
+  final String poster;
 
   const MovieDataModel({
     required this.id,
     required this.title,
-    required this.posterPath,
+    required this.image,
+    required this.poster,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'title': title,
-      'poster_path': posterPath,
+      'backdrop_path': image,
+      'poster_path': poster,
     };
   }
 
@@ -23,7 +26,8 @@ class MovieDataModel extends Equatable {
     return MovieDataModel(
       id: map['id'],
       title: map['title'],
-      posterPath: map['poster_path'],
+      image: map['backdrop_path'],
+      poster: map['poster_path'],
     );
   }
 

@@ -21,7 +21,8 @@ class MovieRepository {
           (e) => MovieRepoModel(
             id: e.id,
             title: e.title,
-            posterPath: e.posterPath,
+            image: e.image,
+            poster: e.poster,
           ),
         )
         .toList();
