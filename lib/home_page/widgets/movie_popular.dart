@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
+import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 
 class MoviePopular extends StatelessWidget {
@@ -14,18 +16,29 @@ class MoviePopular extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
         height: mHeight,
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            childAspectRatio: 2 / 3,
-            maxCrossAxisExtent: 350,
-            crossAxisSpacing: 30,
-            mainAxisSpacing: 30,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return _popularMovie(context, movieList[index]);
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification scrollInfo) {
+            if (scrollInfo.metrics.pixels ==
+                scrollInfo.metrics.maxScrollExtent) {
+              context.read<MovieBloc>().add(
+                MovieFetched(),
+              );
+            }
+            return true;
           },
-          scrollDirection: Axis.vertical,
-          itemCount: movieList.length,
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              childAspectRatio: 2 / 3,
+              maxCrossAxisExtent: 350,
+              crossAxisSpacing: 30,
+              mainAxisSpacing: 30,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return _popularMovie(context, movieList[index]);
+            },
+            scrollDirection: Axis.vertical,
+            itemCount: movieList.length,
+          ),
         ),
       ),
     );

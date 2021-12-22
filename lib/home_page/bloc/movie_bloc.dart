@@ -14,6 +14,8 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final MovieRepoLayer movieRepository;
 
   MovieBloc(this.movieRepository) : super(const MovieState()) {
+    List<MovieRepoModel> list = [];
+    int page = 1;
     on<MovieFetched>(
       (event, emit) async {
         emit(
@@ -21,7 +23,13 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
             movieStatus: MovieStatus.loading,
           ),
         );
-        final movieList = await movieRepository.getMovies();
+        final movieList = await movieRepository.getMovies(page);
+        page++;
+        if (movieList.isEmpty) {
+          list = movieList;
+        } else {
+          list.addAll(movieList);
+        }
         emit(state.copyWith(
             movieStatus: MovieStatus.loaded, movieList: movieList));
       },

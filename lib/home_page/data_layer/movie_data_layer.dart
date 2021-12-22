@@ -14,11 +14,14 @@ class MovieDataLayer {
   static const _baseURL = 'api.themoviedb.org';
   static const _apiKey = '2e3196b2667f3f54ded1d98d15b5020d';
 
-  Future<List<MovieDataModel>> getMovies() async {
+  Future<List<MovieDataModel>> getMovies(int page) async {
     final movieRequest = Uri.https(
       _baseURL,
-      '/4/discover/movie',
-      {'api_key': _apiKey},
+      '/3/discover/movie',
+      {
+        'api_key': _apiKey,
+        'page': page.toString(),
+      },
     );
     final movieResponse = await _httpClient.get(movieRequest);
     if (movieResponse.statusCode != 200) {
