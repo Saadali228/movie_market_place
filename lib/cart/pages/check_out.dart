@@ -312,6 +312,11 @@ class CheckOutScreen extends StatelessWidget {
                     // width: MediaQuery.of(context).size.width * 0.18,
                     height: MediaQuery.of(context).size.height * 0.08,
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.green,
+                        ),
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
