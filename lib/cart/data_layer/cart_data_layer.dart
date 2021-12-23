@@ -10,6 +10,7 @@ class CartProvider {
       id: product.id,
       title: product.title,
       price: product.price,
+      image: product.image,
       // qty: product.qty,
       // totalPrice: product.qty * product.price,
     );
@@ -42,6 +43,7 @@ class CartProvider {
   Future<List<CartDataModel>> getCartProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
+    print(userPref);
     if (userPref == null) return [];
     final map = json.decode(userPref) as List;
     final list = map.map((e) => CartDataModel.fromJson(e)).toList();

@@ -59,6 +59,7 @@ class MoviePopular extends StatelessWidget {
                               id: movieList[index].id,
                               title: movieList[index].title,
                               price: 50 + Random().nextInt(100),
+                              image: movieList[index].poster,
                               // qty: movieList[index].id,
                               // totalPrice: 1 * movieList[index].id +
                               //     Random().nextDouble(),

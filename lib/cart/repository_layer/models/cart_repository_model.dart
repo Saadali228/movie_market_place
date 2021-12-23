@@ -5,12 +5,14 @@ class CartRepoModel extends Equatable {
   final String title;
   // int qty;
   final num price;
+  final String image;
   // num totalPrice;
 
   CartRepoModel({
     required this.id,
     required this.title,
     required this.price,
+    required this.image,
     // required this.qty,
     // required this.totalPrice,
   });
@@ -25,6 +27,7 @@ class CartRepoModel extends Equatable {
       'id': id,
       'title': title,
       'price': price,
+      'image': image,
       // "qty": qty,
       // "totalPrice": totalPrice,
     };
@@ -34,6 +37,7 @@ class CartRepoModel extends Equatable {
         id: map['id'],
         title: map['title'],
         price: map['price'],
+        image: map['image'],
         // qty: map['qty'],
         // totalPrice: map['totalPrice'],
       );

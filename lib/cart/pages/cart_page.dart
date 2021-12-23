@@ -25,7 +25,7 @@ class CartDrawer extends StatelessWidget {
                 return const _CartLoading();
               case CartStatus.loaded:
                 return _CartLoaded(
-                  cartList: state.cartList,
+                  cartList: state.cartList!,
                 );
               case CartStatus.error:
               default:
@@ -43,12 +43,20 @@ class _CartInitial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        Text('Cart is Empty!', style: TextStyle(fontSize: 64)),
-      ],
+    return Center(
+      child: Column(
+        // mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            'sssy!',
+            style: TextStyle(
+              fontSize: 24,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -87,7 +95,14 @@ class _CartLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (cartList.isEmpty) {
-      return const Text('Cart is Empty!', style: TextStyle(fontSize: 64));
+      return const Center(
+        child: Text(
+          'Cart is Empty!',
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),
+      );
     }
     return BlocListener<CartBloc, CartState>(
       listenWhen: (previous, current) =>
@@ -116,6 +131,7 @@ class _CartLoaded extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
+              itemExtent: 100,
               scrollDirection: Axis.vertical,
               itemCount: cartList.length,
               itemBuilder: (context, index) {
@@ -133,7 +149,10 @@ class _CartLoaded extends StatelessWidget {
             children: [
               const Text(
                 'Total Ammount:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Text(
                 "\$${subTotal().toString()}",
@@ -159,12 +178,16 @@ class _CartLoaded extends StatelessWidget {
                     5.0,
                   ),
                 ),
-                color: Colors.green,
               ),
-              width: MediaQuery.of(context).size.width * 0.18,
               height: MediaQuery.of(context).size.height * 0.08,
-              child: TextButton(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Colors.green,
+                  ),
+                ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     Padding(
                       padding: EdgeInsets.only(right: 8.0),
@@ -174,7 +197,7 @@ class _CartLoaded extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Check Out',
+                      'Checkout',
                       style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,
