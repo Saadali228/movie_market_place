@@ -27,7 +27,6 @@ class TitleSubtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<MovieRepoModel>? movies;
     SizeConfig().init(context);
     return Padding(
       padding: EdgeInsets.only(
@@ -87,7 +86,7 @@ class TitleSubtitle extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.add),
-              label: const Text("RENT NOW"),
+              label: const Text("BUY NOW"),
             ),
             const SizedBox(
               height: 24.0,

@@ -8,6 +8,7 @@ import 'package:movie_market_place/utils/constants.dart';
 
 class HomeBanner extends StatefulWidget {
   final PageController controller;
+
   const HomeBanner({Key? key, required this.controller}) : super(key: key);
 
   @override
@@ -17,9 +18,9 @@ class HomeBanner extends StatefulWidget {
 class _HomeBannerState extends State<HomeBanner> {
   int selectedIndex = 0;
   final GlobalKey<AnimatorWidgetState> _title =
-  GlobalKey<AnimatorWidgetState>();
+      GlobalKey<AnimatorWidgetState>();
   final GlobalKey<AnimatorWidgetState> _overview =
-  GlobalKey<AnimatorWidgetState>();
+      GlobalKey<AnimatorWidgetState>();
 
   @override
   Widget build(BuildContext context) {
@@ -85,15 +86,8 @@ class _MovieLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: CircularProgressIndicator(),
-        ),
-      ],
+    return const Center(
+      child: CircularProgressIndicator(),
     );
   }
 }

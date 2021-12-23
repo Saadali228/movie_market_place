@@ -6,13 +6,34 @@ import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/movie_grid.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
     Key? key,
   }) : super(key: key);
 
-  final PageController controller = PageController();
   static const homePageRoute = '/';
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final PageController controller = PageController();
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -40,7 +61,9 @@ class HomeScreen extends StatelessWidget {
         ],
         centerTitle: false,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
+        backgroundColor: controller.hasClients && controller.page == 1
+            ? const Color(0xff1F0C3F)
+            : Colors.transparent,
         elevation: 0,
       ),
       endDrawer: const CartDrawer(),

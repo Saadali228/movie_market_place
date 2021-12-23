@@ -58,7 +58,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Movie Mart',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.purple,
+            primaryColor: const Color(0xff322043),
             visualDensity: VisualDensity.adaptivePlatformDensity,
             textTheme: GoogleFonts.mulishTextTheme(),
           ),
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
             if (settingsUri.path == "/") {
               return MaterialPageRoute(
                 settings: settings,
-                builder: (context) => HomeScreen(),
+                builder: (context) => const HomeScreen(),
               );
             }
 
