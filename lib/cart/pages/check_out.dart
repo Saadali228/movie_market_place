@@ -3,78 +3,41 @@ import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:provider/src/provider.dart';
 
+double tablet = 870;
+double mobile = 550;
+
 class CheckOutScreen extends StatelessWidget {
   static const checkOutPageRoute = '/checkout';
   const CheckOutScreen({Key? key}) : super(key: key);
 
-  Widget createTextField(
-    String text,
-    bool obsec,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 20.0,
-        bottom: 30,
-      ),
-      child: SizedBox(
-        height: 40,
-        width: 300,
-        child: TextField(
-          obscureText: obsec,
-          decoration: InputDecoration(
-            labelText: text,
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                width: 1,
-                color: Colors.blue,
-              ),
-              borderRadius: BorderRadius.circular(
-                10,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                width: 1,
-                color: Colors.black,
-              ),
-              borderRadius: BorderRadius.circular(
-                10,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget displayPriceRow(
-    String name,
-    String price,
-  ) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-              // left: 50.0,
-              ),
-          child: Text(
-            name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          price,
-        ),
-      ],
-    );
-  }
+  // Widget displayPriceRow(
+  //   String name,
+  //   String price,
+  // ) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //     children: [
+  //       Padding(
+  //         padding: const EdgeInsets.only(
+  //             // left: 50.0,
+  //             ),
+  //         child: Text(
+  //           name,
+  //           style: const TextStyle(
+  //             fontWeight: FontWeight.bold,
+  //             fontSize: 15,
+  //           ),
+  //         ),
+  //       ),
+  //       const SizedBox(
+  //         width: 10,
+  //       ),
+  //       Text(
+  //         price,
+  //       ),
+  //     ],
+  //   );
+  // }
 
   showAlertDialog(BuildContext context) {
     // set up the button
@@ -116,6 +79,7 @@ class CheckOutScreen extends StatelessWidget {
     String name,
   ) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.only(
@@ -158,6 +122,74 @@ class CheckOutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    print(MediaQuery.of(context).size.width);
+    Widget createTextField(
+      String text, [
+      bool obsec = false,
+    ]) {
+      return Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 20.0,
+            bottom: 30,
+          ),
+          child: TextField(
+            obscureText: obsec,
+            decoration: InputDecoration(
+              labelText: text,
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.blue,
+                ),
+                borderRadius: BorderRadius.circular(
+                  10,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.black,
+                ),
+                borderRadius: BorderRadius.circular(
+                  10,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget showRow(
+      Widget textField1,
+      Widget textField2, [
+      bool isColumn = false,
+    ]) {
+      if (isColumn) {
+        return SizedBox(
+          height: 150,
+          width: size.width,
+          child: Column(
+            children: [
+              textField1,
+              textField2,
+            ],
+          ),
+        );
+      } else {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            textField1,
+            textField2,
+          ],
+        );
+      }
+    }
+
+    bool isColumn = size.width < mobile;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -172,151 +204,72 @@ class CheckOutScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              heading(
-                '1',
-                "User Details",
-              ),
-              Row(
-                children: [
+      body: SingleChildScrollView(
+        child: Center(
+          child: SizedBox(
+            width: size.width < tablet ? size.width * 0.8 : size.width * 0.5,
+            // height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                heading(
+                  '1',
+                  "User Details",
+                ),
+                showRow(
                   createTextField(
                     'Full Name',
-                    false,
                   ),
                   createTextField(
                     'Phone Number',
-                    false,
                   ),
-                ],
-              ),
-              Row(
-                children: [
+                  isColumn,
+                ),
+                showRow(
                   createTextField(
-                    'Address',
-                    false,
+                    'Address 1',
                   ),
                   createTextField(
-                    'Country',
-                    false,
+                    'Address 2',
                   ),
-                ],
-              ),
-              Row(
-                children: [
+                  isColumn,
+                ),
+                showRow(
                   createTextField(
-                    'Address',
-                    false,
+                    'City',
                   ),
                   createTextField(
                     'Country',
-                    false,
                   ),
-                ],
-              ),
-              heading(
-                '2',
-                "Payment Details",
-              ),
-              Row(
-                children: [
-                  createTextField(
-                    "Credit Card Number",
-                    false,
-                  ),
+                ),
+                heading(
+                  '2',
+                  "Payment Details",
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    createTextField(
+                      'Credit Card',
+                    ),
+                  ],
+                ),
+                showRow(
                   createTextField(
                     "CVV",
                     true,
                   ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 200.0,
-                  top: 30,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blueAccent,
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(
-                        5.0,
-                      ),
-                    ),
-                    color: Colors.green,
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.18,
-                  height: MediaQuery.of(context).size.height * 0.08,
-                  child: TextButton(
-                    child: Row(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          'Confirm Payment',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      showAlertDialog(context);
-                    },
+                  createTextField(
+                    "Expiry",
                   ),
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 150.0,
-              top: 20,
-            ),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * .3,
-              child: Column(
-                children: [
-                  const Text(
-                    "Price Distribution",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 10.0,
+                    left: 20,
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  displayPriceRow("Total Price", '\$100'),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  displayPriceRow('Total Gst', '\$13'),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  displayPriceRow('Shipping Charges', '\$10'),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  displayPriceRow('Discount', '\$0.00'),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
@@ -337,12 +290,57 @@ class CheckOutScreen extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
-                ],
-              ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10,
+                    left: 15,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.blueAccent,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          5.0,
+                        ),
+                      ),
+                      // color: Colors.green,
+                    ),
+                    // width: MediaQuery.of(context).size.width * 0.18,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    child: ElevatedButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.only(right: 8.0),
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            'Confirm Payment',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      onPressed: () {
+                        showAlertDialog(context);
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
