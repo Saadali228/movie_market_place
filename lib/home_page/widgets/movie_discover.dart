@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 
 class MovieDiscover extends StatelessWidget {
   const MovieDiscover({Key? key}) : super(key: key);

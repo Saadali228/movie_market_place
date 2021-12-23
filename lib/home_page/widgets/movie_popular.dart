@@ -4,48 +4,84 @@ import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 
-class MoviePopular extends StatelessWidget {
-  final List<MovieRepoModel> movieList;
+class MoviePopular extends StatefulWidget {
+  const MoviePopular({Key? key}) : super(key: key);
 
-  const MoviePopular({Key? key, required this.movieList}) : super(key: key);
+  @override
+  State<MoviePopular> createState() => _MoviePopularState();
+}
+
+class _MoviePopularState extends State<MoviePopular> {
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
 
   @override
   Widget build(BuildContext context) {
     final mHeight = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: SizedBox(
-        height: mHeight,
-        child: NotificationListener<ScrollNotification>(
-          onNotification: (ScrollNotification scrollInfo) {
-            if (scrollInfo.metrics.pixels ==
-                scrollInfo.metrics.maxScrollExtent) {
-              context.read<MovieBloc>().add(
-                MovieFetched(),
-              );
-            }
-            return true;
-          },
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              childAspectRatio: 2 / 3,
-              maxCrossAxisExtent: 350,
-              crossAxisSpacing: 30,
-              mainAxisSpacing: 30,
+    return BlocBuilder<MovieBloc, MovieState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: SizedBox(
+            height: mHeight,
+            child: GridView.builder(
+              controller: _scrollController,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                childAspectRatio: 2 / 3,
+                maxCrossAxisExtent: 350,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 30,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return _popularMovie(
+                  context,
+                  state.movieList[index],
+                  isLoading: state.movieList.length - 1 == index,
+                );
+              },
+              scrollDirection: Axis.vertical,
+              itemCount: state.movieList.length,
             ),
-            itemBuilder: (BuildContext context, int index) {
-              return _popularMovie(context, movieList[index]);
-            },
-            scrollDirection: Axis.vertical,
-            itemCount: movieList.length,
           ),
-        ),
-      ),
+        );
+      },
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      if (context.read<MovieBloc>().state.pageLoader != PageLoader.loading) {
+        context.read<MovieBloc>().add(MovieNextPageFetched());
+      }
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
   }
 }
 
-Widget _popularMovie(BuildContext context, MovieRepoModel item) {
+Widget _popularMovie(
+  BuildContext context,
+  MovieRepoModel item, {
+  bool isLoading = false,
+}) {
   final width = MediaQuery.of(context).size.width / 2.6;
   return InkWell(
     onTap: () {

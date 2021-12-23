@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class MovieRepoModel extends Equatable {
   final int id;
   final String title;
-  final String image;
+  final String? image;
   final String poster;
 
   const MovieRepoModel({

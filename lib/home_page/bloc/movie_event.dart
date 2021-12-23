@@ -7,3 +7,8 @@ class MovieFetched extends MovieEvent {
   @override
   List<Object?> get props => [];
 }
+
+class MovieNextPageFetched extends MovieEvent {
+  @override
+  List<Object?> get props => [];
+}
