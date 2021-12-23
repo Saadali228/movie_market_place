@@ -7,7 +7,7 @@ import 'package:movie_market_place/detail_page/repository_layer/models/movie_det
 class DetailPage extends StatelessWidget {
   // static const detailPageRoute = '/movie';
   static String detailPageRoute(int id) {
-    return '/movie?id=$id' ;
+    return '/movie?id=$id';
   }
 
   final int id;
@@ -87,7 +87,7 @@ class _MovieDetailLoading extends StatelessWidget {
       children: const [
         Padding(
           padding: EdgeInsets.all(16.0),
-          child: CircularProgressIndicator(),
+          child: Center(child: CircularProgressIndicator()),
         ),
       ],
     );

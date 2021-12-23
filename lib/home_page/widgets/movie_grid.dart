@@ -76,10 +76,19 @@ class _MovieGridState extends State<MovieGrid> {
                                 padding: const EdgeInsets.all(16.0),
                                 child: Stack(
                                   children: [
-                                    Image.network(
-                                      "https://image.tmdb.org/t/p/w500/" +
-                                          state.movieList[index].poster!,
-                                      width: 250.0,
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          DetailPage.detailPageRoute(
+                                              state.movieList[index].id),
+                                        );
+                                      },
+                                      child: Image.network(
+                                        "https://image.tmdb.org/t/p/w500/" +
+                                            state.movieList[index].poster!,
+                                        width: 250.0,
+                                      ),
                                     ),
                                     Positioned(
                                       right: 0,

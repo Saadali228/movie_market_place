@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/pages/cart_page.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
@@ -15,6 +14,9 @@ import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
+double tablet = 870;
+double mobile = 550;
+
 class MovieDetailPage extends StatelessWidget {
   final MovieDetailRepoModel movieDetail;
   const MovieDetailPage({Key? key, required this.movieDetail})
@@ -22,11 +24,82 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    Widget isRow() {
+      if (size.width < tablet) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              movieDetail.title!,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+                fontSize: 5 * SizeConfig.blockSizeVertical!,
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                context.read<CartBloc>().add(
+                      AddProduct(
+                        CartRepoModel(
+                          id: movieDetail.id,
+                          title: movieDetail.title!,
+                          price: 50 + Random().nextInt(100),
+                          image: movieDetail.poster!,
+                        ),
+                      ),
+                    );
+              },
+              icon: const Icon(Icons.add),
+              label: const Text(
+                "BUY NOW",
+              ),
+            ),
+          ],
+        );
+      } else {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              movieDetail.title!,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+                fontSize: 5 * SizeConfig.blockSizeVertical!,
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                context.read<CartBloc>().add(
+                      AddProduct(
+                        CartRepoModel(
+                          id: movieDetail.id,
+                          title: movieDetail.title!,
+                          price: 50 + Random().nextInt(100),
+                          image: movieDetail.poster!,
+                        ),
+                      ),
+                    );
+              },
+              icon: const Icon(Icons.add),
+              label: const Text(
+                "BUY NOW",
+              ),
+            ),
+          ],
+        );
+      }
+    }
+
     var url = Uri.parse(
       'https://api.themoviedb.org/3/movie/${movieDetail.id}/credits?api_key=2e3196b2667f3f54ded1d98d15b5020d',
     );
     Future<http.Response> fetchAlbum() {
-      return http.get(url);
+      return http.get(
+        url,
+      );
     }
 
     return Scaffold(
@@ -115,40 +188,9 @@ class MovieDetailPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        movieDetail.title!,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w900,
-                                          fontSize:
-                                              5 * SizeConfig.blockSizeVertical!,
-                                        ),
-                                      ),
-                                      ElevatedButton.icon(
-                                        onPressed: () {
-                                          context.read<CartBloc>().add(
-                                                AddProduct(
-                                                  CartRepoModel(
-                                                    id: movieDetail.id,
-                                                    title: movieDetail.title!,
-                                                    price: 50 +
-                                                        Random().nextInt(100),
-                                                    image: movieDetail.poster!,
-                                                  ),
-                                                ),
-                                              );
-                                        },
-                                        icon: const Icon(Icons.add),
-                                        label: const Text(
-                                          "BUY NOW",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  //
+                                  isRow(),
+
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 24.0),
