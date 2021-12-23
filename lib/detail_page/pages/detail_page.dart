@@ -5,6 +5,11 @@ import 'package:movie_market_place/detail_page/pages/movie_detail.dart';
 import 'package:movie_market_place/detail_page/repository_layer/models/movie_detail_repo_model.dart';
 
 class DetailPage extends StatelessWidget {
+  // static const detailPageRoute = '/movie';
+  static String detailPageRoute(int id) {
+    return '/movie?id=$id' ;
+  }
+
   final int id;
 
   const DetailPage({Key? key, required this.id}) : super(key: key);

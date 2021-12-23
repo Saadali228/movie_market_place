@@ -5,12 +5,14 @@ class MovieDataModel extends Equatable {
   final String title;
   final String? image;
   final String poster;
+  final String overview;
 
   const MovieDataModel({
     required this.id,
     required this.title,
     required this.image,
     required this.poster,
+    required this.overview,
   });
 
   Map<String, dynamic> toJson() {
@@ -19,6 +21,7 @@ class MovieDataModel extends Equatable {
       'title': title,
       'backdrop_path': image,
       'poster_path': poster,
+      'overview': overview,
     };
   }
 
@@ -28,6 +31,7 @@ class MovieDataModel extends Equatable {
       title: map['title'],
       image: map['backdrop_path'],
       poster: map['poster_path'],
+      overview: map['overview'],
     );
   }
 

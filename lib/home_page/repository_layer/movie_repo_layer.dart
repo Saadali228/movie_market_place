@@ -15,6 +15,7 @@ class MovieRepoLayer {
             title: e.title,
             image: e.image,
             poster: e.poster,
+            overview: e.overview,
           ),
         )
         .toList();

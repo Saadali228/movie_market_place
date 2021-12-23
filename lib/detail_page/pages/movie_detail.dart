@@ -11,11 +11,21 @@ class MovieDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xff2d2d2d),
       body: Center(
-        child: Text(
-          movieDetail.title.toString(),
-        style: const TextStyle(
-          color: Colors.white, fontSize: 50.0,
-        ),
+        child: Column(
+          children: [
+            Text(
+              movieDetail.title.toString(),
+            style: const TextStyle(
+              color: Colors.white, fontSize: 50.0,
+            ),
+            ),
+            Text(
+              movieDetail.price.toString(),
+              style: const TextStyle(
+                color: Colors.white, fontSize: 50.0,
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -18,6 +18,7 @@ class MovieDetailRepoLayer {
       release: _moviesDetail.release,
       genres: _moviesDetail.genres,
       companies: _moviesDetail.genres,
+      price: _moviesDetail.price,
     );
   }
 }
