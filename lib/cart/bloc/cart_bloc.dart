@@ -30,10 +30,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         await cartRepository.addToCart(event.product);
         if (state.cartList.any((element) => element.id == event.product.id)) {
           final newCartList = state.cartList;
-          int index = newCartList.indexWhere((e) => event.product.id == e.id);
-          newCartList[index].qty++;
-          newCartList[index].totalPrice =
-              newCartList[index].qty * newCartList[index].price;
+          // int index = newCartList.indexWhere((e) => event.product.id == e.id);
+          // newCartList[index].qty++;
+          // newCartList[index].totalPrice =
+          //     newCartList[index].qty * newCartList[index].price;
           emit(
             state.copyWith(
                 cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
@@ -87,25 +87,41 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         newCartList.remove(event.product);
         emit(
           state.copyWith(
-              cartList: newCartList,
-              deleteFromCartStatus: DeleteFromCartStatus.loaded),
+            cartList: newCartList,
+            deleteFromCartStatus: DeleteFromCartStatus.loaded,
+          ),
         );
       } catch (_) {
         emit(
-          state.copyWith(deleteFromCartStatus: DeleteFromCartStatus.error),
+          state.copyWith(
+            deleteFromCartStatus: DeleteFromCartStatus.error,
+          ),
         );
       }
     });
 
     on<AddCartInitial>((event, emit) async {
       emit(
-        state.copyWith(addToCartStatus: AddToCartStatus.initial),
+        state.copyWith(
+          addToCartStatus: AddToCartStatus.initial,
+        ),
       );
     });
 
     on<DeleteCartInitial>((event, emit) async {
       emit(
-        state.copyWith(deleteFromCartStatus: DeleteFromCartStatus.initial),
+        state.copyWith(
+          deleteFromCartStatus: DeleteFromCartStatus.initial,
+        ),
+      );
+    });
+    on<EmptyCart>((event, emit) async {
+      await cartRepository.emptyCart();
+      emit(
+        state.copyWith(
+          cartStatus: CartStatus.initial,
+          cartList: [],
+        ),
       );
     });
   }

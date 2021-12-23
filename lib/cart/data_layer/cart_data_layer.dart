@@ -7,11 +7,12 @@ import 'models/cart_data_model.dart';
 class CartProvider {
   Future<void> addToCart(CartDataModel product) async {
     var newItem = CartDataModel(
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        qty: product.qty,
-        totalPrice: product.qty * product.price);
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      // qty: product.qty,
+      // totalPrice: product.qty * product.price,
+    );
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
@@ -75,6 +76,27 @@ class CartProvider {
     // }
   }
 
+  Future<void> emptyCart() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userPref = prefs.getString('cartList');
+    if (userPref != null) {
+      final map = json.decode(userPref) as List;
+      final cartList = map
+          .map(
+            (e) => CartDataModel.fromJson(e),
+          )
+          .toList();
+      cartList.clear();
+      final carJson = cartList
+          .map(
+            (e) => e.toJson(),
+          )
+          .toList();
+      var encodedList = json.encode(carJson);
+      await prefs.setString('cartList', encodedList);
+    }
+  }
+
   Future<void> incrementCartProduct(CartDataModel newItem) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
@@ -87,8 +109,8 @@ class CartProvider {
           .toList();
       // int index = cartList.indexOf(product);
       final index = cartList.indexWhere((element) => element.id == newItem.id);
-      cartList[index].qty++;
-      cartList[index].totalPrice = cartList[index].qty * cartList[index].price;
+      // cartList[index].qty++;
+      // cartList[index].totalPrice = cartList[index].qty * cartList[index].price;
       final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);
@@ -106,7 +128,7 @@ class CartProvider {
           )
           .toList();
       final index = cartList.indexWhere((element) => element.id == product.id);
-      cartList[index].qty--;
+      // cartList[index].qty--;
       final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);
       await prefs.setString('cartList', encodedList);

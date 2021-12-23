@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
+import 'package:movie_market_place/home_page/pages/home_page.dart';
+import 'package:provider/src/provider.dart';
 
 class CheckOutScreen extends StatelessWidget {
+  static const checkOutPageRoute = '/checkout';
   const CheckOutScreen({Key? key}) : super(key: key);
 
   Widget createTextField(
@@ -76,14 +80,24 @@ class CheckOutScreen extends StatelessWidget {
     // set up the button
     Widget okButton = TextButton(
       child: const Text("Explore More!"),
-      onPressed: () {},
+      onPressed: () {
+        context.read<CartBloc>().add(
+              EmptyCart(),
+            );
+        Navigator.popUntil(
+          context,
+          ModalRoute.withName(
+            HomePage.homePageRoute,
+          ),
+        );
+      },
     );
     AlertDialog alert = AlertDialog(
       title: const Text(
         "Order Placed",
       ),
       content: const Text(
-        "You will recieve Confirmation Email soon",
+        "Thanks for ordering",
       ),
       actions: [
         okButton,

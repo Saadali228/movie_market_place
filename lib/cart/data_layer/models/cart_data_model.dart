@@ -3,16 +3,16 @@ import 'package:equatable/equatable.dart';
 class CartDataModel extends Equatable {
   final int id;
   final String title;
-  int qty;
+  // int qty;
   final num price;
-  num totalPrice;
+  // num totalPrice;
 
   CartDataModel({
     required this.id,
     required this.title,
     required this.price,
-    required this.qty,
-    required this.totalPrice,
+    // required this.qty,
+    // required this.totalPrice,
   });
   // CartDataModel copyWith({
   //   num subTotal,
@@ -25,8 +25,8 @@ class CartDataModel extends Equatable {
       'id': id,
       'title': title,
       'price': price,
-      "qty": qty,
-      "totalPrice": totalPrice,
+      // "qty": qty,
+      // "totalPrice": totalPrice,
     };
   }
 
@@ -34,8 +34,8 @@ class CartDataModel extends Equatable {
         id: map['id'],
         title: map['title'],
         price: map['price'],
-        qty: map['qty'],
-        totalPrice: map['totalPrice'],
+        // qty: map['qty'],
+        // totalPrice: map['totalPrice'],
       );
 
   @override

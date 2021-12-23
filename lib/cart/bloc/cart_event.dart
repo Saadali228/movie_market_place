@@ -57,3 +57,8 @@ class SubTotal extends CartEvent {
   @override
   List<Object?> get props => [];
 }
+
+class EmptyCart extends CartEvent {
+  @override
+  List<Object?> get props => [];
+}

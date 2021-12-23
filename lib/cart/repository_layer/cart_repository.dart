@@ -10,11 +10,12 @@ class CartRepository {
   Future<void> addToCart(CartRepoModel product) async {
     await _dataProvider.addToCart(
       CartDataModel(
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          qty: product.qty,
-          totalPrice: product.totalPrice),
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        // qty: product.qty,
+        // totalPrice: product.totalPrice,
+      ),
     );
   }
 
@@ -23,11 +24,12 @@ class CartRepository {
     return list
         .map(
           (e) => CartRepoModel(
-              id: e.id,
-              title: e.title,
-              price: e.price,
-              qty: e.qty,
-              totalPrice: e.totalPrice),
+            id: e.id,
+            title: e.title,
+            price: e.price,
+            // qty: e.qty,
+            // totalPrice: e.totalPrice,
+          ),
         )
         .toList();
   }
@@ -35,33 +37,40 @@ class CartRepository {
   Future<void> deleteProductFromCart(CartRepoModel product) async {
     await _dataProvider.deleteProductFromCart(
       CartDataModel(
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          qty: product.qty,
-          totalPrice: product.totalPrice),
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        // qty: product.qty,
+        // totalPrice: product.totalPrice,
+      ),
     );
+  }
+
+  Future<void> emptyCart() async {
+    await _dataProvider.emptyCart();
   }
 
   Future<void> incrementCartProduct(CartRepoModel product) async {
     await _dataProvider.incrementCartProduct(
       CartDataModel(
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          qty: product.qty,
-          totalPrice: product.totalPrice),
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        // qty: product.qty,
+        // totalPrice: product.totalPrice,
+      ),
     );
   }
 
   Future<void> decrementCartProduct(CartRepoModel product) async {
     await _dataProvider.decrementCartProduct(
       CartDataModel(
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          qty: product.qty,
-          totalPrice: product.totalPrice),
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        // qty: product.qty,
+        // totalPrice: product.totalPrice,
+      ),
     );
   }
 }

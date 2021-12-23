@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
+import 'package:movie_market_place/cart/pages/check_out.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/cart/widgets/cart_item.dart';
 
@@ -75,9 +76,11 @@ class _CartLoaded extends StatelessWidget {
   final List<CartRepoModel> cartList;
   num subTotal() {
     num ans = 0;
-    cartList.forEach((element) {
-      ans += element.totalPrice;
-    });
+    cartList.forEach(
+      (element) {
+        ans += element.price;
+      },
+    );
     return ans;
   }
 
@@ -109,37 +112,87 @@ class _CartLoaded extends StatelessWidget {
           context.read<CartBloc>().add(DeleteCartInitial());
         }
       },
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: cartList.length,
-        itemBuilder: (context, index) {
-          return Column(
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: cartList.length,
+              itemBuilder: (context, index) {
+                return CartItem(
+                  item: cartList[index],
+                  onDelete: () => context.read<CartBloc>().add(
+                        DeleteProduct(cartList[index]),
+                      ),
+                );
+              },
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CartItem(
-                item: cartList[index],
-                onDelete: () => context.read<CartBloc>().add(
-                      DeleteProduct(cartList[index]),
-                    ),
+              const Text(
+                'Total Ammount:',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Total Ammount:',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "\$${subTotal().toString()}",
-                    style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
+              Text(
+                "\$${subTotal().toString()}",
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
-          );
-        },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              // left: 200.0,
+              top: 30,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.blueAccent,
+                ),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    5.0,
+                  ),
+                ),
+                color: Colors.green,
+              ),
+              width: MediaQuery.of(context).size.width * 0.18,
+              height: MediaQuery.of(context).size.height * 0.08,
+              child: TextButton(
+                child: Row(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      'Check Out',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(
+                    context,
+                    CheckOutScreen.checkOutPageRoute,
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

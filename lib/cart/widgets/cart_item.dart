@@ -25,24 +25,26 @@ class CartItem extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  item.title,
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                Flexible(
+                  child: Text(
+                    item.title,
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                Text(
-                  "Quantity: ${item.qty}",
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                // Text(
+                //   "Quantity: ${item.qty}",
+                //   textAlign: TextAlign.left,
+                //   style: const TextStyle(
+                //     color: Colors.black,
+                //     fontSize: 16,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
               ],
             ),
             Row(

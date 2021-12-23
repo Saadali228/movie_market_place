@@ -7,12 +7,30 @@ import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/pages/movie.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 
+var scaffoldKey = GlobalKey<ScaffoldState>();
+
 class HomePage extends StatelessWidget {
+  static const homePageRoute = '/';
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          InkWell(
+            onTap: () {
+              scaffoldKey.currentState!.openEndDrawer();
+            },
+            child: const Icon(
+              Icons.shopping_cart,
+              color: Colors.black,
+              size: 36,
+            ),
+          ),
+        ],
+      ),
+      key: scaffoldKey,
       endDrawer: const CartDrawer(),
       backgroundColor: const Color(0xff2d2d2d),
       body: BlocBuilder<MovieBloc, MovieState>(

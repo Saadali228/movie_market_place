@@ -3,6 +3,7 @@ part of 'cart_bloc.dart';
 enum CartStatus { initial, loading, loaded, error }
 enum AddToCartStatus { initial, loaded, error }
 enum DeleteFromCartStatus { initial, loaded, error }
+// enum EmptyCartStatus { initial, loaded, error }
 
 class CartState {
   final CartStatus cartStatus;

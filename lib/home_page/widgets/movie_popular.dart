@@ -49,7 +49,7 @@ class MoviePopular extends StatelessWidget {
               mainAxisSpacing: 30,
             ),
             itemBuilder: (BuildContext context, int index) {
-              return Column(
+              return Stack(
                 children: [
                   _popularMovie(context, movieList[index]),
                   InkWell(
@@ -58,11 +58,10 @@ class MoviePopular extends StatelessWidget {
                             CartRepoModel(
                               id: movieList[index].id,
                               title: movieList[index].title,
-                              price:
-                                  movieList[index].id + Random().nextDouble(),
-                              qty: movieList[index].id,
-                              totalPrice: 1 * movieList[index].id +
-                                  Random().nextDouble(),
+                              price: 50 + Random().nextInt(100),
+                              // qty: movieList[index].id,
+                              // totalPrice: 1 * movieList[index].id +
+                              //     Random().nextDouble(),
                             ),
                           ),
                         ),
@@ -116,18 +115,14 @@ Widget _popularMovie(BuildContext context, MovieRepoModel item) {
   final width = MediaQuery.of(context).size.width / 2.6;
   return InkWell(
     onTap: () {
-      Navigator.push(
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute<void>(
-          builder: (BuildContext context) => DetailPage(
-            id: item.id,
-          ),
-        ),
+        DetailPage.detailPageRoute,
       );
     },
     child: Container(
       width: width,
-      height: double.infinity,
+      height: MediaQuery.of(context).size.height,
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Card(
         elevation: 10.0,
