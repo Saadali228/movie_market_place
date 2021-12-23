@@ -117,7 +117,7 @@ Widget _popularMovie(BuildContext context, MovieRepoModel item) {
     onTap: () {
       Navigator.pushNamed(
         context,
-        DetailPage.detailPageRoute,
+        DetailPage.detailPageRoute(item.id),
       );
     },
     child: Container(

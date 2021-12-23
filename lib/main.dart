@@ -73,11 +73,11 @@ class MyApp extends StatelessWidget {
             }
 
             if (settingsUri.path == "/movie") {
-              int? counter =
-                  int.tryParse(settingsUri.queryParameters["counter"] ?? "");
+              int? movieId =
+                  int.tryParse(settingsUri.queryParameters["id"] ?? "");
               return MaterialPageRoute(
                 settings: settings,
-                builder: (context) => const DetailPage(id: 1),
+                builder: (context) => DetailPage(id: movieId!),
               );
             }
             if (settingsUri.path == "/checkout") {
