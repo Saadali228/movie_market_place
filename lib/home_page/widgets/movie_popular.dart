@@ -57,9 +57,9 @@ class MoviePopular extends StatelessWidget {
                           AddProduct(
                             CartRepoModel(
                               id: movieList[index].id,
-                              title: movieList[index].title,
+                              title: movieList[index].title!,
                               price: 50 + Random().nextInt(100),
-                              image: movieList[index].poster,
+                              image: movieList[index].poster!,
                               // qty: movieList[index].id,
                               // totalPrice: 1 * movieList[index].id +
                               //     Random().nextDouble(),
@@ -116,6 +116,7 @@ Widget _popularMovie(BuildContext context, MovieRepoModel item) {
   final width = MediaQuery.of(context).size.width / 2.6;
   return InkWell(
     onTap: () {
+      print('object');
       Navigator.pushNamed(
         context,
         DetailPage.detailPageRoute(item.id),

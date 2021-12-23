@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart'
     as a;
+import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 
@@ -27,27 +28,38 @@ class _MovieGridState extends State<MovieGrid> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieBloc, MovieState>(
-  builder: (context, state) {
-    return Container(
-      color: const Color(0xff1F0C3F),
-      child: Center(
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: AnimationLimiter(
-            child: Wrap(
-              children: List.generate(
-                state.movieList.length,
-                (index) => AnimationConfiguration.staggeredList(
-                  position: index,
-                  duration: const Duration(milliseconds: 300),
-                  child: SlideAnimation(
-                    child: a.FadeInAnimation(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Image.network(
-                          "https://image.tmdb.org/t/p/w500/" +
-                              state.movieList[index].poster!,
-                          width: 250.0,
+      builder: (context, state) {
+        return Container(
+          color: const Color(0xff1F0C3F),
+          child: Center(
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              child: AnimationLimiter(
+                child: Wrap(
+                  children: List.generate(
+                    state.movieList.length,
+                    (index) => AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 300),
+                      child: SlideAnimation(
+                        child: a.FadeInAnimation(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  DetailPage.detailPageRoute(
+                                      state.movieList[index].id),
+                                );
+                              },
+                              child: Image.network(
+                                "https://image.tmdb.org/t/p/w500/" +
+                                    state.movieList[index].poster!,
+                                width: 250.0,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -56,11 +68,9 @@ class _MovieGridState extends State<MovieGrid> {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
-  },
-);
   }
 
   @override
@@ -86,4 +96,3 @@ class _MovieGridState extends State<MovieGrid> {
     return currentScroll >= (maxScroll * 0.9);
   }
 }
-

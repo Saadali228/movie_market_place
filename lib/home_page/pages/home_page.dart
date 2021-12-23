@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_market_place/cart/pages/cart_page.dart';
 import 'package:movie_market_place/home_page/widgets/cart_button.dart';
 import 'package:movie_market_place/home_page/widgets/home_banner.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
@@ -42,37 +43,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      endDrawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
+      endDrawer: const CartDrawer(),
       extendBodyBehindAppBar: true,
       body: PageView(
         controller: controller,
