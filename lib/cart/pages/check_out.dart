@@ -50,7 +50,7 @@ class CheckOutScreen extends StatelessWidget {
         Navigator.popUntil(
           context,
           ModalRoute.withName(
-            HomePage.homePageRoute,
+            HomeScreen.homePageRoute,
           ),
         );
       },

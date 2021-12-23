@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
-import 'package:movie_market_place/detail_page/bloc/movie_detail_bloc.dart';
 import 'package:movie_market_place/detail_page/data_layer/movie_detail_data_layer.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/detail_page/repository_layer/movie_detail_repo_layer.dart';
@@ -68,7 +67,7 @@ class MyApp extends StatelessWidget {
             if (settingsUri.path == "/") {
               return MaterialPageRoute(
                 settings: settings,
-                builder: (context) => const HomePage(),
+                builder: (context) => HomeScreen(),
               );
             }
 

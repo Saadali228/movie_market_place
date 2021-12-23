@@ -40,6 +40,8 @@ dependencies:
   carousel_slider: ^4.0.0
   shared_preferences: ^2.0.11
   url_strategy: ^0.2.0
+  flutter_animator: ^3.2.0
+  flutter_staggered_animations: ^1.0.0
 
 dev_dependencies:
   flutter_test:

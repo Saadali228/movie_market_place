@@ -10,6 +10,7 @@ class MovieDetailDataModel extends Equatable {
   final String? release;
   final List? genres;
   final List? companies;
+  final num? price;
 
   const MovieDetailDataModel({
     required this.id,
@@ -21,6 +22,7 @@ class MovieDetailDataModel extends Equatable {
     this.release,
     this.genres,
     this.companies,
+    this.price,
   });
 
   Map<String, dynamic> toJson() {
@@ -48,6 +50,7 @@ class MovieDetailDataModel extends Equatable {
       release: map['release_date'],
       genres: map['genres'],
       companies: map['production_companies'],
+      price: map['vote_average'] * 10,
     );
   }
 
