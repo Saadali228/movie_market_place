@@ -27,27 +27,55 @@ class _MovieGridState extends State<MovieGrid> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieBloc, MovieState>(
-  builder: (context, state) {
-    return Container(
-      color: const Color(0xff1F0C3F),
-      child: Center(
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: AnimationLimiter(
-            child: Wrap(
-              children: List.generate(
-                state.movieList.length,
-                (index) => AnimationConfiguration.staggeredList(
-                  position: index,
-                  duration: const Duration(milliseconds: 300),
-                  child: SlideAnimation(
-                    child: a.FadeInAnimation(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Image.network(
-                          "https://image.tmdb.org/t/p/w500/" +
-                              state.movieList[index].poster!,
-                          width: 250.0,
+      builder: (context, state) {
+        return Container(
+          color: const Color(0xff1F0C3F),
+          child: Center(
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              child: AnimationLimiter(
+                child: Padding(
+                  padding: const EdgeInsets.only(top:40.0),
+                  child: Wrap(
+                    children: List.generate(
+                      state.movieList.length,
+                      (index) => AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 300),
+                        child: SlideAnimation(
+                          child: a.FadeInAnimation(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Stack(
+                                children: [
+                                  Image.network(
+                                    "https://image.tmdb.org/t/p/w500/" +
+                                        state.movieList[index].poster!,
+                                    width: 250.0,
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child: ElevatedButton.icon(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.add),
+                                      label: const Text("BUY NOW"),
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -56,11 +84,9 @@ class _MovieGridState extends State<MovieGrid> {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
-  },
-);
   }
 
   @override
@@ -86,4 +112,3 @@ class _MovieGridState extends State<MovieGrid> {
     return currentScroll >= (maxScroll * 0.9);
   }
 }
-
