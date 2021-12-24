@@ -15,8 +15,8 @@ import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
-double tablet = 1000;
-double mobile = 650;
+double tablet = 1050;
+double mobile = 750;
 
 class MovieDetailPage extends StatelessWidget {
   final MovieDetailRepoModel movieDetail;
@@ -153,7 +153,7 @@ class MovieDetailPage extends StatelessWidget {
               if (state.addToCartStatus == AddToCartStatus.loaded) {
                 Scaffold.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Item Added'),
+                    content: Text('Movie Added to Cart'),
                     duration: Duration(milliseconds: 300),
                   ),
                 );
@@ -162,7 +162,7 @@ class MovieDetailPage extends StatelessWidget {
               if (state.addToCartStatus == AddToCartStatus.error) {
                 Scaffold.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Item Not Added'),
+                    content: Text('Movie Already in Cart'),
                     duration: Duration(milliseconds: 300),
                   ),
                 );

@@ -39,7 +39,7 @@ class TitleSubtitle extends StatelessWidget {
         if (state.addToCartStatus == AddToCartStatus.loaded) {
           Scaffold.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Item Added'),
+              content: Text('Movie Added to Cart'),
               duration: Duration(milliseconds: 300),
             ),
           );
@@ -48,7 +48,7 @@ class TitleSubtitle extends StatelessWidget {
         if (state.addToCartStatus == AddToCartStatus.error) {
           Scaffold.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Item Not Added'),
+              content: Text('Movie Already in Cart'),
               duration: Duration(milliseconds: 300),
             ),
           );

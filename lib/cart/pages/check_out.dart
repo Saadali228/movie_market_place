@@ -42,7 +42,7 @@ class CheckOutScreen extends StatelessWidget {
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(
-      child: const Text("Explore More!"),
+      child: const Text("Go Back Home"),
       onPressed: () {
         context.read<CartBloc>().add(
               EmptyCart(),
@@ -310,7 +310,7 @@ class CheckOutScreen extends StatelessWidget {
                       // color: Colors.green,
                     ),
                     // width: MediaQuery.of(context).size.width * 0.18,
-                    height: MediaQuery.of(context).size.height * 0.08,
+                    height: MediaQuery.of(context).size.height * 0.06,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
@@ -341,6 +341,9 @@ class CheckOutScreen extends StatelessWidget {
                       },
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 5.0,
                 ),
               ],
             ),

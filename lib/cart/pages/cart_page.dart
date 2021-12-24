@@ -111,7 +111,7 @@ class _CartLoaded extends StatelessWidget {
         if (state.deleteFromCartStatus == DeleteFromCartStatus.loaded) {
           Scaffold.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Item Removed'),
+              content: Text('Movie Removed from Cart'),
               duration: Duration(milliseconds: 300),
             ),
           );
@@ -120,7 +120,7 @@ class _CartLoaded extends StatelessWidget {
         if (state.deleteFromCartStatus == DeleteFromCartStatus.error) {
           Scaffold.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Item Not Removed'),
+              content: Text('Movie not Removed from Cart'),
               duration: Duration(milliseconds: 300),
             ),
           );
@@ -179,7 +179,7 @@ class _CartLoaded extends StatelessWidget {
                   ),
                 ),
               ),
-              height: MediaQuery.of(context).size.height * 0.08,
+              height: MediaQuery.of(context).size.height * 0.06,
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
