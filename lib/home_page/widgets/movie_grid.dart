@@ -103,8 +103,7 @@ class _MovieGridState extends State<MovieGrid> {
                                                     title: state
                                                         .movieList[index]
                                                         .title!,
-                                                    price: 50 +
-                                                        Random().nextInt(100),
+                                                    price: state.movieList[index].price!,
                                                     image: state
                                                         .movieList[index]
                                                         .poster!,

@@ -6,6 +6,7 @@ class MovieRepoModel extends Equatable {
   final String? image;
   final String? poster;
   final String? overview;
+  final num? price;
 
   const MovieRepoModel({
     required this.id,
@@ -13,6 +14,7 @@ class MovieRepoModel extends Equatable {
     required this.image,
     required this.poster,
     required this.overview,
+    required this.price,
   });
 
   Map<String, dynamic> toJson() {
@@ -32,6 +34,7 @@ class MovieRepoModel extends Equatable {
       image: map['backdrop_path'],
       poster: map['poster_path'],
       overview: map['overview'],
+      price: map['vote_average'] * 10,
     );
   }
 

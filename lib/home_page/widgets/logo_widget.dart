@@ -13,7 +13,7 @@ class LogoWidget extends StatelessWidget {
         SizedBox(
           width: 8.0,
         ),
-        Text("MovieLOO"),
+        Text("Movie Mart"),
       ],
     );
   }

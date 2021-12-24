@@ -22,8 +22,9 @@ class CartButton extends StatelessWidget {
             children: [
               // if (context.read<CartBloc>().state.cartList != null ||
               //     context.read<CartBloc>().state.cartList! != 0)
+              if(state.cartList != null && state.cartList!.isNotEmpty)
               Text(
-                state.cartList?.length.toString() ?? '0',
+                state.cartList?.length.toString() ?? '',
                 style: const TextStyle(fontSize: 10.0),
               ),
               const SizedBox(

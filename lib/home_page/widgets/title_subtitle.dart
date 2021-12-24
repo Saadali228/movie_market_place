@@ -127,7 +127,9 @@ class TitleSubtitle extends StatelessWidget {
                                 .state
                                 .movieList[selectedIndex]
                                 .title!,
-                            price: 50 + Random().nextInt(100),
+                            price: BlocProvider.of<MovieBloc>(context)
+                                .state
+                                .movieList[selectedIndex].price!,
                             image: BlocProvider.of<MovieBloc>(context)
                                 .state
                                 .movieList[selectedIndex]
