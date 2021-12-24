@@ -15,27 +15,31 @@ class CartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
-        return FloatingActionButton.small(
-          onPressed: onTap,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // if (context.read<CartBloc>().state.cartList != null ||
-              //     context.read<CartBloc>().state.cartList! != 0)
-              if(state.cartList != null && state.cartList!.isNotEmpty)
-              Text(
-                state.cartList?.length.toString() ?? '',
-                style: const TextStyle(fontSize: 10.0),
-              ),
-              const SizedBox(
-                width: 2.0,
-              ),
-              const Icon(
+        return Stack(
+          alignment: Alignment.bottomLeft,
+          children: [
+            FloatingActionButton.small(
+              onPressed: onTap,
+              child: const Icon(
                 Icons.shopping_cart_rounded,
                 size: 16.0,
               ),
-            ],
-          ),
+            ),
+            if(state.cartList != null && state.cartList!.isNotEmpty)
+              Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.red,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    state.cartList?.length.toString() ?? '',
+                    style: const TextStyle(fontSize: 10.0),
+                  ),
+                ),
+              ),
+          ],
         );
       },
     );

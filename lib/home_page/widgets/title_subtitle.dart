@@ -11,6 +11,7 @@ import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
+import 'package:movie_market_place/home_page/widgets/dialog_box.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 
 class TitleSubtitle extends StatelessWidget {
@@ -37,19 +38,23 @@ class TitleSubtitle extends StatelessWidget {
           previous.addToCartStatus != current.addToCartStatus,
       listener: (context, state) {
         if (state.addToCartStatus == AddToCartStatus.loaded) {
-          Scaffold.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Movie Added to Cart'),
-              duration: Duration(milliseconds: 300),
+          showDialog(
+            context: context,
+            builder: (_) => const DialogBox(
+              title: 'Movie Added to Cart',
+              icon: Icons.check_circle,
+              iconColor: Colors.green,
             ),
           );
           context.read<CartBloc>().add(AddCartInitial());
         }
         if (state.addToCartStatus == AddToCartStatus.error) {
-          Scaffold.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Movie Already in Cart'),
-              duration: Duration(milliseconds: 300),
+          showDialog(
+            context: context,
+            builder: (_) => const DialogBox(
+              title: 'Movie Already in Cart',
+              icon: Icons.warning_amber_rounded,
+              iconColor: Colors.orange,
             ),
           );
           context.read<CartBloc>().add(AddCartInitial());

@@ -10,6 +10,7 @@ import 'package:movie_market_place/cart/repository_layer/models/cart_repository_
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
+import 'package:movie_market_place/home_page/widgets/dialog_box.dart';
 
 class MovieGrid extends StatefulWidget {
   const MovieGrid({
@@ -36,19 +37,23 @@ class _MovieGridState extends State<MovieGrid> {
           previous.addToCartStatus != current.addToCartStatus,
       listener: (context, state) {
         if (state.addToCartStatus == AddToCartStatus.loaded) {
-          Scaffold.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Movie Added to Cart'),
-              duration: Duration(milliseconds: 300),
+          showDialog(
+            context: context,
+            builder: (_) => const DialogBox(
+              title: 'Movie Added to Cart',
+              icon: Icons.check_circle,
+              iconColor: Colors.green,
             ),
           );
           context.read<CartBloc>().add(AddCartInitial());
         }
         if (state.addToCartStatus == AddToCartStatus.error) {
-          Scaffold.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Movie Already in Cart'),
-              duration: Duration(milliseconds: 300),
+          showDialog(
+            context: context,
+            builder: (_) => const DialogBox(
+              title: 'Movie Already in Cart',
+              icon: Icons.warning_amber_rounded,
+              iconColor: Colors.orange,
             ),
           );
           context.read<CartBloc>().add(AddCartInitial());
@@ -84,10 +89,13 @@ class _MovieGridState extends State<MovieGrid> {
                                               state.movieList[index].id),
                                         );
                                       },
-                                      child: Image.network(
-                                        "https://image.tmdb.org/t/p/w500/" +
-                                            state.movieList[index].poster!,
-                                        width: 250.0,
+                                      child: Hero(
+                                        tag: state.movieList[index].id,
+                                        child: Image.network(
+                                          "https://image.tmdb.org/t/p/w500/" +
+                                              state.movieList[index].poster!,
+                                          width: 250.0,
+                                        ),
                                       ),
                                     ),
                                     Positioned(
@@ -103,7 +111,9 @@ class _MovieGridState extends State<MovieGrid> {
                                                     title: state
                                                         .movieList[index]
                                                         .title!,
-                                                    price: state.movieList[index].price!,
+                                                    price: state
+                                                        .movieList[index]
+                                                        .price!,
                                                     image: state
                                                         .movieList[index]
                                                         .poster!,

@@ -9,14 +9,16 @@ import 'package:movie_market_place/cart/pages/cart_page.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/detail_page/repository_layer/models/movie_detail_repo_model.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
+import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/cart_button.dart';
+import 'package:movie_market_place/home_page/widgets/dialog_box.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 double tablet = 1050;
-double mobile = 750;
+double mobile = 800;
 
 class MovieDetailPage extends StatelessWidget {
   final MovieDetailRepoModel movieDetail;
@@ -122,7 +124,17 @@ class MovieDetailPage extends StatelessWidget {
                   Icons.arrow_back,
                 ),
               ),
-            const LogoWidget(),
+            InkWell(
+              onTap: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                } else {
+                  Navigator.of(context)
+                      .pushReplacementNamed(HomeScreen.homePageRoute);
+                }
+              },
+              child: const LogoWidget(),
+            ),
           ],
         ),
         actions: [
@@ -151,19 +163,23 @@ class MovieDetailPage extends StatelessWidget {
                 previous.addToCartStatus != current.addToCartStatus,
             listener: (context, state) {
               if (state.addToCartStatus == AddToCartStatus.loaded) {
-                Scaffold.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Movie Added to Cart'),
-                    duration: Duration(milliseconds: 300),
+                showDialog(
+                  context: context,
+                  builder: (_) => const DialogBox(
+                    title: 'Movie Added to Cart',
+                    icon: Icons.check_circle,
+                    iconColor: Colors.green,
                   ),
                 );
                 context.read<CartBloc>().add(AddCartInitial());
               }
               if (state.addToCartStatus == AddToCartStatus.error) {
-                Scaffold.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Movie Already in Cart'),
-                    duration: Duration(milliseconds: 300),
+                showDialog(
+                  context: context,
+                  builder: (_) => const DialogBox(
+                    title: 'Movie Already in Cart',
+                    icon: Icons.warning_amber_rounded,
+                    iconColor: Colors.orange,
                   ),
                 );
                 context.read<CartBloc>().add(AddCartInitial());
@@ -194,20 +210,23 @@ class MovieDetailPage extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Image.network(
-                                      "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Container(
-                                          color: const Color(0xff322043),
-                                          alignment: Alignment.center,
-                                          child: const Icon(
-                                            Icons.person,
-                                            color: Colors.white,
-                                          ),
-                                        );
-                                      },
-                                      height: size.height * 0.5,
+                                    Hero(
+                                      tag: movieDetail.id,
+                                      child: Image.network(
+                                        "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Container(
+                                            color: const Color(0xff322043),
+                                            alignment: Alignment.center,
+                                            child: const Icon(
+                                              Icons.person,
+                                              color: Colors.white,
+                                            ),
+                                          );
+                                        },
+                                        height: size.height * 0.5,
+                                      ),
                                     ),
                                     const SizedBox(
                                       width: 32.0,
@@ -387,18 +406,21 @@ class MovieDetailPage extends StatelessWidget {
                               )
                             : Row(
                                 children: [
-                                  Image.network(
-                                    "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: const Color(0xff322043),
-                                        alignment: Alignment.center,
-                                        child: const Icon(
-                                          Icons.person,
-                                          color: Colors.white,
-                                        ),
-                                      );
-                                    },
+                                  Hero(
+                                    tag: movieDetail.id,
+                                    child: Image.network(
+                                      "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Container(
+                                          color: const Color(0xff322043),
+                                          alignment: Alignment.center,
+                                          child: const Icon(
+                                            Icons.person,
+                                            color: Colors.white,
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                   const SizedBox(
                                     width: 32.0,

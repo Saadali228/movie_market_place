@@ -17,7 +17,7 @@ class CartItem extends StatelessWidget {
         ),
       ),
       child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
+        // crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Padding(
@@ -39,7 +39,7 @@ class CartItem extends StatelessWidget {
                       item.title,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
@@ -57,7 +57,7 @@ class CartItem extends StatelessWidget {
                     "\$" + item.price.toString(),
                     textAlign: TextAlign.left,
                     style: const TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),

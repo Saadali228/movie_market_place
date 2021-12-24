@@ -118,7 +118,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       try {
         await cartRepository.deleteProductFromCart(event.product);
         final newCartList = state.cartList;
-        newCartList!.remove(event.product);
+        newCartList!.removeWhere((e) => e.id == event.product.id);
         emit(
           state.copyWith(
             cartList: newCartList,

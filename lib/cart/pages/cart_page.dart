@@ -4,6 +4,7 @@ import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/pages/check_out.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/cart/widgets/cart_item.dart';
+import 'package:movie_market_place/home_page/widgets/dialog_box.dart';
 
 class CartDrawer extends StatelessWidget {
   const CartDrawer({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class CartDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Theme.of(context).primaryColor,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: BlocBuilder<CartBloc, CartState>(
@@ -50,7 +52,7 @@ class _CartInitial extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           Text(
-            'sssy!',
+            'Loading!',
             style: TextStyle(
               fontSize: 24,
             ),
@@ -82,6 +84,7 @@ class _CartLoading extends StatelessWidget {
 class _CartLoaded extends StatelessWidget {
   const _CartLoaded({Key? key, required this.cartList}) : super(key: key);
   final List<CartRepoModel> cartList;
+
   num subTotal() {
     num ans = 0;
     cartList.forEach(
@@ -99,6 +102,7 @@ class _CartLoaded extends StatelessWidget {
         child: Text(
           'Cart is Empty!',
           style: TextStyle(
+            color: Colors.white,
             fontSize: 25,
           ),
         ),
@@ -109,10 +113,12 @@ class _CartLoaded extends StatelessWidget {
           previous.deleteFromCartStatus != current.deleteFromCartStatus,
       listener: (context, state) {
         if (state.deleteFromCartStatus == DeleteFromCartStatus.loaded) {
-          Scaffold.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Movie Removed from Cart'),
-              duration: Duration(milliseconds: 300),
+          showDialog(
+            context: context,
+            builder: (_) => const DialogBox(
+              title: 'Movie Removed from Cart',
+              icon: Icons.remove_circle_outline,
+              iconColor: Colors.red,
             ),
           );
           context.read<CartBloc>().add(DeleteCartInitial());
@@ -148,8 +154,9 @@ class _CartLoaded extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Total Ammount:',
+                'Total Amount:',
                 style: TextStyle(
+                  color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -157,6 +164,7 @@ class _CartLoaded extends StatelessWidget {
               Text(
                 "\$${subTotal().toString()}",
                 style: const TextStyle(
+                  color: Colors.white,
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
                 ),
@@ -183,7 +191,7 @@ class _CartLoaded extends StatelessWidget {
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                    Colors.green,
+                    Colors.purple,
                   ),
                 ),
                 child: Row(
