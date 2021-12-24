@@ -177,18 +177,18 @@ class MovieDetailPage extends StatelessWidget {
                       color: const Color(0xff361F41),
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
-                        child: size.width < mobile ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.network(
-                              "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
-                              height: size.height * 0.5,
-                            ),
-                            const SizedBox(
-                              width: 32.0,
-                            ),
-                            Flexible(
-                              child: Column(
+                        child: size.width < mobile ? SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.network(
+                                "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
+                                height: size.height * 0.5,
+                              ),
+                              const SizedBox(
+                                width: 32.0,
+                              ),
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   //
@@ -249,15 +249,13 @@ class MovieDetailPage extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  Flexible(
-                                    child: Text(
-                                      movieDetail.overview!,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w300,
-                                        fontSize:
-                                            2 * SizeConfig.blockSizeVertical!,
-                                      ),
+                                  Text(
+                                    movieDetail.overview!,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize:
+                                          2 * SizeConfig.blockSizeVertical!,
                                     ),
                                   ),
                                   const SizedBox(
@@ -309,44 +307,39 @@ class MovieDetailPage extends StatelessWidget {
                                   const SizedBox(
                                     height: 16.0,
                                   ),
-                                  Expanded(
-                                    flex: 7,
-                                    child: FutureBuilder<http.Response>(
-                                        future: fetchAlbum(),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData) {
-                                            var data = jsonDecode(
-                                                snapshot.data!.body)["cast"];
-                                            return SingleChildScrollView(
-                                              child: Wrap(
-                                                children: List.generate(
-                                                  12,
-                                                  (index) => Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      bottom: 16.0,
-                                                      right: 16.0,
-                                                    ),
-                                                    child: Material(
-                                                      elevation: 5.0,
-                                                      child: Image.network(
-                                                        "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
-                                                      ),
-                                                    ),
+                                  FutureBuilder<http.Response>(
+                                      future: fetchAlbum(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          var data = jsonDecode(
+                                              snapshot.data!.body)["cast"];
+                                          return Wrap(
+                                            children: List.generate(
+                                              12,
+                                              (index) => Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                  bottom: 16.0,
+                                                  right: 16.0,
+                                                ),
+                                                child: Material(
+                                                  elevation: 5.0,
+                                                  child: Image.network(
+                                                    "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
                                                   ),
                                                 ),
                                               ),
-                                            );
-                                          }
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
+                                            ),
                                           );
-                                        }),
-                                  ),
+                                        }
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ) : Row(
                           children: [
                             Image.network(
