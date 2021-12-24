@@ -62,3 +62,7 @@ class EmptyCart extends CartEvent {
   @override
   List<Object?> get props => [];
 }
+class UpdateCartCount extends CartEvent {
+  @override
+  List<Object?> get props => [];
+}

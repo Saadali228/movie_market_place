@@ -30,6 +30,25 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(state.copyWith(cartStatus: CartStatus.error));
       }
     });
+    on<UpdateCartCount>((event, emit) async {
+      emit(
+        state.copyWith(cartStatus: CartStatus.loading),
+      );
+      try {
+        if (state.cartList == null) {
+          final _cartList = await cartRepository.getCartProducts();
+          emit(
+            state.copyWith(cartList: _cartList, cartStatus: CartStatus.loaded),
+          );
+        } else {
+          emit(
+            state.copyWith(cartStatus: CartStatus.loaded),
+          );
+        }
+      } catch (_) {
+        emit(state.copyWith(cartStatus: CartStatus.error));
+      }
+    });
 
     on<AddProduct>((event, emit) async {
       try {
@@ -42,8 +61,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             state.copyWith(
                 cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
           );
-        }
-        if (state.cartList!.any((element) => element.id == event.product.id)) {
+        } else if (state.cartList!
+            .any((element) => element.id == event.product.id)) {
           final newCartList = state.cartList;
           // int index = newCartList.indexWhere((e) => event.product.id == e.id);
           // newCartList[index].qty++;

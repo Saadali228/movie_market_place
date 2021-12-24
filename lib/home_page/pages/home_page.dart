@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/pages/cart_page.dart';
 import 'package:movie_market_place/home_page/widgets/cart_button.dart';
 import 'package:movie_market_place/home_page/widgets/home_banner.dart';
@@ -25,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
     controller.addListener(() {
       setState(() {});
     });
+    BlocProvider.of<CartBloc>(context).add(
+      UpdateCartCount(),
+    );
     super.initState();
   }
 
