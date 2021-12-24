@@ -25,6 +25,7 @@ class MovieDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     Widget isRow() {
       if (size.width < tablet) {
         return Column(
@@ -176,10 +177,12 @@ class MovieDetailPage extends StatelessWidget {
                       color: const Color(0xff361F41),
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
-                        child: Row(
+                        child: size.width < mobile ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image.network(
                               "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
+                              height: size.height * 0.5,
                             ),
                             const SizedBox(
                               width: 32.0,
@@ -321,6 +324,174 @@ class MovieDetailPage extends StatelessWidget {
                                                   (index) => Padding(
                                                     padding:
                                                         const EdgeInsets.only(
+                                                      bottom: 16.0,
+                                                      right: 16.0,
+                                                    ),
+                                                    child: Material(
+                                                      elevation: 5.0,
+                                                      child: Image.network(
+                                                        "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ) : Row(
+                          children: [
+                            Image.network(
+                              "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
+                            ),
+                            const SizedBox(
+                              width: 32.0,
+                            ),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //
+                                  isRow(),
+
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 24.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Action",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 2.2 *
+                                                SizeConfig.blockSizeVertical!,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 2.2 *
+                                                SizeConfig.blockSizeVertical!,
+                                            width: 2.0,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Comedy",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 2.2 *
+                                                SizeConfig.blockSizeVertical!,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 2.2 *
+                                                SizeConfig.blockSizeVertical!,
+                                            width: 2.0,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Drama",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 2.2 *
+                                                SizeConfig.blockSizeVertical!,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      movieDetail.overview!,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize:
+                                        2 * SizeConfig.blockSizeVertical!,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 24.0,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Viewer Rating:",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 1.8 *
+                                              SizeConfig.blockSizeVertical!,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 16.0,
+                                      ),
+                                      Stack(
+                                        alignment: Alignment.center,
+                                        children: const [
+                                          CircularProgressIndicator(
+                                            value: 3.4,
+                                          ),
+                                          Text(
+                                            // (movieDetail.voteAverage!).toStringAsFixed(1),
+                                            '1',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 24.0,
+                                  ),
+                                  Text(
+                                    "Cast",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w100,
+                                      fontSize:
+                                      2.2 * SizeConfig.blockSizeVertical!,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16.0,
+                                  ),
+                                  Expanded(
+                                    flex: 7,
+                                    child: FutureBuilder<http.Response>(
+                                        future: fetchAlbum(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            var data = jsonDecode(
+                                                snapshot.data!.body)["cast"];
+                                            return SingleChildScrollView(
+                                              child: Wrap(
+                                                children: List.generate(
+                                                  12,
+                                                      (index) => Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(
                                                       bottom: 16.0,
                                                       right: 16.0,
                                                     ),

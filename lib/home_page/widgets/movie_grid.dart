@@ -31,32 +31,32 @@ class _MovieGridState extends State<MovieGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MovieBloc, MovieState>(
-      builder: (context, state) {
-        return BlocListener<CartBloc, CartState>(
-          listenWhen: (previous, current) =>
-              previous.addToCartStatus != current.addToCartStatus,
-          listener: (context, state) {
-            if (state.addToCartStatus == AddToCartStatus.loaded) {
-              Scaffold.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Item Added'),
-                  duration: Duration(milliseconds: 300),
-                ),
-              );
-              context.read<CartBloc>().add(AddCartInitial());
-            }
-            if (state.addToCartStatus == AddToCartStatus.error) {
-              Scaffold.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Item Not Added'),
-                  duration: Duration(milliseconds: 300),
-                ),
-              );
-              context.read<CartBloc>().add(AddCartInitial());
-            }
-          },
-          child: Container(
+    return BlocListener<CartBloc, CartState>(
+      listenWhen: (previous, current) =>
+          previous.addToCartStatus != current.addToCartStatus,
+      listener: (context, state) {
+        if (state.addToCartStatus == AddToCartStatus.loaded) {
+          Scaffold.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Item Added'),
+              duration: Duration(milliseconds: 300),
+            ),
+          );
+          context.read<CartBloc>().add(AddCartInitial());
+        }
+        if (state.addToCartStatus == AddToCartStatus.error) {
+          Scaffold.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Item Not Added'),
+              duration: Duration(milliseconds: 300),
+            ),
+          );
+          context.read<CartBloc>().add(AddCartInitial());
+        }
+      },
+      child: BlocBuilder<MovieBloc, MovieState>(
+        builder: (context, state) {
+          return Container(
             color: const Color(0xff1F0C3F),
             child: Center(
               child: SingleChildScrollView(
@@ -142,9 +142,9 @@ class _MovieGridState extends State<MovieGrid> {
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

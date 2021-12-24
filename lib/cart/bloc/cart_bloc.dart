@@ -17,7 +17,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       );
       try {
         if (state.cartList == null) {
-          
           final _cartList = await cartRepository.getCartProducts();
           emit(
             state.copyWith(cartList: _cartList, cartStatus: CartStatus.loaded),
@@ -35,6 +34,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<AddProduct>((event, emit) async {
       try {
         await cartRepository.addToCart(event.product);
+        if (state.cartList == null) {
+          List<CartRepoModel> newCartList = [];
+          // state.cartList!.map((e) => newCartList.add(e)).toList();
+          newCartList.add(event.product);
+          emit(
+            state.copyWith(
+                cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
+          );
+        }
         if (state.cartList!.any((element) => element.id == event.product.id)) {
           final newCartList = state.cartList;
           // int index = newCartList.indexWhere((e) => event.product.id == e.id);
@@ -43,7 +51,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           //     newCartList[index].qty * newCartList[index].price;
           emit(
             state.copyWith(
-                cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
+                cartList: newCartList, addToCartStatus: AddToCartStatus.error),
           );
         } else {
           List<CartRepoModel> newCartList = [];
