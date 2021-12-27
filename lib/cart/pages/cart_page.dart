@@ -112,22 +112,24 @@ class _CartLoaded extends StatelessWidget {
       listenWhen: (previous, current) =>
           previous.deleteFromCartStatus != current.deleteFromCartStatus,
       listener: (context, state) {
-        if (state.deleteFromCartStatus == DeleteFromCartStatus.loaded) {
+        // if (state.deleteFromCartStatus == DeleteFromCartStatus.loaded) {
+        //   showDialog(
+        //     context: context,
+        //     builder: (_) => const DialogBox(
+        //       title: 'Movie Removed from Cart',
+        //       icon: Icons.remove_circle_outline,
+        //       iconColor: Colors.red,
+        //     ),
+        //   );
+        //   context.read<CartBloc>().add(DeleteCartInitial());
+        // }
+        if (state.deleteFromCartStatus == DeleteFromCartStatus.error) {
           showDialog(
             context: context,
             builder: (_) => const DialogBox(
-              title: 'Movie Removed from Cart',
+              title: 'Movie Not Removed from Cart',
               icon: Icons.remove_circle_outline,
               iconColor: Colors.red,
-            ),
-          );
-          context.read<CartBloc>().add(DeleteCartInitial());
-        }
-        if (state.deleteFromCartStatus == DeleteFromCartStatus.error) {
-          Scaffold.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Movie not Removed from Cart'),
-              duration: Duration(milliseconds: 300),
             ),
           );
           context.read<CartBloc>().add(DeleteCartInitial());
