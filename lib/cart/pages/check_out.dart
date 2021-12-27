@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:provider/src/provider.dart';
@@ -9,35 +10,6 @@ double mobile = 550;
 class CheckOutScreen extends StatelessWidget {
   static const checkOutPageRoute = '/checkout';
   const CheckOutScreen({Key? key}) : super(key: key);
-
-  // Widget displayPriceRow(
-  //   String name,
-  //   String price,
-  // ) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //     children: [
-  //       Padding(
-  //         padding: const EdgeInsets.only(
-  //             // left: 50.0,
-  //             ),
-  //         child: Text(
-  //           name,
-  //           style: const TextStyle(
-  //             fontWeight: FontWeight.bold,
-  //             fontSize: 15,
-  //           ),
-  //         ),
-  //       ),
-  //       const SizedBox(
-  //         width: 10,
-  //       ),
-  //       Text(
-  //         price,
-  //       ),
-  //     ],
-  //   );
-  // }
 
   showAlertDialog(BuildContext context) {
     // set up the button
@@ -83,7 +55,6 @@ class CheckOutScreen extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            left: 20.0,
             bottom: 20,
             top: 20,
           ),
@@ -102,11 +73,11 @@ class CheckOutScreen extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(width: 16),
         Padding(
           padding: const EdgeInsets.only(
             top: 20.0,
             bottom: 20,
-            left: 10,
           ),
           child: Text(
             name,
@@ -120,10 +91,20 @@ class CheckOutScreen extends StatelessWidget {
     );
   }
 
+  num subTotal(BuildContext context) {
+    num ans = 0;
+    BlocProvider.of<CartBloc>(context).state.cartList!.forEach(
+          (element) {
+        ans += element.price;
+      },
+    );
+    return ans;
+  }
+
   @override
   Widget build(BuildContext context) {
+    var total = subTotal(context);
     final size = MediaQuery.of(context).size;
-    print(MediaQuery.of(context).size.width);
     Widget createTextField(
       String text, [
       bool obsec = false,
@@ -131,7 +112,6 @@ class CheckOutScreen extends StatelessWidget {
       return Expanded(
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 20.0,
             bottom: 30,
           ),
           child: TextField(
@@ -183,6 +163,7 @@ class CheckOutScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             textField1,
+            const SizedBox(width: 16),
             textField2,
           ],
         );
@@ -192,15 +173,14 @@ class CheckOutScreen extends StatelessWidget {
     bool isColumn = size.width < mobile;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
-        title: const Center(
-          child: Text(
-            'Checkout',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontSize: 25,
-            ),
+        title: const Text(
+          'Checkout',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontSize: 25,
           ),
         ),
       ),
@@ -267,24 +247,23 @@ class CheckOutScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(
                     bottom: 10.0,
-                    left: 20,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Total Amount",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 50,
                       ),
                       Text(
-                        "\$123",
-                        style: TextStyle(
+                        "\$$total",
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
@@ -295,7 +274,7 @@ class CheckOutScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 10,
-                    left: 15,
+                    bottom: 30,
                   ),
                   child: Container(
                     decoration: BoxDecoration(
@@ -341,9 +320,6 @@ class CheckOutScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 5.0,
                 ),
               ],
             ),

@@ -158,223 +158,30 @@ class MovieDetailPage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       body: BlocBuilder<MovieBloc, MovieState>(
         builder: (context, state) {
-          return BlocListener<CartBloc, CartState>(
-            listenWhen: (previous, current) =>
-                previous.addToCartStatus != current.addToCartStatus,
-            listener: (context, state) {
-              if (state.addToCartStatus == AddToCartStatus.loaded) {
-                showDialog(
-                  context: context,
-                  builder: (_) => const DialogBox(
-                    title: 'Movie Added to Cart',
-                    icon: Icons.check_circle,
-                    iconColor: Colors.green,
-                  ),
-                );
-                context.read<CartBloc>().add(AddCartInitial());
-              }
-              if (state.addToCartStatus == AddToCartStatus.error) {
-                showDialog(
-                  context: context,
-                  builder: (_) => const DialogBox(
-                    title: 'Movie Already in Cart',
-                    icon: Icons.warning_amber_rounded,
-                    iconColor: Colors.orange,
-                  ),
-                );
-                context.read<CartBloc>().add(AddCartInitial());
-              }
-            },
-            child: Stack(
-              children: [
-                Container(
-                  decoration: backgroundGradient,
+          return Stack(
+            children: [
+              Container(
+                decoration: backgroundGradient,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 78.0,
+                  left: 48.0,
+                  right: 48.0,
+                  bottom: 48.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 78.0,
-                    left: 48.0,
-                    right: 48.0,
-                    bottom: 48.0,
-                  ),
-                  child: Material(
-                    elevation: 6.0,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      color: const Color(0xff361F41),
-                      child: Padding(
-                        padding: const EdgeInsets.all(32.0),
-                        child: size.width < mobile
-                            ? SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Hero(
-                                      tag: movieDetail.id,
-                                      child: Image.network(
-                                        "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Container(
-                                            color: const Color(0xff322043),
-                                            alignment: Alignment.center,
-                                            child: const Icon(
-                                              Icons.person,
-                                              color: Colors.white,
-                                            ),
-                                          );
-                                        },
-                                        height: size.height * 0.5,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 32.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        //
-                                        isRow(),
-
-                                        SizedBox(
-                                          height: 70,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 24.0),
-                                            child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemCount:
-                                                    movieDetail.genres!.length,
-                                                itemBuilder: (context, index) {
-                                                  return Text(
-                                                    movieDetail.genres!.length -
-                                                                1 ==
-                                                            index
-                                                        ? movieDetail
-                                                            .genres![index]
-                                                                ['name']
-                                                            .toString()
-                                                        : '${movieDetail.genres![index]['name'].toString()} | ',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w100,
-                                                      fontSize: 2.2 *
-                                                          SizeConfig
-                                                              .blockSizeVertical!,
-                                                    ),
-                                                  );
-                                                }),
-                                          ),
-                                        ),
-                                        Text(
-                                          movieDetail.overview!,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 2 *
-                                                SizeConfig.blockSizeVertical!,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 24.0,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Price",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 2.5 *
-                                                    SizeConfig
-                                                        .blockSizeVertical!,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 16.0,
-                                            ),
-                                            Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                const SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    value: 3.4,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  // (movieDetail.voteAverage!).toStringAsFixed(1),
-                                                  '\$${movieDetail.price!.toString()}',
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 24.0,
-                                        ),
-                                        Text(
-                                          "Cast",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w100,
-                                            fontSize: 2.2 *
-                                                SizeConfig.blockSizeVertical!,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 16.0,
-                                        ),
-                                        FutureBuilder<http.Response>(
-                                            future: fetchAlbum(),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.hasData) {
-                                                var data = jsonDecode(snapshot
-                                                    .data!.body)["cast"];
-                                                return Wrap(
-                                                  children: List.generate(
-                                                    data.length,
-                                                    (index) => Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                        bottom: 16.0,
-                                                        right: 16.0,
-                                                      ),
-                                                      child: Material(
-                                                        elevation: 5.0,
-                                                        child: Image.network(
-                                                          "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
-                                                          errorBuilder:
-                                                              (context, error,
-                                                                  stackTrace) {
-                                                            return const SizedBox();
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              return const Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            }),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Row(
+                child: Material(
+                  elevation: 6.0,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: const Color(0xff361F41),
+                    child: Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: size.width < mobile
+                          ? SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Hero(
                                     tag: movieDetail.id,
@@ -391,164 +198,329 @@ class MovieDetailPage extends StatelessWidget {
                                           ),
                                         );
                                       },
+                                      height: size.height * 0.5,
                                     ),
                                   ),
                                   const SizedBox(
                                     width: 32.0,
                                   ),
-                                  Flexible(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        //
-                                        isRow(),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      //
+                                      isRow(),
 
-                                        SizedBox(
-                                          height: 70.0,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 24.0),
-                                            child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemCount:
-                                                    movieDetail.genres!.length,
-                                                itemBuilder: (context, index) {
-                                                  return Text(
-                                                    movieDetail.genres!.length -
-                                                                1 ==
-                                                            index
-                                                        ? movieDetail
-                                                            .genres![index]
-                                                                ['name']
-                                                            .toString()
-                                                        : '${movieDetail.genres![index]['name'].toString()} | ',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w100,
-                                                      fontSize: 2.2 *
-                                                          SizeConfig
-                                                              .blockSizeVertical!,
-                                                    ),
-                                                  );
-                                                }),
-                                          ),
+                                      SizedBox(
+                                        height: 70,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 24.0),
+                                          child: ListView.builder(
+                                              scrollDirection:
+                                                  Axis.horizontal,
+                                              itemCount:
+                                                  movieDetail.genres!.length,
+                                              itemBuilder: (context, index) {
+                                                return Text(
+                                                  movieDetail.genres!.length -
+                                                              1 ==
+                                                          index
+                                                      ? movieDetail
+                                                          .genres![index]
+                                                              ['name']
+                                                          .toString()
+                                                      : '${movieDetail.genres![index]['name'].toString()} | ',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.w100,
+                                                    fontSize: 2.2 *
+                                                        SizeConfig
+                                                            .blockSizeVertical!,
+                                                  ),
+                                                );
+                                              }),
                                         ),
-                                        Text(
-                                          movieDetail.overview!,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 2 *
-                                                SizeConfig.blockSizeVertical!,
-                                          ),
+                                      ),
+                                      Text(
+                                        movieDetail.overview!,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 2 *
+                                              SizeConfig.blockSizeVertical!,
                                         ),
-                                        const SizedBox(
-                                          height: 24.0,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Price",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 1.8 *
-                                                    SizeConfig
-                                                        .blockSizeVertical!,
-                                              ),
+                                      ),
+                                      const SizedBox(
+                                        height: 24.0,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Price",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 2.5 *
+                                                  SizeConfig
+                                                      .blockSizeVertical!,
                                             ),
-                                            const SizedBox(
-                                              width: 16.0,
-                                            ),
-                                            Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                const CircularProgressIndicator(
+                                          ),
+                                          const SizedBox(
+                                            width: 16.0,
+                                          ),
+                                          Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              const SizedBox(
+                                                height: 50,
+                                                width: 50,
+                                                child:
+                                                    CircularProgressIndicator(
                                                   value: 3.4,
                                                 ),
-                                                Text(
-                                                  // (movieDetail.voteAverage!).toStringAsFixed(1),
-                                                  '\$${movieDetail.price!.toString()}',
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
+                                              ),
+                                              Text(
+                                                // (movieDetail.voteAverage!).toStringAsFixed(1),
+                                                '\$${movieDetail.price!.toString()}',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 24.0,
+                                      ),
+                                      Text(
+                                        "Cast",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w100,
+                                          fontSize: 2.2 *
+                                              SizeConfig.blockSizeVertical!,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 16.0,
+                                      ),
+                                      FutureBuilder<http.Response>(
+                                          future: fetchAlbum(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasData) {
+                                              var data = jsonDecode(snapshot
+                                                  .data!.body)["cast"];
+                                              return Wrap(
+                                                children: List.generate(
+                                                  data.length,
+                                                  (index) => Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      bottom: 16.0,
+                                                      right: 16.0,
+                                                    ),
+                                                    child: Material(
+                                                      elevation: 5.0,
+                                                      child: Image.network(
+                                                        "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
+                                                        errorBuilder:
+                                                            (context, error,
+                                                                stackTrace) {
+                                                          return const SizedBox();
+                                                        },
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ],
+                                              );
+                                            }
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          }),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Row(
+                              children: [
+                                Hero(
+                                  tag: movieDetail.id,
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
+                                    errorBuilder:
+                                        (context, error, stackTrace) {
+                                      return Container(
+                                        color: const Color(0xff322043),
+                                        alignment: Alignment.center,
+                                        child: const Icon(
+                                          Icons.person,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 32.0,
+                                ),
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      //
+                                      isRow(),
+
+                                      SizedBox(
+                                        height: 70.0,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 24.0),
+                                          child: ListView.builder(
+                                              scrollDirection:
+                                                  Axis.horizontal,
+                                              itemCount:
+                                                  movieDetail.genres!.length,
+                                              itemBuilder: (context, index) {
+                                                return Text(
+                                                  movieDetail.genres!.length -
+                                                              1 ==
+                                                          index
+                                                      ? movieDetail
+                                                          .genres![index]
+                                                              ['name']
+                                                          .toString()
+                                                      : '${movieDetail.genres![index]['name'].toString()} | ',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.w100,
+                                                    fontSize: 2.2 *
+                                                        SizeConfig
+                                                            .blockSizeVertical!,
+                                                  ),
+                                                );
+                                              }),
+                                        ),
+                                      ),
+                                      Text(
+                                        movieDetail.overview!,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 2 *
+                                              SizeConfig.blockSizeVertical!,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 24.0,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Price",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 1.8 *
+                                                  SizeConfig
+                                                      .blockSizeVertical!,
                                             ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 24.0,
-                                        ),
-                                        Text(
-                                          "Cast",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w100,
-                                            fontSize: 2.2 *
-                                                SizeConfig.blockSizeVertical!,
                                           ),
+                                          const SizedBox(
+                                            width: 16.0,
+                                          ),
+                                          Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              const CircularProgressIndicator(
+                                                value: 3.4,
+                                              ),
+                                              Text(
+                                                // (movieDetail.voteAverage!).toStringAsFixed(1),
+                                                '\$${movieDetail.price!.toString()}',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 24.0,
+                                      ),
+                                      Text(
+                                        "Cast",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w100,
+                                          fontSize: 2.2 *
+                                              SizeConfig.blockSizeVertical!,
                                         ),
-                                        const SizedBox(
-                                          height: 16.0,
-                                        ),
-                                        Expanded(
-                                          flex: 7,
-                                          child: FutureBuilder<http.Response>(
-                                              future: fetchAlbum(),
-                                              builder: (context, snapshot) {
-                                                if (snapshot.hasData) {
-                                                  var data = jsonDecode(snapshot
-                                                      .data!.body)["cast"];
-                                                  return SingleChildScrollView(
-                                                    child: Wrap(
-                                                      children: List.generate(
-                                                        data.length,
-                                                        (index) => Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                            bottom: 16.0,
-                                                            right: 16.0,
-                                                          ),
-                                                          child: Material(
-                                                            elevation: 5.0,
-                                                            child:
-                                                                Image.network(
-                                                              "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
-                                                              errorBuilder:
-                                                                  (context,
-                                                                      error,
-                                                                      stackTrace) {
-                                                                return const SizedBox();
-                                                              },
-                                                            ),
+                                      ),
+                                      const SizedBox(
+                                        height: 16.0,
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: FutureBuilder<http.Response>(
+                                            future: fetchAlbum(),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                var data = jsonDecode(snapshot
+                                                    .data!.body)["cast"];
+                                                return SingleChildScrollView(
+                                                  child: Wrap(
+                                                    children: List.generate(
+                                                      data.length,
+                                                      (index) => Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          bottom: 16.0,
+                                                          right: 16.0,
+                                                        ),
+                                                        child: Material(
+                                                          elevation: 5.0,
+                                                          child:
+                                                              Image.network(
+                                                            "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
+                                                            errorBuilder:
+                                                                (context,
+                                                                    error,
+                                                                    stackTrace) {
+                                                              return const SizedBox();
+                                                            },
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  );
-                                                }
-                                                return const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
+                                                  ),
                                                 );
-                                              }),
-                                        ),
-                                      ],
-                                    ),
+                                              }
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            }),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                      ),
+                                ),
+                              ],
+                            ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),
