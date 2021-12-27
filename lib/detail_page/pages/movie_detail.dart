@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/pages/cart_page.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
@@ -15,10 +14,9 @@ import 'package:movie_market_place/home_page/widgets/dialog_box.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';
-import 'package:http/http.dart' as http;
 
 double tablet = 1050;
-double mobile = 800;
+double mobile = 850;
 
 class MovieDetailPage extends StatelessWidget {
   final MovieDetailRepoModel movieDetail;
@@ -70,12 +68,14 @@ class MovieDetailPage extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              movieDetail.title!,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: 5 * SizeConfig.blockSizeVertical!,
+            Flexible(
+              child: Text(
+                movieDetail.title!,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 5 * SizeConfig.blockSizeVertical!,
+                ),
               ),
             ),
             ElevatedButton.icon(
@@ -238,66 +238,36 @@ class MovieDetailPage extends StatelessWidget {
                                         //
                                         isRow(),
 
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 24.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Action",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  height: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                  width: 2.0,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Comedy",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  height: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                  width: 2.0,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Drama",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                ),
-                                              ),
-                                            ],
+                                        SizedBox(
+                                          height: 70,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 24.0),
+                                            child: ListView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount:
+                                                    movieDetail.genres!.length,
+                                                itemBuilder: (context, index) {
+                                                  return Text(
+                                                    movieDetail.genres!.length -
+                                                                1 ==
+                                                            index
+                                                        ? movieDetail
+                                                            .genres![index]
+                                                                ['name']
+                                                            .toString()
+                                                        : '${movieDetail.genres![index]['name'].toString()} | ',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w100,
+                                                      fontSize: 2.2 *
+                                                          SizeConfig
+                                                              .blockSizeVertical!,
+                                                    ),
+                                                  );
+                                                }),
                                           ),
                                         ),
                                         Text(
@@ -372,7 +342,7 @@ class MovieDetailPage extends StatelessWidget {
                                                     .data!.body)["cast"];
                                                 return Wrap(
                                                   children: List.generate(
-                                                    12,
+                                                    data.length,
                                                     (index) => Padding(
                                                       padding:
                                                           const EdgeInsets.only(
@@ -410,7 +380,8 @@ class MovieDetailPage extends StatelessWidget {
                                     tag: movieDetail.id,
                                     child: Image.network(
                                       "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
-                                      errorBuilder: (context, error, stackTrace) {
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
                                         return Container(
                                           color: const Color(0xff322043),
                                           alignment: Alignment.center,
@@ -433,66 +404,36 @@ class MovieDetailPage extends StatelessWidget {
                                         //
                                         isRow(),
 
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 24.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Action",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  height: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                  width: 2.0,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Comedy",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  height: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                  width: 2.0,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Drama",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w100,
-                                                  fontSize: 2.2 *
-                                                      SizeConfig
-                                                          .blockSizeVertical!,
-                                                ),
-                                              ),
-                                            ],
+                                        SizedBox(
+                                          height: 70.0,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 24.0),
+                                            child: ListView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount:
+                                                    movieDetail.genres!.length,
+                                                itemBuilder: (context, index) {
+                                                  return Text(
+                                                    movieDetail.genres!.length -
+                                                                1 ==
+                                                            index
+                                                        ? movieDetail
+                                                            .genres![index]
+                                                                ['name']
+                                                            .toString()
+                                                        : '${movieDetail.genres![index]['name'].toString()} | ',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w100,
+                                                      fontSize: 2.2 *
+                                                          SizeConfig
+                                                              .blockSizeVertical!,
+                                                    ),
+                                                  );
+                                                }),
                                           ),
                                         ),
                                         Text(
@@ -565,7 +506,7 @@ class MovieDetailPage extends StatelessWidget {
                                                   return SingleChildScrollView(
                                                     child: Wrap(
                                                       children: List.generate(
-                                                        12,
+                                                        data.length,
                                                         (index) => Padding(
                                                           padding:
                                                               const EdgeInsets

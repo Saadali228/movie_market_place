@@ -40,9 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     SizeConfig().init(context);
     return Scaffold(
+      backgroundColor: const Color(0xff1F0C3F),
       appBar: AppBar(
         title: Row(
           children: [
@@ -80,7 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeBanner(
             controller: controller,
           ),
-          const MovieGrid(),
+          MovieGrid(
+            pageController: controller,
+          ),
         ],
       ),
     );

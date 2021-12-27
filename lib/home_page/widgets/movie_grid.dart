@@ -6,6 +6,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart'
     as a;
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
+import 'package:movie_market_place/cart/pages/check_out.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
@@ -15,7 +16,10 @@ import 'package:movie_market_place/home_page/widgets/dialog_box.dart';
 class MovieGrid extends StatefulWidget {
   const MovieGrid({
     Key? key,
+    required this.pageController,
   }) : super(key: key);
+
+  final PageController pageController;
 
   @override
   State<MovieGrid> createState() => _MovieGridState();
@@ -65,10 +69,14 @@ class _MovieGridState extends State<MovieGrid> {
             color: const Color(0xff1F0C3F),
             child: Center(
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 controller: _scrollController,
                 child: AnimationLimiter(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.width <= mobile
+                            ? 60
+                            : 40),
                     child: Wrap(
                       children: List.generate(
                         state.movieList.length,
@@ -171,6 +179,11 @@ class _MovieGridState extends State<MovieGrid> {
         context.read<MovieBloc>().add(MovieNextPageFetched());
       }
     }
+
+    if (_isTop) {
+      widget.pageController.animateToPage(0,
+          duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+    }
   }
 
   bool get _isBottom {
@@ -178,5 +191,13 @@ class _MovieGridState extends State<MovieGrid> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
+  }
+
+  bool get _isTop {
+    if (!_scrollController.hasClients) return false;
+    final minScroll = _scrollController.position.minScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return _scrollController.position.outOfRange &&
+        currentScroll < (minScroll - 50);
   }
 }
