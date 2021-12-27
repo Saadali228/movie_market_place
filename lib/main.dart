@@ -1,7 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
+import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
+import 'package:movie_market_place/detail_page/data_layer/movie_detail_data_layer.dart';
+import 'package:movie_market_place/detail_page/pages/detail_page.dart';
+import 'package:movie_market_place/detail_page/repository_layer/movie_detail_repo_layer.dart';
+import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
+import 'package:movie_market_place/home_page/data_layer/movie_data_layer.dart';
+import 'package:movie_market_place/home_page/pages/home_page.dart';
+import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.dart';
+import 'package:url_strategy/url_strategy.dart';
+import 'cart/data_layer/cart_data_layer.dart';
+import 'cart/pages/check_out.dart';
 
 void main() {
-  runApp(const MyApp());
+  setPathUrlStrategy();
+  MovieDataLayer _movieProvider = MovieDataLayer();
+  MovieRepoLayer movieRepository = MovieRepoLayer(_movieProvider);
+  MovieDetailDataLayer _movieDetailProvider = MovieDetailDataLayer();
+  MovieDetailRepoLayer movieDetailRepository =
+      MovieDetailRepoLayer(_movieDetailProvider);
+  CartProvider _cartProvider = CartProvider();
+  CartRepository cartRepository = CartRepository(_cartProvider);
+  runApp(
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: movieRepository),
+        RepositoryProvider.value(value: movieDetailRepository),
+        RepositoryProvider.value(value: cartRepository),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -9,58 +40,56 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MovieBloc(
+            RepositoryProvider.of(context),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+        BlocProvider(
+          create: (context) => CartBloc(
+            RepositoryProvider.of(context),
+          ),
+        ),
+        
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Movie Mart',
+          theme: ThemeData(
+            primarySwatch: Colors.purple,
+            primaryColor: const Color(0xff322043),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            textTheme: GoogleFonts.mulishTextTheme(),
+          ),
+          initialRoute: "/",
+          onGenerateRoute: (settings) {
+            final settingsUri = Uri.parse(settings.name ?? "/");
+            if (settingsUri.path == "/") {
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (context) => const HomeScreen(),
+              );
+            }
+
+            if (settingsUri.path == "/movie") {
+              int? movieId =
+                  int.tryParse(settingsUri.queryParameters["id"] ?? "");
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (context) => DetailPage(id: movieId!),
+              );
+            }
+            if (settingsUri.path == "/checkout") {
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (context) => const CheckOutScreen(),
+              );
+            }
+          }
+          // home: const HomePage(),
+          ),
     );
   }
 }
