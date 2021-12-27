@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/widgets/animator_widget.dart';
@@ -32,22 +31,24 @@ class TitleSubtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<CartRepoModel> movieCartModel =
+        context.watch<CartBloc>().state.cartList ?? [];
     SizeConfig().init(context);
     return BlocListener<CartBloc, CartState>(
       listenWhen: (previous, current) =>
           previous.addToCartStatus != current.addToCartStatus,
       listener: (context, state) {
-        if (state.addToCartStatus == AddToCartStatus.loaded) {
-          showDialog(
-            context: context,
-            builder: (_) => const DialogBox(
-              title: 'Movie Added to Cart',
-              icon: Icons.check_circle,
-              iconColor: Colors.green,
-            ),
-          );
-          context.read<CartBloc>().add(AddCartInitial());
-        }
+        // if (state.addToCartStatus == AddToCartStatus.loaded) {
+        //   showDialog(
+        //     context: context,
+        //     builder: (_) => const DialogBox(
+        //       title: 'Movie Added to Cart',
+        //       icon: Icons.check_circle,
+        //       iconColor: Colors.green,
+        //     ),
+        //   );
+        //   context.read<CartBloc>().add(AddCartInitial());
+        // }
         if (state.addToCartStatus == AddToCartStatus.error) {
           showDialog(
             context: context,
@@ -119,32 +120,21 @@ class TitleSubtitle extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  context.read<CartBloc>().add(
-                        AddProduct(
-                          CartRepoModel(
-                            id: BlocProvider.of<MovieBloc>(context)
-                                .state
-                                .movieList[selectedIndex]
-                                .id,
-                            title: BlocProvider.of<MovieBloc>(context)
-                                .state
-                                .movieList[selectedIndex]
-                                .title!,
-                            price: BlocProvider.of<MovieBloc>(context)
-                                .state
-                                .movieList[selectedIndex].price!,
-                            image: BlocProvider.of<MovieBloc>(context)
-                                .state
-                                .movieList[selectedIndex]
-                                .poster!,
-                          ),
-                        ),
-                      );
+              BlocBuilder<MovieBloc, MovieState>(
+                builder: (context, state) {
+                  return cartButton(
+                    context,
+                    state.movieList[selectedIndex],
+                    movieCartModel.contains(
+                      CartRepoModel(
+                        id: state.movieList[selectedIndex].id,
+                        title: state.movieList[selectedIndex].title!,
+                        price: state.movieList[selectedIndex].price!,
+                        image: state.movieList[selectedIndex].poster!,
+                      ),
+                    ),
+                  );
                 },
-                icon: const Icon(Icons.add),
-                label: const Text("BUY NOW"),
               ),
               const SizedBox(
                 height: 24.0,
@@ -213,6 +203,68 @@ class TitleSubtitle extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget cartButton(BuildContext context, MovieRepoModel movie, bool inCart) {
+    return AnimatedSwitcher(
+      switchInCurve: Curves.bounceIn,
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return ScaleTransition(
+          alignment: Alignment.centerRight,
+          scale: animation,
+          child: child,
+        );
+      },
+      duration: const Duration(milliseconds: 500),
+      child: !inCart
+          ? ElevatedButton.icon(
+        key: const Key('1'),
+        onPressed: () {
+          if (!inCart) {
+            context.read<CartBloc>().add(
+              AddProduct(
+                CartRepoModel(
+                  id: movie.id,
+                  title: movie.title!,
+                  price: movie.price!,
+                  image: movie.poster!,
+                ),
+              ),
+            );
+          }
+        },
+        icon: const Icon(Icons.add),
+        label: const Text("BUY NOW"),
+        style: const ButtonStyle(
+          backgroundColor: null,
+        ),
+      )
+          : ElevatedButton.icon(
+        key: const Key('2'),
+        onPressed: () {
+          if (!inCart) {
+            context.read<CartBloc>().add(
+              AddProduct(
+                CartRepoModel(
+                  id: movie.id,
+                  title: movie.title!,
+                  price: movie.price!,
+                  image: movie.poster!,
+                  // qty: movieList[index].id,
+                  // totalPrice: 1 * movieList[index].id +
+                  //     Random().nextDouble(),
+                ),
+              ),
+            );
+          }
+        },
+        icon: const Icon(Icons.check),
+        label: const Text("ADDED"),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.green),
         ),
       ),
     );
