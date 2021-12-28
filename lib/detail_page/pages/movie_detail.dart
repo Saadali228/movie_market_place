@@ -26,7 +26,6 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     List<CartRepoModel> movieCartModel =
         context.watch<CartBloc>().state.cartList ?? [];
 
@@ -35,12 +34,13 @@ class MovieDetailPage extends StatelessWidget {
     Widget isRow() {
       if (size.width < tablet) {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: Text(
                 movieDetail.title!,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w900,
@@ -48,23 +48,15 @@ class MovieDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-            ElevatedButton.icon(
-              onPressed: () {
-                context.read<CartBloc>().add(
-                      AddProduct(
-                        CartRepoModel(
-                          id: movieDetail.id,
-                          title: movieDetail.title!,
-                          price: movieDetail.price!,
-                          image: movieDetail.poster!,
-                        ),
-                      ),
-                    );
-              },
-              icon: const Icon(Icons.add),
-              label: const Text(
-                "BUY NOW",
-              ),
+            cartButton(
+              context,
+              movieDetail,
+              movieCartModel.contains(CartRepoModel(
+                id: movieDetail.id,
+                title: movieDetail.title!,
+                price: movieDetail.price!,
+                image: movieDetail.poster!,
+              )),
             ),
           ],
         );
@@ -202,7 +194,8 @@ class MovieDetailPage extends StatelessWidget {
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       //
                                       isRow(),
@@ -213,8 +206,7 @@ class MovieDetailPage extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 24.0),
                                           child: ListView.builder(
-                                              scrollDirection:
-                                                  Axis.horizontal,
+                                              scrollDirection: Axis.horizontal,
                                               itemCount:
                                                   movieDetail.genres!.length,
                                               itemBuilder: (context, index) {
@@ -229,8 +221,7 @@ class MovieDetailPage extends StatelessWidget {
                                                       : '${movieDetail.genres![index]['name'].toString()} | ',
                                                   style: TextStyle(
                                                     color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.w100,
+                                                    fontWeight: FontWeight.w100,
                                                     fontSize: 2.2 *
                                                         SizeConfig
                                                             .blockSizeVertical!,
@@ -244,8 +235,8 @@ class MovieDetailPage extends StatelessWidget {
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w300,
-                                          fontSize: 2 *
-                                              SizeConfig.blockSizeVertical!,
+                                          fontSize:
+                                              2 * SizeConfig.blockSizeVertical!,
                                         ),
                                       ),
                                       const SizedBox(
@@ -259,8 +250,7 @@ class MovieDetailPage extends StatelessWidget {
                                               color: Colors.white,
                                               fontWeight: FontWeight.w300,
                                               fontSize: 2.5 *
-                                                  SizeConfig
-                                                      .blockSizeVertical!,
+                                                  SizeConfig.blockSizeVertical!,
                                             ),
                                           ),
                                           const SizedBox(
@@ -291,13 +281,16 @@ class MovieDetailPage extends StatelessWidget {
                                       const SizedBox(
                                         height: 24.0,
                                       ),
-                                      Text(
-                                        "Cast",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w100,
-                                          fontSize: 2.2 *
-                                              SizeConfig.blockSizeVertical!,
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Cast",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 2.5 *
+                                                SizeConfig.blockSizeVertical!,
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(
@@ -307,9 +300,10 @@ class MovieDetailPage extends StatelessWidget {
                                           future: fetchAlbum(),
                                           builder: (context, snapshot) {
                                             if (snapshot.hasData) {
-                                              var data = jsonDecode(snapshot
-                                                  .data!.body)["cast"];
+                                              var data = jsonDecode(
+                                                  snapshot.data!.body)["cast"];
                                               return Wrap(
+                                                alignment: WrapAlignment.center,
                                                 children: List.generate(
                                                   data.length,
                                                   (index) => Padding(
@@ -322,9 +316,8 @@ class MovieDetailPage extends StatelessWidget {
                                                       elevation: 5.0,
                                                       child: Image.network(
                                                         "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
-                                                        errorBuilder:
-                                                            (context, error,
-                                                                stackTrace) {
+                                                        errorBuilder: (context,
+                                                            error, stackTrace) {
                                                           return const SizedBox();
                                                         },
                                                       ),
@@ -349,8 +342,7 @@ class MovieDetailPage extends StatelessWidget {
                                   tag: movieDetail.id,
                                   child: Image.network(
                                     "https://image.tmdb.org/t/p/w780/${movieDetail.poster}",
-                                    errorBuilder:
-                                        (context, error, stackTrace) {
+                                    errorBuilder: (context, error, stackTrace) {
                                       return Container(
                                         color: const Color(0xff322043),
                                         alignment: Alignment.center,
@@ -379,8 +371,7 @@ class MovieDetailPage extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 24.0),
                                           child: ListView.builder(
-                                              scrollDirection:
-                                                  Axis.horizontal,
+                                              scrollDirection: Axis.horizontal,
                                               itemCount:
                                                   movieDetail.genres!.length,
                                               itemBuilder: (context, index) {
@@ -395,8 +386,7 @@ class MovieDetailPage extends StatelessWidget {
                                                       : '${movieDetail.genres![index]['name'].toString()} | ',
                                                   style: TextStyle(
                                                     color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.w100,
+                                                    fontWeight: FontWeight.w100,
                                                     fontSize: 2.2 *
                                                         SizeConfig
                                                             .blockSizeVertical!,
@@ -410,8 +400,8 @@ class MovieDetailPage extends StatelessWidget {
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w300,
-                                          fontSize: 2 *
-                                              SizeConfig.blockSizeVertical!,
+                                          fontSize:
+                                              2 * SizeConfig.blockSizeVertical!,
                                         ),
                                       ),
                                       const SizedBox(
@@ -424,9 +414,8 @@ class MovieDetailPage extends StatelessWidget {
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w300,
-                                              fontSize: 1.8 *
-                                                  SizeConfig
-                                                      .blockSizeVertical!,
+                                              fontSize: 2.2 *
+                                                  SizeConfig.blockSizeVertical!,
                                             ),
                                           ),
                                           const SizedBox(
@@ -485,12 +474,10 @@ class MovieDetailPage extends StatelessWidget {
                                                         ),
                                                         child: Material(
                                                           elevation: 5.0,
-                                                          child:
-                                                              Image.network(
+                                                          child: Image.network(
                                                             "https://image.tmdb.org/t/p/w185${data[index]['profile_path']}",
                                                             errorBuilder:
-                                                                (context,
-                                                                    error,
+                                                                (context, error,
                                                                     stackTrace) {
                                                               return const SizedBox();
                                                             },
@@ -523,7 +510,8 @@ class MovieDetailPage extends StatelessWidget {
     );
   }
 
-  Widget cartButton(BuildContext context, MovieDetailRepoModel movie, bool inCart) {
+  Widget cartButton(
+      BuildContext context, MovieDetailRepoModel movie, bool inCart) {
     return AnimatedSwitcher(
       switchInCurve: Curves.bounceIn,
       transitionBuilder: (Widget child, Animation<double> animation) {
@@ -536,53 +524,52 @@ class MovieDetailPage extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       child: !inCart
           ? ElevatedButton.icon(
-        key: const Key('1'),
-        onPressed: () {
-          if (!inCart) {
-            context.read<CartBloc>().add(
-              AddProduct(
-                CartRepoModel(
-                  id: movie.id,
-                  title: movie.title!,
-                  price: movie.price!,
-                  image: movie.poster!,
-                ),
+              key: const Key('1'),
+              onPressed: () {
+                if (!inCart) {
+                  context.read<CartBloc>().add(
+                        AddProduct(
+                          CartRepoModel(
+                            id: movie.id,
+                            title: movie.title!,
+                            price: movie.price!,
+                            image: movie.poster!,
+                          ),
+                        ),
+                      );
+                }
+              },
+              icon: const Icon(Icons.add),
+              label: const Text("BUY NOW"),
+              style: const ButtonStyle(
+                backgroundColor: null,
               ),
-            );
-          }
-        },
-        icon: const Icon(Icons.add),
-        label: const Text("BUY NOW"),
-        style: const ButtonStyle(
-          backgroundColor: null,
-        ),
-      )
+            )
           : ElevatedButton.icon(
-        key: const Key('2'),
-        onPressed: () {
-          if (!inCart) {
-            context.read<CartBloc>().add(
-              AddProduct(
-                CartRepoModel(
-                  id: movie.id,
-                  title: movie.title!,
-                  price: movie.price!,
-                  image: movie.poster!,
-                  // qty: movieList[index].id,
-                  // totalPrice: 1 * movieList[index].id +
-                  //     Random().nextDouble(),
-                ),
+              key: const Key('2'),
+              onPressed: () {
+                if (!inCart) {
+                  context.read<CartBloc>().add(
+                        AddProduct(
+                          CartRepoModel(
+                            id: movie.id,
+                            title: movie.title!,
+                            price: movie.price!,
+                            image: movie.poster!,
+                            // qty: movieList[index].id,
+                            // totalPrice: 1 * movieList[index].id +
+                            //     Random().nextDouble(),
+                          ),
+                        ),
+                      );
+                }
+              },
+              icon: const Icon(Icons.check),
+              label: const Text("ADDED"),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
-            );
-          }
-        },
-        icon: const Icon(Icons.check),
-        label: const Text("ADDED"),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.green),
-        ),
-      ),
+            ),
     );
   }
-
 }
