@@ -26,6 +26,10 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    List<CartRepoModel> movieCartModel =
+        context.watch<CartBloc>().state.cartList ?? [];
+
     final size = MediaQuery.of(context).size;
 
     Widget isRow() {
@@ -78,23 +82,15 @@ class MovieDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-            ElevatedButton.icon(
-              onPressed: () {
-                context.read<CartBloc>().add(
-                      AddProduct(
-                        CartRepoModel(
-                          id: movieDetail.id,
-                          title: movieDetail.title!,
-                          price: movieDetail.price!,
-                          image: movieDetail.poster!,
-                        ),
-                      ),
-                    );
-              },
-              icon: const Icon(Icons.add),
-              label: const Text(
-                "BUY NOW",
-              ),
+            cartButton(
+              context,
+              movieDetail,
+              movieCartModel.contains(CartRepoModel(
+                id: movieDetail.id,
+                title: movieDetail.title!,
+                price: movieDetail.price!,
+                image: movieDetail.poster!,
+              )),
             ),
           ],
         );
@@ -526,4 +522,67 @@ class MovieDetailPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget cartButton(BuildContext context, MovieDetailRepoModel movie, bool inCart) {
+    return AnimatedSwitcher(
+      switchInCurve: Curves.bounceIn,
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return ScaleTransition(
+          alignment: Alignment.centerRight,
+          scale: animation,
+          child: child,
+        );
+      },
+      duration: const Duration(milliseconds: 500),
+      child: !inCart
+          ? ElevatedButton.icon(
+        key: const Key('1'),
+        onPressed: () {
+          if (!inCart) {
+            context.read<CartBloc>().add(
+              AddProduct(
+                CartRepoModel(
+                  id: movie.id,
+                  title: movie.title!,
+                  price: movie.price!,
+                  image: movie.poster!,
+                ),
+              ),
+            );
+          }
+        },
+        icon: const Icon(Icons.add),
+        label: const Text("BUY NOW"),
+        style: const ButtonStyle(
+          backgroundColor: null,
+        ),
+      )
+          : ElevatedButton.icon(
+        key: const Key('2'),
+        onPressed: () {
+          if (!inCart) {
+            context.read<CartBloc>().add(
+              AddProduct(
+                CartRepoModel(
+                  id: movie.id,
+                  title: movie.title!,
+                  price: movie.price!,
+                  image: movie.poster!,
+                  // qty: movieList[index].id,
+                  // totalPrice: 1 * movieList[index].id +
+                  //     Random().nextDouble(),
+                ),
+              ),
+            );
+          }
+        },
+        icon: const Icon(Icons.check),
+        label: const Text("ADDED"),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.green),
+        ),
+      ),
+    );
+  }
+
 }
