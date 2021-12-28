@@ -37,64 +37,58 @@ class _MovieGridState extends State<MovieGrid> {
         context.watch<CartBloc>().state.cartList ?? [];
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
-        return Container(
-          color: const Color(0xff1F0C3F),
-          child: Center(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              controller: _scrollController,
-              child: AnimationLimiter(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.width <= mobile
-                          ? 60
-                          : 40),
-                  child: Wrap(
-                    children: List.generate(
-                      state.movieList.length,
-                      (index) => AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 300),
-                        child: SlideAnimation(
-                          child: a.FadeInAnimation(
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Stack(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        DetailPage.detailPageRoute(
-                                            state.movieList[index].id),
-                                      );
-                                    },
-                                    child: Hero(
-                                      tag: state.movieList[index].id,
-                                      child: Image.network(
-                                        "https://image.tmdb.org/t/p/w500/" +
-                                            state.movieList[index].poster!,
-                                        width: 250.0,
-                                      ),
-                                    ),
+        return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          controller: _scrollController,
+          child: AnimationLimiter(
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.width <= mobile ? 60 : 40),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                children: List.generate(
+                  state.movieList.length,
+                  (index) => AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 300),
+                    child: SlideAnimation(
+                      child: a.FadeInAnimation(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Stack(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    DetailPage.detailPageRoute(
+                                        state.movieList[index].id),
+                                  );
+                                },
+                                child: Hero(
+                                  tag: state.movieList[index].id,
+                                  child: Image.network(
+                                    "https://image.tmdb.org/t/p/w500/" +
+                                        state.movieList[index].poster!,
+                                    width: 250.0,
                                   ),
-                                  Positioned(
-                                    right: 0,
-                                    top: 0,
-                                    child: cartButton(
-                                      context,
-                                      state.movieList[index],
-                                      movieCartModel.contains(CartRepoModel(
-                                        id: state.movieList[index].id,
-                                        title: state.movieList[index].title!,
-                                        price: state.movieList[index].price!,
-                                        image: state.movieList[index].poster!,
-                                      )),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                child: cartButton(
+                                  context,
+                                  state.movieList[index],
+                                  movieCartModel.contains(CartRepoModel(
+                                    id: state.movieList[index].id,
+                                    title: state.movieList[index].title!,
+                                    price: state.movieList[index].price!,
+                                    image: state.movieList[index].poster!,
+                                  )),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -140,6 +134,9 @@ class _MovieGridState extends State<MovieGrid> {
               icon: const Icon(Icons.add),
               label: const Text("BUY NOW"),
               style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(
+                  const Size(140, 35),
+                ),
                 //backgroundColor: null,
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
@@ -172,6 +169,9 @@ class _MovieGridState extends State<MovieGrid> {
               icon: const Icon(Icons.check),
               label: const Text("ADDED"),
               style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(
+                  const Size(140, 35),
+                ),
                 backgroundColor: MaterialStateProperty.all(Colors.green),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
