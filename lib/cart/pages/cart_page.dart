@@ -81,13 +81,20 @@ class _CartLoading extends StatelessWidget {
   }
 }
 
-class _CartLoaded extends StatelessWidget {
+class _CartLoaded extends StatefulWidget {
   const _CartLoaded({Key? key, required this.cartList}) : super(key: key);
   final List<CartRepoModel> cartList;
 
+  @override
+  State<_CartLoaded> createState() => _CartLoadedState();
+}
+
+class _CartLoadedState extends State<_CartLoaded> {
+  final listKey = GlobalKey<AnimatedListState>();
+
   num subTotal() {
     num ans = 0;
-    cartList.forEach(
+    widget.cartList.forEach(
       (element) {
         ans += element.price;
       },
@@ -97,7 +104,7 @@ class _CartLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (cartList.isEmpty) {
+    if (widget.cartList.isEmpty) {
       return const Center(
         child: Text(
           'Cart is Empty!',
@@ -138,16 +145,16 @@ class _CartLoaded extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemExtent: 100,
+            child: AnimatedList(
+              // itemExtent: 100,
+              key: listKey,
               scrollDirection: Axis.vertical,
-              itemCount: cartList.length,
-              itemBuilder: (context, index) {
+              initialItemCount: widget.cartList.length,
+              itemBuilder: (context, index, animation) {
                 return CartItem(
-                  item: cartList[index],
-                  onDelete: () => context.read<CartBloc>().add(
-                        DeleteProduct(cartList[index]),
-                      ),
+                  item: widget.cartList[index],
+                  animation: animation,
+                  onDelete: () => removeItem(index),
                 );
               },
             ),
@@ -226,6 +233,23 @@ class _CartLoaded extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void removeItem(int index) {
+    context.read<CartBloc>().add(
+          DeleteProduct(widget.cartList[index]),
+        );
+    final removedItem = widget.cartList[index];
+
+    widget.cartList.removeAt(index);
+    listKey.currentState!.removeItem(
+      index,
+      (context, animation) => CartItem(
+        item: removedItem,
+        animation: animation,
+        onDelete: () {},
       ),
     );
   }
