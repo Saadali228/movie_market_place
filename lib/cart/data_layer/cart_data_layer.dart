@@ -43,7 +43,6 @@ class CartProvider {
   Future<List<CartDataModel>> getCartProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userPref = prefs.getString('cartList');
-    print(userPref);
     if (userPref == null) return [];
     final map = json.decode(userPref) as List;
     final list = map.map((e) => CartDataModel.fromJson(e)).toList();
@@ -110,7 +109,7 @@ class CartProvider {
           )
           .toList();
       // int index = cartList.indexOf(product);
-      final index = cartList.indexWhere((element) => element.id == newItem.id);
+      // final index = cartList.indexWhere((element) => element.id == newItem.id);
       // cartList[index].qty++;
       // cartList[index].totalPrice = cartList[index].qty * cartList[index].price;
       final carJson = cartList.map((e) => e.toJson()).toList();
@@ -129,7 +128,7 @@ class CartProvider {
             (e) => CartDataModel.fromJson(e),
           )
           .toList();
-      final index = cartList.indexWhere((element) => element.id == product.id);
+      // final index = cartList.indexWhere((element) => element.id == product.id);
       // cartList[index].qty--;
       final carJson = cartList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(carJson);

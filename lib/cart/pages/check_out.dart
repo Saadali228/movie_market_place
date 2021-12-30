@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
-import 'package:provider/src/provider.dart';
 
 double tablet = 870;
 double mobile = 550;
@@ -93,11 +92,9 @@ class CheckOutScreen extends StatelessWidget {
 
   num subTotal(BuildContext context) {
     num ans = 0;
-    BlocProvider.of<CartBloc>(context).state.cartList!.forEach(
-          (element) {
-        ans += element.price;
-      },
-    );
+    for (var element in BlocProvider.of<CartBloc>(context).state.cartList!) {
+      ans += element.price;
+    }
     return ans;
   }
 

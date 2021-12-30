@@ -10,7 +10,6 @@ import 'package:movie_market_place/detail_page/repository_layer/models/movie_det
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/cart_button.dart';
-import 'package:movie_market_place/home_page/widgets/dialog_box.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';

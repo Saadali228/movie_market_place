@@ -8,7 +8,7 @@ class CartRepoModel extends Equatable {
   final String image;
   // num totalPrice;
 
-  CartRepoModel({
+  const CartRepoModel({
     required this.id,
     required this.title,
     required this.price,
@@ -43,5 +43,5 @@ class CartRepoModel extends Equatable {
       );
 
   @override
-  List<Object?> get props => [id,title,price,image];
+  List<Object?> get props => [id, title, price, image];
 }
