@@ -5,7 +5,7 @@ class CartRepoModel extends Equatable {
   final String title;
   // int qty;
   final num price;
-  final String image;
+  final String? image;
   // num totalPrice;
 
   const CartRepoModel({

@@ -4,7 +4,7 @@ class MovieDataModel extends Equatable {
   final int id;
   final String title;
   final String? image;
-  final String poster;
+  final String? poster;
   final String overview;
   final num? price;
 

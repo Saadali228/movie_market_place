@@ -6,7 +6,6 @@ import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
 import 'package:movie_market_place/detail_page/data_layer/movie_detail_data_layer.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/detail_page/repository_layer/movie_detail_repo_layer.dart';
-import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/data_layer/movie_data_layer.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.dart';
@@ -40,20 +39,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => MovieBloc(
-            RepositoryProvider.of(context),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => CartBloc(
-            RepositoryProvider.of(context),
-          ),
-        ),
-        
-      ],
+    return BlocProvider(
+      create: (context) => CartBloc(
+        RepositoryProvider.of(context),
+      ),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Movie Mart',

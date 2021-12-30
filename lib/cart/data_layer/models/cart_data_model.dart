@@ -4,7 +4,7 @@ class CartDataModel extends Equatable {
   final int id;
   final String title;
   // int qty;
-  final String image;
+  final String? image;
   final num price;
   // num totalPrice;
 

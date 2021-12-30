@@ -37,25 +37,37 @@ class _MovieGridState extends State<MovieGrid> {
         context.watch<CartBloc>().state.cartList ?? [];
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
-        return SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          controller: _scrollController,
-          child: AnimationLimiter(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.width <= mobile ? 60 : 40),
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                children: List.generate(
-                  state.movieList.length,
-                  (index) => AnimationConfiguration.staggeredList(
+        return AnimationLimiter(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.width <= mobile ? 30 : 20,
+              left: 40,
+              right: 40,
+            ),
+            child: GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                controller: _scrollController,
+                itemCount: state.movieList.length,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 400,
+                  childAspectRatio: 0.67,
+                  //crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) {
+                  return AnimationConfiguration.staggeredList(
                     position: index,
                     duration: const Duration(milliseconds: 300),
                     child: SlideAnimation(
                       child: a.FadeInAnimation(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.only(
+                            left: 8.0,
+                            right: 8.0,
+                            bottom: 8.0,
+                          ),
                           child: Stack(
+                            alignment: Alignment.topRight,
                             children: [
                               InkWell(
                                 onTap: () {
@@ -68,35 +80,38 @@ class _MovieGridState extends State<MovieGrid> {
                                 child: Hero(
                                   tag: state.movieList[index].id,
                                   child: Image.network(
-                                    "https://image.tmdb.org/t/p/w500/" +
-                                        state.movieList[index].poster!,
-                                    width: 250.0,
+                                    "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
+                                    width: 420.0,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        color: const Color(0xff322043),
+                                        alignment: Alignment.center,
+                                        child: const Icon(
+                                          Icons.person,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                right: 0,
-                                top: 0,
-                                child: cartButton(
-                                  context,
-                                  state.movieList[index],
-                                  movieCartModel.contains(CartRepoModel(
-                                    id: state.movieList[index].id,
-                                    title: state.movieList[index].title!,
-                                    price: state.movieList[index].price!,
-                                    image: state.movieList[index].poster!,
-                                  )),
-                                ),
+                              cartButton(
+                                context,
+                                state.movieList[index],
+                                movieCartModel.contains(CartRepoModel(
+                                  id: state.movieList[index].id,
+                                  title: state.movieList[index].title!,
+                                  price: state.movieList[index].price!,
+                                  image: state.movieList[index].poster,
+                                )),
                               ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  );
+                }),
           ),
         );
       },
@@ -137,6 +152,10 @@ class _MovieGridState extends State<MovieGrid> {
                 minimumSize: MaterialStateProperty.all<Size>(
                   const Size(140, 35),
                 ),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                  const EdgeInsets.all(0),
+                ),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 //backgroundColor: null,
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
