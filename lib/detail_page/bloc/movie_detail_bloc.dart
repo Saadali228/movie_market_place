@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,8 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final MovieDetailRepoLayer movieRepository;
   final int id;
 
-  MovieDetailBloc(this.movieRepository,this.id) : super(const MovieDetailState()) {
+  MovieDetailBloc(this.movieRepository, this.id)
+      : super(const MovieDetailState()) {
     on<MovieDetailFetched>(
       (event, emit) async {
         emit(

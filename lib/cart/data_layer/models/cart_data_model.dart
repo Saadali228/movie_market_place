@@ -8,7 +8,7 @@ class CartDataModel extends Equatable {
   final num price;
   // num totalPrice;
 
-  CartDataModel({
+  const CartDataModel({
     required this.id,
     required this.title,
     required this.image,

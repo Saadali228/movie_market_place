@@ -94,11 +94,9 @@ class _CartLoadedState extends State<_CartLoaded> {
 
   num subTotal() {
     num ans = 0;
-    widget.cartList.forEach(
-      (element) {
-        ans += element.price;
-      },
-    );
+    for (var element in widget.cartList) {
+      ans += element.price;
+    }
     return ans;
   }
 

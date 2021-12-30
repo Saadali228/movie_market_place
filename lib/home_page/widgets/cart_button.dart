@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
-import 'package:provider/src/provider.dart';
 
 class CartButton extends StatelessWidget {
   const CartButton({
@@ -25,7 +24,7 @@ class CartButton extends StatelessWidget {
                 size: 16.0,
               ),
             ),
-            if(state.cartList != null && state.cartList!.isNotEmpty)
+            if (state.cartList != null && state.cartList!.isNotEmpty)
               Container(
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
