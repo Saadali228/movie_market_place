@@ -40,14 +40,17 @@ class _MovieGridState extends State<MovieGrid> {
         return AnimationLimiter(
           child: Padding(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.width <= mobile ? 30 : 20),
+              top: MediaQuery.of(context).size.width <= mobile ? 30 : 20,
+              left: 40,
+              right: 40,
+            ),
             child: GridView.builder(
                 physics: const BouncingScrollPhysics(),
                 controller: _scrollController,
                 itemCount: state.movieList.length,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 300,
-                  childAspectRatio: 0.7,
+                  maxCrossAxisExtent: 400,
+                  childAspectRatio: 0.67,
                   //crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                 ),
@@ -64,7 +67,7 @@ class _MovieGridState extends State<MovieGrid> {
                             bottom: 8.0,
                           ),
                           child: Stack(
-                            alignment: Alignment.center,
+                            alignment: Alignment.topRight,
                             children: [
                               InkWell(
                                 onTap: () {
@@ -78,7 +81,7 @@ class _MovieGridState extends State<MovieGrid> {
                                   tag: state.movieList[index].id,
                                   child: Image.network(
                                     "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
-                                    // width: 450.0,
+                                    width: 420.0,
                                     errorBuilder: (context, error, stackTrace) {
                                       return Container(
                                         color: const Color(0xff322043),
@@ -92,19 +95,15 @@ class _MovieGridState extends State<MovieGrid> {
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                top: 0,
-                                right: 1,
-                                child: cartButton(
-                                  context,
-                                  state.movieList[index],
-                                  movieCartModel.contains(CartRepoModel(
-                                    id: state.movieList[index].id,
-                                    title: state.movieList[index].title!,
-                                    price: state.movieList[index].price!,
-                                    image: state.movieList[index].poster,
-                                  )),
-                                ),
+                              cartButton(
+                                context,
+                                state.movieList[index],
+                                movieCartModel.contains(CartRepoModel(
+                                  id: state.movieList[index].id,
+                                  title: state.movieList[index].title!,
+                                  price: state.movieList[index].price!,
+                                  image: state.movieList[index].poster,
+                                )),
                               ),
                             ],
                           ),
