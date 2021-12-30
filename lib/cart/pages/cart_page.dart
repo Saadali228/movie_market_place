@@ -242,8 +242,6 @@ class _CartLoadedState extends State<_CartLoaded> {
           DeleteProduct(widget.cartList[index]),
         );
     final removedItem = widget.cartList[index];
-
-    widget.cartList.removeAt(index);
     listKey.currentState!.removeItem(
       index,
       (context, animation) => CartItem(
