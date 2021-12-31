@@ -166,9 +166,10 @@ class CheckOutScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(32.0),
                     child: size.width > mobile
                         ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: size.width * 0.3,
+                                width: size.width * 0.5,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -194,7 +195,7 @@ class CheckOutScreen extends StatelessWidget {
                               ),
                               Expanded(
                                 child: SizedBox(
-                                  width: size.width * 0.3,
+                                  width: size.width * 0.5,
                                   child: ListView.builder(
                                       itemCount: state.cartList!.length,
                                       scrollDirection: Axis.vertical,
@@ -206,7 +207,7 @@ class CheckOutScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: size.width * 0.3,
+                                width: size.width * 0.5,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

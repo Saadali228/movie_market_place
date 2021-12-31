@@ -8,7 +8,7 @@ class CheckoutItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 120,
       child: Padding(
         padding: const EdgeInsets.only(top: 10.0),
         child: Row(
@@ -22,7 +22,7 @@ class CheckoutItem extends StatelessWidget {
               ),
               child: Image.network(
                 'https://image.tmdb.org/t/p/w185/${item.image}',
-                height: 60,
+                height: 80,
               ),
             ),
             Flexible(
@@ -33,7 +33,7 @@ class CheckoutItem extends StatelessWidget {
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -48,7 +48,7 @@ class CheckoutItem extends StatelessWidget {
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
               ),
