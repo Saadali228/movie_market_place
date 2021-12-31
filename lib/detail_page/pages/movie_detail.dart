@@ -13,8 +13,8 @@ import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';
 
-double tablet = 1050;
-double mobile = 850;
+double _tablet = 1050;
+double _mobile = 850;
 
 class MovieDetailPage extends StatelessWidget {
   final MovieDetailRepoModel movieDetail;
@@ -30,7 +30,7 @@ class MovieDetailPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     Widget isRow() {
-      if (size.width < tablet) {
+      if (size.width < _tablet) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -103,7 +103,7 @@ class MovieDetailPage extends StatelessWidget {
               SizedBox(
                 width: 3 * SizeConfig.blockSizeHorizontal!,
               ),
-              if (MediaQuery.of(context).size.width < mobile)
+              if (MediaQuery.of(context).size.width < _mobile)
                 IconButton(
                   onPressed: () => Navigator.pop(context),
                   icon: const Icon(
@@ -162,7 +162,7 @@ class MovieDetailPage extends StatelessWidget {
                   color: const Color(0xff361F41),
                   child: Padding(
                     padding: const EdgeInsets.all(32.0),
-                    child: size.width < mobile
+                    child: size.width < _mobile
                         ? SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
