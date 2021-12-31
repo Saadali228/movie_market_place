@@ -169,7 +169,7 @@ class CheckOutScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: size.width * 0.5,
+                                width: size.width * 0.4,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -195,8 +195,11 @@ class CheckOutScreen extends StatelessWidget {
                               ),
                               Expanded(
                                 child: SizedBox(
-                                  width: size.width * 0.5,
+                                  width: size.width * 0.4,
                                   child: ListView.builder(
+                                      padding: const EdgeInsets.only(
+                                        top: 10.0,
+                                      ),
                                       itemCount: state.cartList!.length,
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
@@ -206,29 +209,34 @@ class CheckOutScreen extends StatelessWidget {
                                       }),
                                 ),
                               ),
-                              SizedBox(
-                                width: size.width * 0.5,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Total Amount:',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 20.0,
+                                ),
+                                child: SizedBox(
+                                  width: size.width * 0.4,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'Total Amount:',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      "\$${subTotal(context).toString()}",
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
+                                      Text(
+                                        "\$${subTotal(context).toString()}",
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
