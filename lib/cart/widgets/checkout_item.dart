@@ -10,7 +10,7 @@ class CheckoutItem extends StatelessWidget {
     return SizedBox(
       height: 120,
       child: Padding(
-        padding: const EdgeInsets.only(top: 10.0),
+        padding: const EdgeInsets.only(top: 1.0),
         child: Row(
           // crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -18,11 +18,13 @@ class CheckoutItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                 right: 20.0,
-                left: 20,
+                // left: 20,
+                bottom: 10,
               ),
               child: Image.network(
                 'https://image.tmdb.org/t/p/w185/${item.image}',
-                height: 80,
+                height: 90,
+                width: 70,
               ),
             ),
             Flexible(
