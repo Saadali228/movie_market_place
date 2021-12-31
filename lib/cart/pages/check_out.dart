@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
+import 'package:movie_market_place/cart/widgets/checkout_item.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 
 double tablet = 870;
@@ -100,229 +101,267 @@ class CheckOutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var total = subTotal(context);
+    double mHeight = MediaQuery.of(context).size.height;
+    double mWidth = MediaQuery.of(context).size.width;
     final size = MediaQuery.of(context).size;
-    Widget createTextField(
-      String text, [
-      bool obsec = false,
-    ]) {
-      return Expanded(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            bottom: 30,
-          ),
-          child: TextField(
-            obscureText: obsec,
-            decoration: InputDecoration(
-              labelText: text,
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Colors.blue,
-                ),
-                borderRadius: BorderRadius.circular(
-                  10,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: Colors.black,
-                ),
-                borderRadius: BorderRadius.circular(
-                  10,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
 
-    Widget showRow(
-      Widget textField1,
-      Widget textField2, [
-      bool isColumn = false,
-    ]) {
-      if (isColumn) {
-        return SizedBox(
-          height: 150,
-          width: size.width,
-          child: Column(
-            children: [
-              textField1,
-              textField2,
-            ],
-          ),
-        );
-      } else {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            textField1,
-            const SizedBox(width: 16),
-            textField2,
-          ],
-        );
-      }
-    }
+    var total = subTotal(context);
 
-    bool isColumn = size.width < mobile;
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        title: const Text(
-          'Checkout',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            fontSize: 25,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: SizedBox(
-            width: size.width < tablet ? size.width * 0.8 : size.width * 0.5,
-            // height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                heading(
-                  '1',
-                  "User Details",
-                ),
-                showRow(
-                  createTextField(
-                    'Full Name',
-                  ),
-                  createTextField(
-                    'Phone Number',
-                  ),
-                  isColumn,
-                ),
-                showRow(
-                  createTextField(
-                    'Address 1',
-                  ),
-                  createTextField(
-                    'Address 2',
-                  ),
-                  isColumn,
-                ),
-                showRow(
-                  createTextField(
-                    'City',
-                  ),
-                  createTextField(
-                    'Country',
-                  ),
-                ),
-                heading(
-                  '2',
-                  "Payment Details",
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return BlocBuilder<CartBloc, CartState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: const Color(0xff1F0C3F),
+          body: size.width > mobile
+              ? Row(
                   children: [
-                    createTextField(
-                      'Credit Card',
+                    Container(
+                      height: mHeight,
+                      width: mWidth * 0.3,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff322043),
+                        boxShadow: const [
+                          BoxShadow(blurRadius: 20.0),
+                        ],
+                        borderRadius: BorderRadius.horizontal(
+                          right: Radius.circular(mWidth * 0.05),
+                        ),
+                      ),
+                      child: ListView.builder(
+                          itemCount: state.cartList!.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            return const CheckoutItem();
+                          }),
                     ),
                   ],
-                ),
-                showRow(
-                  createTextField(
-                    "CVV",
-                    true,
-                  ),
-                  createTextField(
-                    "Expiry",
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 10.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Total Amount",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 50,
-                      ),
-                      Text(
-                        "\$$total",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 10,
-                    bottom: 30,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.blueAccent,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          5.0,
-                        ),
-                      ),
-                      // color: Colors.green,
-                    ),
-                    // width: MediaQuery.of(context).size.width * 0.18,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.green,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Padding(
-                            padding: EdgeInsets.only(right: 8.0),
-                            child: Icon(
-                              Icons.shopping_cart,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            'Confirm Payment',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {
-                        showAlertDialog(context);
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+                )
+              : Container(),
+        );
+      },
     );
+
+    // Widget createTextField(
+    //   String text, [
+    //   bool obsec = false,
+    // ]) {
+    //   return Expanded(
+    //     child: Padding(
+    //       padding: const EdgeInsets.only(
+    //         bottom: 30,
+    //       ),
+    //       child: TextField(
+    //         obscureText: obsec,
+    //         decoration: InputDecoration(
+    //           labelText: text,
+    //           enabledBorder: OutlineInputBorder(
+    //             borderSide: const BorderSide(
+    //               width: 1,
+    //               color: Colors.blue,
+    //             ),
+    //             borderRadius: BorderRadius.circular(
+    //               10,
+    //             ),
+    //           ),
+    //           focusedBorder: OutlineInputBorder(
+    //             borderSide: const BorderSide(
+    //               width: 1,
+    //               color: Colors.black,
+    //             ),
+    //             borderRadius: BorderRadius.circular(
+    //               10,
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   );
   }
 }
+
+//     Widget showRow(
+//       Widget textField1,
+//       Widget textField2, [
+//       bool isColumn = false,
+//     ]) {
+//       if (isColumn) {
+//         return SizedBox(
+//           height: 150,
+//           width: size.width,
+//           child: Column(
+//             children: [
+//               textField1,
+//               textField2,
+//             ],
+//           ),
+//         );
+//       } else {
+//         return Row(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             textField1,
+//             const SizedBox(width: 16),
+//             textField2,
+//           ],
+//         );
+//       }
+//     }
+
+//     bool isColumn = size.width < mobile;
+//     return Scaffold(
+//       appBar: AppBar(
+//         centerTitle: true,
+//         backgroundColor: Colors.white,
+//         title: const Text(
+//           'Checkout',
+//           style: TextStyle(
+//             fontWeight: FontWeight.bold,
+//             color: Colors.black,
+//             fontSize: 25,
+//           ),
+//         ),
+//       ),
+//       body: SingleChildScrollView(
+//         child: Center(
+//           child: SizedBox(
+//             width: size.width < tablet ? size.width * 0.8 : size.width * 0.5,
+//             // height: MediaQuery.of(context).size.height,
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: [
+//                 heading(
+//                   '1',
+//                   "User Details",
+//                 ),
+//                 showRow(
+//                   createTextField(
+//                     'Full Name',
+//                   ),
+//                   createTextField(
+//                     'Phone Number',
+//                   ),
+//                   isColumn,
+//                 ),
+//                 showRow(
+//                   createTextField(
+//                     'Address 1',
+//                   ),
+//                   createTextField(
+//                     'Address 2',
+//                   ),
+//                   isColumn,
+//                 ),
+//                 showRow(
+//                   createTextField(
+//                     'City',
+//                   ),
+//                   createTextField(
+//                     'Country',
+//                   ),
+//                 ),
+//                 heading(
+//                   '2',
+//                   "Payment Details",
+//                 ),
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     createTextField(
+//                       'Credit Card',
+//                     ),
+//                   ],
+//                 ),
+//                 showRow(
+//                   createTextField(
+//                     "CVV",
+//                     true,
+//                   ),
+//                   createTextField(
+//                     "Expiry",
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.only(
+//                     bottom: 10.0,
+//                   ),
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       const Text(
+//                         "Total Amount",
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 20,
+//                         ),
+//                       ),
+//                       const SizedBox(
+//                         width: 50,
+//                       ),
+//                       Text(
+//                         "\$$total",
+//                         style: const TextStyle(
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 20,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.only(
+//                     top: 10,
+//                     bottom: 30,
+//                   ),
+//                   child: Container(
+//                     decoration: BoxDecoration(
+//                       border: Border.all(
+//                         color: Colors.blueAccent,
+//                       ),
+//                       borderRadius: const BorderRadius.all(
+//                         Radius.circular(
+//                           5.0,
+//                         ),
+//                       ),
+//                       // color: Colors.green,
+//                     ),
+//                     // width: MediaQuery.of(context).size.width * 0.18,
+//                     height: MediaQuery.of(context).size.height * 0.06,
+//                     child: ElevatedButton(
+//                       style: ButtonStyle(
+//                         backgroundColor: MaterialStateProperty.all<Color>(
+//                           Colors.green,
+//                         ),
+//                       ),
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: const [
+//                           Padding(
+//                             padding: EdgeInsets.only(right: 8.0),
+//                             child: Icon(
+//                               Icons.shopping_cart,
+//                               color: Colors.white,
+//                             ),
+//                           ),
+//                           Text(
+//                             'Confirm Payment',
+//                             style: TextStyle(
+//                               fontSize: 20.0,
+//                               color: Colors.white,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                       onPressed: () {
+//                         showAlertDialog(context);
+//                       },
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

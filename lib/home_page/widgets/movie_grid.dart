@@ -38,13 +38,17 @@ class _MovieGridState extends State<MovieGrid> {
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
         return AnimationLimiter(
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.width <= mobile ? 30 : 20,
-              left: 40,
-              right: 40,
-            ),
+          child: RawScrollbar(
+            thumbColor: Colors.deepPurple,
+            radius: const Radius.circular(25),
+            isAlwaysShown: true,
+            controller: _scrollController,
             child: GridView.builder(
+                padding: const EdgeInsets.only(
+                  top: 60,
+                  left: 40,
+                  right: 40,
+                ),
                 physics: const BouncingScrollPhysics(),
                 controller: _scrollController,
                 itemCount: state.movieList.length,
