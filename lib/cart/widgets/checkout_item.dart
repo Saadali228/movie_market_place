@@ -9,76 +9,66 @@ class CheckoutItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 120,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 1.0),
-        child: Row(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 20.0,
-                // left: 20,
-                bottom: 10,
-              ),
-              child: Image.network(
-                'https://image.tmdb.org/t/p/w185/${item.image}',
-                height: 90,
-                width: 70,
-              ),
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 15.0),
-                child: Text(
-                  item.title,
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 8.0,
-              ),
+      child: Row(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Image.network(
+            'https://image.tmdb.org/t/p/w185/${item.image}',
+            height: 90,
+            width: 70,
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
               child: Text(
-                "\$" + item.price.toString(),
+                item.title,
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 14,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            // Expanded(
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 8.0,
+            ),
+            child: Text(
+              "\$" + item.price.toString(),
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          // Expanded(
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
 
-            //     ],
-            //   ),
-            // ),
-            // Row(
-            //   crossAxisAlignment: CrossAxisAlignment.end,
-            //   children: <Widget>[
-            //     IconButton(
-            //       onPressed: onDelete,
-            //       icon: const Icon(
-            //         Icons.delete,
-            //         color: Colors.red,
-            //         size: 18,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-          ],
-        ),
+          //     ],
+          //   ),
+          // ),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.end,
+          //   children: <Widget>[
+          //     IconButton(
+          //       onPressed: onDelete,
+          //       icon: const Icon(
+          //         Icons.delete,
+          //         color: Colors.red,
+          //         size: 18,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+        ],
       ),
     );
   }

@@ -71,7 +71,7 @@ class CheckOutScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 number,
-                style: const TextStyle(fontSize: 15, color: Colors.white),
+                style: const TextStyle(fontSize: 15, color: Colors.black),
               ),
             ),
           ),
@@ -85,6 +85,7 @@ class CheckOutScreen extends StatelessWidget {
           child: Text(
             name,
             style: const TextStyle(
+              color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
@@ -149,13 +150,22 @@ class CheckOutScreen extends StatelessWidget {
             bottom: 30,
           ),
           child: TextField(
+            style: const TextStyle(
+              color: Colors.white,
+            ),
             obscureText: obsec,
             decoration: InputDecoration(
+              hintStyle: const TextStyle(
+                color: Colors.white,
+              ),
+              labelStyle: const TextStyle(
+                color: Colors.white,
+              ),
               labelText: text,
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Colors.blue,
+                  color: Colors.deepPurple,
                 ),
                 borderRadius: BorderRadius.circular(
                   10,
@@ -164,7 +174,7 @@ class CheckOutScreen extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Colors.black,
+                  color: Colors.purple,
                 ),
                 borderRadius: BorderRadius.circular(
                   10,
@@ -235,21 +245,37 @@ class CheckOutScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: size.width * 0.4,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                width: mWidth * 0.35,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'Movie',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(
+                                          'Movie',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Price',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     Expanded(
                                       child: ListView.builder(
+                                          padding: const EdgeInsets.only(
+                                            top: 10.0,
+                                          ),
                                           itemCount: state.cartList!.length,
                                           scrollDirection: Axis.vertical,
                                           itemBuilder: (context, index) {
@@ -258,27 +284,32 @@ class CheckOutScreen extends StatelessWidget {
                                             );
                                           }),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'Total Amount:',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 20.0,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Total Amount:',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "\$${subTotal(context).toString()}",
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w500,
+                                          Text(
+                                            "\$${subTotal(context).toString()}",
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -360,37 +391,6 @@ class CheckOutScreen extends StatelessWidget {
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                bottom: 10.0,
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  const Text(
-                                                    "Total Amount",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 50,
-                                                  ),
-                                                  Text(
-                                                    "\$$total",
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
                                                 top: 10,
                                                 bottom: 30,
                                               ),
@@ -414,10 +414,11 @@ class CheckOutScreen extends StatelessWidget {
                                                     0.06,
                                                 child: ElevatedButton(
                                                   style: ButtonStyle(
+                                                    
                                                     backgroundColor:
                                                         MaterialStateProperty
                                                             .all<Color>(
-                                                      Colors.green,
+                                                      Colors.deepPurple,
                                                     ),
                                                   ),
                                                   child: Row(
