@@ -65,7 +65,7 @@ class CheckOutScreen extends StatelessWidget {
             height: 30,
             width: 30,
             decoration: const BoxDecoration(
-              color: Colors.black,
+              color: Colors.white,
               shape: BoxShape.circle,
             ),
             child: Center(
@@ -108,7 +108,73 @@ class CheckOutScreen extends StatelessWidget {
     double mWidth = MediaQuery.of(context).size.width;
     final size = MediaQuery.of(context).size;
 
+    bool isColumn = size.width < mobile;
     var total = subTotal(context);
+
+    Widget showRow(
+      Widget textField1,
+      Widget textField2, [
+      bool isColumn = false,
+    ]) {
+      if (isColumn) {
+        return SizedBox(
+          height: 150,
+          width: size.width,
+          child: Column(
+            children: [
+              textField1,
+              textField2,
+            ],
+          ),
+        );
+      } else {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            textField1,
+            const SizedBox(width: 16),
+            textField2,
+          ],
+        );
+      }
+    }
+
+    Widget createTextField(
+      String text, [
+      bool obsec = false,
+    ]) {
+      return Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 30,
+          ),
+          child: TextField(
+            obscureText: obsec,
+            decoration: InputDecoration(
+              labelText: text,
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.blue,
+                ),
+                borderRadius: BorderRadius.circular(
+                  10,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.black,
+                ),
+                borderRadius: BorderRadius.circular(
+                  10,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
@@ -165,72 +231,244 @@ class CheckOutScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(32.0),
                     child: size.width > mobile
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: size.width * 0.5,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    Text(
-                                      'Movie',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Price',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: SizedBox(
-                                  width: size.width * 0.5,
-                                  child: ListView.builder(
-                                      itemCount: state.cartList!.length,
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder: (context, index) {
-                                        return CheckoutItem(
-                                          item: state.cartList![index],
-                                        );
-                                      }),
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.5,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                width: size.width * 0.35,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'Total Amount:',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(
+                                          'Movie',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Price',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      "\$${subTotal(context).toString()}",
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                    Expanded(
+                                      child: ListView.builder(
+                                          itemCount: state.cartList!.length,
+                                          scrollDirection: Axis.vertical,
+                                          itemBuilder: (context, index) {
+                                            return CheckoutItem(
+                                              item: state.cartList![index],
+                                            );
+                                          }),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text(
+                                          'Total Amount:',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "\$${subTotal(context).toString()}",
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ),
+                              Container(
+                                width: size.width * 0.5,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xff14141c),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(25),
+                                  ),
+                                ),
+                                child: SingleChildScrollView(
+                                  child: Center(
+                                    child: SizedBox(
+                                      width: size.width < tablet
+                                          ? size.width * 0.8
+                                          : size.width * 0.5,
+                                      // height: MediaQuery.of(context).size.height,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            heading(
+                                              '1',
+                                              "User Details",
+                                            ),
+                                            showRow(
+                                              createTextField(
+                                                'Full Name',
+                                              ),
+                                              createTextField(
+                                                'Phone Number',
+                                              ),
+                                              isColumn,
+                                            ),
+                                            showRow(
+                                              createTextField(
+                                                'Address 1',
+                                              ),
+                                              createTextField(
+                                                'Address 2',
+                                              ),
+                                              isColumn,
+                                            ),
+                                            showRow(
+                                              createTextField(
+                                                'City',
+                                              ),
+                                              createTextField(
+                                                'Country',
+                                              ),
+                                            ),
+                                            heading(
+                                              '2',
+                                              "Payment Details",
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                createTextField(
+                                                  'Credit Card',
+                                                ),
+                                              ],
+                                            ),
+                                            showRow(
+                                              createTextField(
+                                                "CVV",
+                                                true,
+                                              ),
+                                              createTextField(
+                                                "Expiry",
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                bottom: 10.0,
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  const Text(
+                                                    "Total Amount",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 50,
+                                                  ),
+                                                  Text(
+                                                    "\$$total",
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                top: 10,
+                                                bottom: 30,
+                                              ),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.blueAccent,
+                                                  ),
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                    Radius.circular(
+                                                      5.0,
+                                                    ),
+                                                  ),
+                                                  // color: Colors.green,
+                                                ),
+                                                // width: MediaQuery.of(context).size.width * 0.18,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.06,
+                                                child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all<Color>(
+                                                      Colors.green,
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: const [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                right: 8.0),
+                                                        child: Icon(
+                                                          Icons.shopping_cart,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Confirm Payment',
+                                                        style: TextStyle(
+                                                          fontSize: 20.0,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  onPressed: () {
+                                                    showAlertDialog(context);
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
                             ],
                           )
                         : Container(),
@@ -242,229 +480,5 @@ class CheckOutScreen extends StatelessWidget {
         );
       },
     );
-
-    // Widget createTextField(
-    //   String text, [
-    //   bool obsec = false,
-    // ]) {
-    //   return Expanded(
-    //     child: Padding(
-    //       padding: const EdgeInsets.only(
-    //         bottom: 30,
-    //       ),
-    //       child: TextField(
-    //         obscureText: obsec,
-    //         decoration: InputDecoration(
-    //           labelText: text,
-    //           enabledBorder: OutlineInputBorder(
-    //             borderSide: const BorderSide(
-    //               width: 1,
-    //               color: Colors.blue,
-    //             ),
-    //             borderRadius: BorderRadius.circular(
-    //               10,
-    //             ),
-    //           ),
-    //           focusedBorder: OutlineInputBorder(
-    //             borderSide: const BorderSide(
-    //               width: 1,
-    //               color: Colors.black,
-    //             ),
-    //             borderRadius: BorderRadius.circular(
-    //               10,
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   );
   }
 }
-
-//     Widget showRow(
-//       Widget textField1,
-//       Widget textField2, [
-//       bool isColumn = false,
-//     ]) {
-//       if (isColumn) {
-//         return SizedBox(
-//           height: 150,
-//           width: size.width,
-//           child: Column(
-//             children: [
-//               textField1,
-//               textField2,
-//             ],
-//           ),
-//         );
-//       } else {
-//         return Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             textField1,
-//             const SizedBox(width: 16),
-//             textField2,
-//           ],
-//         );
-//       }
-//     }
-
-//     bool isColumn = size.width < mobile;
-//     return Scaffold(
-//       appBar: AppBar(
-//         centerTitle: true,
-//         backgroundColor: Colors.white,
-//         title: const Text(
-//           'Checkout',
-//           style: TextStyle(
-//             fontWeight: FontWeight.bold,
-//             color: Colors.black,
-//             fontSize: 25,
-//           ),
-//         ),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Center(
-//           child: SizedBox(
-//             width: size.width < tablet ? size.width * 0.8 : size.width * 0.5,
-//             // height: MediaQuery.of(context).size.height,
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: [
-//                 heading(
-//                   '1',
-//                   "User Details",
-//                 ),
-//                 showRow(
-//                   createTextField(
-//                     'Full Name',
-//                   ),
-//                   createTextField(
-//                     'Phone Number',
-//                   ),
-//                   isColumn,
-//                 ),
-//                 showRow(
-//                   createTextField(
-//                     'Address 1',
-//                   ),
-//                   createTextField(
-//                     'Address 2',
-//                   ),
-//                   isColumn,
-//                 ),
-//                 showRow(
-//                   createTextField(
-//                     'City',
-//                   ),
-//                   createTextField(
-//                     'Country',
-//                   ),
-//                 ),
-//                 heading(
-//                   '2',
-//                   "Payment Details",
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     createTextField(
-//                       'Credit Card',
-//                     ),
-//                   ],
-//                 ),
-//                 showRow(
-//                   createTextField(
-//                     "CVV",
-//                     true,
-//                   ),
-//                   createTextField(
-//                     "Expiry",
-//                   ),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(
-//                     bottom: 10.0,
-//                   ),
-//                   child: Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       const Text(
-//                         "Total Amount",
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 20,
-//                         ),
-//                       ),
-//                       const SizedBox(
-//                         width: 50,
-//                       ),
-//                       Text(
-//                         "\$$total",
-//                         style: const TextStyle(
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 20,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(
-//                     top: 10,
-//                     bottom: 30,
-//                   ),
-//                   child: Container(
-//                     decoration: BoxDecoration(
-//                       border: Border.all(
-//                         color: Colors.blueAccent,
-//                       ),
-//                       borderRadius: const BorderRadius.all(
-//                         Radius.circular(
-//                           5.0,
-//                         ),
-//                       ),
-//                       // color: Colors.green,
-//                     ),
-//                     // width: MediaQuery.of(context).size.width * 0.18,
-//                     height: MediaQuery.of(context).size.height * 0.06,
-//                     child: ElevatedButton(
-//                       style: ButtonStyle(
-//                         backgroundColor: MaterialStateProperty.all<Color>(
-//                           Colors.green,
-//                         ),
-//                       ),
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.center,
-//                         children: const [
-//                           Padding(
-//                             padding: EdgeInsets.only(right: 8.0),
-//                             child: Icon(
-//                               Icons.shopping_cart,
-//                               color: Colors.white,
-//                             ),
-//                           ),
-//                           Text(
-//                             'Confirm Payment',
-//                             style: TextStyle(
-//                               fontSize: 20.0,
-//                               color: Colors.white,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       onPressed: () {
-//                         showAlertDialog(context);
-//                       },
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
