@@ -4,7 +4,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart'
     as a;
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
-import 'package:movie_market_place/cart/pages/check_out.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
