@@ -44,8 +44,8 @@ class _MovieGridState extends State<MovieGrid> {
             isAlwaysShown: true,
             controller: _scrollController,
             child: GridView.builder(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.width <= mobile ? 30 : 20,
+                padding: const EdgeInsets.only(
+                  top: 60,
                   left: 40,
                   right: 40,
                 ),
