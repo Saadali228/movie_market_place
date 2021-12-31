@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/widgets/checkout_item.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
+import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
+import 'package:movie_market_place/home_page/widgets/size_config.dart';
+import 'package:movie_market_place/utils/constants.dart';
 
 double tablet = 870;
 double mobile = 550;
@@ -110,74 +113,131 @@ class CheckOutScreen extends StatelessWidget {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: const Color(0xff1F0C3F),
-          body: size.width > mobile
-              ? Column(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            'Movie',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            'Price',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+          appBar: AppBar(
+            title: Row(
+              children: [
+                SizedBox(
+                  width: 3 * SizeConfig.blockSizeHorizontal!,
+                ),
+                if (MediaQuery.of(context).size.width < mobile)
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      Icons.arrow_back,
                     ),
-                    Expanded(
-                      child: SizedBox(
-                        width: size.width * 0.3,
-                        child: ListView.builder(
-                            itemCount: state.cartList!.length,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              return CheckoutItem(
-                                item: state.cartList![index],
-                              );
-                            }),
-                      ),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Total Amount:',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "\$${subTotal(context).toString()}",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              : Container(),
+                  ),
+                InkWell(
+                  onTap: () {
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    } else {
+                      Navigator.of(context)
+                          .pushReplacementNamed(HomeScreen.homePageRoute);
+                    }
+                  },
+                  child: const LogoWidget(),
+                ),
+              ],
+            ),
+            centerTitle: false,
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+          extendBodyBehindAppBar: true,
+          body: Stack(children: [
+            Container(
+              decoration: backgroundGradient,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 78.0,
+                left: 48.0,
+                right: 48.0,
+                bottom: 48.0,
+              ),
+              child: Material(
+                elevation: 6.0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: const Color(0xff361F41),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: size.width > mobile
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                width: size.width * 0.3,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text(
+                                      'Movie',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Price',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: SizedBox(
+                                  width: size.width * 0.3,
+                                  child: ListView.builder(
+                                      itemCount: state.cartList!.length,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        return CheckoutItem(
+                                          item: state.cartList![index],
+                                        );
+                                      }),
+                                ),
+                              ),
+                              SizedBox(
+                                width: size.width * 0.3,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Total Amount:',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "\$${subTotal(context).toString()}",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                  ),
+                ),
+              ),
+            ),
+          ]),
         );
       },
     );
