@@ -112,26 +112,68 @@ class CheckOutScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: const Color(0xff1F0C3F),
           body: size.width > mobile
-              ? Row(
+              ? Column(
                   children: [
-                    Container(
-                      height: mHeight,
-                      width: mWidth * 0.3,
-                      decoration: BoxDecoration(
-                        color: const Color(0xff322043),
-                        boxShadow: const [
-                          BoxShadow(blurRadius: 20.0),
+                    SizedBox(
+                      width: size.width * 0.3,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            'Movie',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            'Price',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
                         ],
-                        borderRadius: BorderRadius.horizontal(
-                          right: Radius.circular(mWidth * 0.05),
-                        ),
                       ),
-                      child: ListView.builder(
-                          itemCount: state.cartList!.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            return const CheckoutItem();
-                          }),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        width: size.width * 0.3,
+                        child: ListView.builder(
+                            itemCount: state.cartList!.length,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              return CheckoutItem(
+                                item: state.cartList![index],
+                              );
+                            }),
+                      ),
+                    ),
+                    SizedBox(
+                      width: size.width * 0.3,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Total Amount:',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "\$${subTotal(context).toString()}",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 )
