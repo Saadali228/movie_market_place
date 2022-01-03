@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
-import 'package:movie_market_place/cart/pages/check_out.dart';
+import 'package:movie_market_place/checkout/pages/check_out.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/cart/widgets/cart_item.dart';
 import 'package:movie_market_place/home_page/widgets/dialog_box.dart';

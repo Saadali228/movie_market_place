@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_market_place/cart/widgets/checkout_heading.dart';
-import 'package:movie_market_place/cart/widgets/checkout_textfield.dart';
-import 'package:movie_market_place/cart/widgets/confirm_button.dart';
+import 'package:movie_market_place/checkout/widgets/checkout_heading.dart';
+import 'package:movie_market_place/checkout/widgets/checkout_textfield.dart';
+import 'package:movie_market_place/checkout/widgets/confirm_button.dart';
 
 class WebFieldsView extends StatelessWidget {
   const WebFieldsView({Key? key, required this.onTap}) : super(key: key);
