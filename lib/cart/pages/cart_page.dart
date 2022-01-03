@@ -117,17 +117,6 @@ class _CartLoadedState extends State<_CartLoaded> {
       listenWhen: (previous, current) =>
           previous.deleteFromCartStatus != current.deleteFromCartStatus,
       listener: (context, state) {
-        // if (state.deleteFromCartStatus == DeleteFromCartStatus.loaded) {
-        //   showDialog(
-        //     context: context,
-        //     builder: (_) => const DialogBox(
-        //       title: 'Movie Removed from Cart',
-        //       icon: Icons.remove_circle_outline,
-        //       iconColor: Colors.red,
-        //     ),
-        //   );
-        //   context.read<CartBloc>().add(DeleteCartInitial());
-        // }
         if (state.deleteFromCartStatus == DeleteFromCartStatus.error) {
           showDialog(
             context: context,

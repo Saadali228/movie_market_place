@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
 class CheckoutTextField extends StatelessWidget {
-  const CheckoutTextField(
-      {Key? key, required this.name, this.obsec, this.width})
-      : super(key: key);
+  const CheckoutTextField({
+    Key? key,
+    required this.name,
+    required this.error,
+    required this.initialValue,
+    required this.onChanged,
+    this.obsec,
+    this.width,
+  }) : super(key: key);
 
   final String name;
+  final String? error;
+  final String? initialValue;
+  final Function(String)? onChanged;
   final bool? obsec;
   final double? width;
 
@@ -18,6 +27,8 @@ class CheckoutTextField extends StatelessWidget {
           bottom: 15,
         ),
         child: TextFormField(
+          initialValue: initialValue,
+          onChanged: onChanged,
           style: const TextStyle(
             color: Colors.white,
           ),
@@ -31,6 +42,7 @@ class CheckoutTextField extends StatelessWidget {
               color: Colors.white,
             ),
             labelText: name,
+            errorText: error,
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 width: 2,

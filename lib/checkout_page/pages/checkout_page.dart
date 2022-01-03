@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
+import 'package:movie_market_place/checkout_page/bloc/checkout_bloc.dart';
 import 'package:movie_market_place/checkout_page/widgets/checkout_item.dart';
 import 'package:movie_market_place/checkout_page/widgets/mobile_textfield_view.dart';
 import 'package:movie_market_place/checkout_page/widgets/web_textfield_view.dart';
@@ -22,128 +24,147 @@ class CheckOutScreen extends StatelessWidget {
     double mWidth = MediaQuery.of(context).size.width;
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            SizedBox(
-              width: 3 * SizeConfig.blockSizeHorizontal!,
-            ),
-            if (MediaQuery.of(context).size.width < _mobile)
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back,
-                ),
+    return BlocProvider(
+      create: (context) => CheckoutBloc(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              SizedBox(
+                width: 3 * SizeConfig.blockSizeHorizontal!,
               ),
-            InkWell(
-              onTap: () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                } else {
-                  Navigator.of(context)
-                      .pushReplacementNamed(HomeScreen.homePageRoute);
-                }
-              },
-              child: const LogoWidget(),
-            ),
-          ],
-        ),
-        centerTitle: false,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      extendBodyBehindAppBar: true,
-      body: Stack(children: [
-        Container(
-          decoration: backgroundGradient,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 78.0,
-            left: 48.0,
-            right: 48.0,
-            bottom: 48.0,
+              if (MediaQuery.of(context).size.width < _mobile)
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                  ),
+                ),
+              InkWell(
+                onTap: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  } else {
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomeScreen.homePageRoute);
+                  }
+                },
+                child: const LogoWidget(),
+              ),
+            ],
           ),
-          child: Material(
-            elevation: 6.0,
-            child: Container(
-              width: mWidth,
-              height: mHeight,
-              color: const Color(0xff361F41),
-              child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: size.width > _mobile
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: mWidth * 0.3,
-                            child: checkoutItemsList(
-                                const BouncingScrollPhysics(), false, context),
-                          ),
-                          Container(
-                            width: size.width < _tablet
-                                ? size.width * 0.4
-                                : size.width * 0.5,
-                            decoration: const BoxDecoration(
-                              color: Color(0xff14141c),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(25),
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        extendBodyBehindAppBar: true,
+        body: Stack(children: [
+          Container(
+            decoration: backgroundGradient,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 78.0,
+              left: 48.0,
+              right: 48.0,
+              bottom: 48.0,
+            ),
+            child: Material(
+              elevation: 6.0,
+              child: Container(
+                width: mWidth,
+                height: mHeight,
+                color: const Color(0xff361F41),
+                child: BlocListener<CheckoutBloc, CheckoutState>(
+                  listener: (context, state) {
+                    if (state.status.isSubmissionSuccess) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      showDialog<void>(
+                        context: context,
+                        builder: (_) => showAlertDialog(context),
+                      );
+                    }
+                    if (state.status.isSubmissionInProgress) {
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          const SnackBar(content: Text('Submitting...')),
+                        );
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: size.width > _mobile
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: mWidth * 0.3,
+                                child: checkoutItemsList(
+                                    const BouncingScrollPhysics(),
+                                    false,
+                                    context),
                               ),
-                            ),
-                            child: SingleChildScrollView(
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: size.width > _tablet
-                                      ? WebFieldsView(
-                                          onTap: () => showAlertDialog(context),
-                                        )
-                                      : MobileFieldsView(
-                                          onTap: () => showAlertDialog(context),
-                                        ),
+                              Container(
+                                width: size.width < _tablet
+                                    ? size.width * 0.4
+                                    : size.width * 0.5,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xff14141c),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(25),
+                                  ),
+                                ),
+                                child: SingleChildScrollView(
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
+                                      child: size.width > _tablet
+                                          ? const WebFieldsView()
+                                          : const MobileFieldsView(),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        : ListView(
+                            padding: const EdgeInsets.all(0),
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              SizedBox(
+                                width: mWidth,
+                                height: mHeight * 0.35,
+                                child: checkoutItemsList(
+                                    const ClampingScrollPhysics(),
+                                    true,
+                                    context),
+                              ),
+                              const SizedBox(height: 12),
+                              Container(
+                                width: mWidth,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xff14141c),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(25),
+                                  ),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: MobileFieldsView(),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
-                      )
-                    : ListView(
-                        padding: const EdgeInsets.all(0),
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          SizedBox(
-                            width: mWidth,
-                            height: mHeight * 0.35,
-                            child: checkoutItemsList(
-                                const ClampingScrollPhysics(), true, context),
+                            ],
                           ),
-                          const SizedBox(height: 12),
-                          Container(
-                            width: mWidth,
-                            decoration: const BoxDecoration(
-                              color: Color(0xff14141c),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(25),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: MobileFieldsView(
-                                onTap: () => showAlertDialog(context),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 

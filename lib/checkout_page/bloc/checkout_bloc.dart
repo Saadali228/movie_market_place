@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:movie_market_place/validator/models/models.dart';
+import 'package:movie_market_place/checkout_page/validation/models/models.dart';
 
 part 'checkout_event.dart';
 part 'checkout_state.dart';
