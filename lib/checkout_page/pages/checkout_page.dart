@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
-import 'package:movie_market_place/checkout/widgets/checkout_item.dart';
-import 'package:movie_market_place/checkout/widgets/mobile_textfield_view.dart';
-import 'package:movie_market_place/checkout/widgets/web_textfield_view.dart';
+import 'package:movie_market_place/checkout_page/widgets/checkout_item.dart';
+import 'package:movie_market_place/checkout_page/widgets/mobile_textfield_view.dart';
+import 'package:movie_market_place/checkout_page/widgets/web_textfield_view.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
