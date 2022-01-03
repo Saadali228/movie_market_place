@@ -27,7 +27,7 @@ class CartDrawer extends StatelessWidget {
                 return const _CartLoading();
               case CartStatus.loaded:
                 return _CartLoaded(
-                  cartList: state.cartList!,
+                  cartList: state.cartList,
                 );
               case CartStatus.error:
               default:

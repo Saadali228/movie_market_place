@@ -25,7 +25,7 @@ class MovieDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CartRepoModel> movieCartModel =
-        context.watch<CartBloc>().state.cartList ?? [];
+        context.watch<CartBloc>().state.cartList;
 
     final size = MediaQuery.of(context).size;
 

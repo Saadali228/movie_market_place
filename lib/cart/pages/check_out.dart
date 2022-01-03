@@ -97,7 +97,7 @@ class CheckOutScreen extends StatelessWidget {
 
   num subTotal(BuildContext context) {
     num ans = 0;
-    for (var element in BlocProvider.of<CartBloc>(context).state.cartList!) {
+    for (var element in BlocProvider.of<CartBloc>(context).state.cartList) {
       ans += element.price;
     }
     return ans;
@@ -138,19 +138,22 @@ class CheckOutScreen extends StatelessWidget {
           ),
           BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {
+              if (state.cartList.isEmpty) {
+                context.read<CartBloc>().add(DisplayProducts());
+              }
               return Expanded(
                 child: ListView.builder(
                     padding: const EdgeInsets.only(
                       top: 10.0,
                     ),
-                    itemCount: state.cartList!.length,
+                    itemCount: state.cartList.length,
                     scrollDirection: Axis.vertical,
                     physics: physics,
                     shrinkWrap: shrinkWrap,
                     primary: false,
                     itemBuilder: (context, index) {
                       return CheckoutItem(
-                        item: state.cartList![index],
+                        item: state.cartList[index],
                       );
                     }),
               );
@@ -183,61 +186,6 @@ class CheckOutScreen extends StatelessWidget {
             ),
           ),
         ],
-      );
-    }
-
-    Widget confirmPayment() {
-      return Padding(
-        padding: const EdgeInsets.only(
-          top: 10,
-          bottom: 30,
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.blueAccent,
-            ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(
-                5.0,
-              ),
-            ),
-            // color: Colors.green,
-          ),
-          // width: MediaQuery.of(context).size.width * 0.18,
-          height: MediaQuery.of(context).size.height * 0.06,
-          child: ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                Colors.deepPurple,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.only(right: 8.0),
-                  child: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  'Confirm Payment',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                showAlertDialog(context);
-              }
-            },
-          ),
-        ),
       );
     }
 
@@ -313,6 +261,130 @@ class CheckOutScreen extends StatelessWidget {
             ),
           ),
         ),
+      );
+    }
+
+    Widget confirmPayment() {
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 10,
+          bottom: 30,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.blueAccent,
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(
+                5.0,
+              ),
+            ),
+            // color: Colors.green,
+          ),
+          // width: MediaQuery.of(context).size.width * 0.18,
+          height: MediaQuery.of(context).size.height * 0.06,
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.deepPurple,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Padding(
+                  padding: EdgeInsets.only(right: 8.0),
+                  child: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'Confirm Payment',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              //if (_formKey.currentState!.validate()) {
+              showAlertDialog(context);
+              // }
+            },
+          ),
+        ),
+      );
+    }
+
+    Widget mobileTextFieldsView() {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          heading(
+            '1',
+            "User Details",
+          ),
+          createTextField(
+            'Full Name',
+            false,
+            mWidth,
+            true,
+          ),
+          createTextField(
+            'Phone Number',
+            false,
+            mWidth,
+            true,
+          ),
+          createTextField(
+            'Address 1',
+            false,
+            mWidth,
+            true,
+          ),
+          createTextField(
+            'Address 2',
+            false,
+            mWidth,
+          ),
+          createTextField(
+            'City',
+            false,
+            mWidth,
+          ),
+          createTextField(
+            'Country',
+            false,
+            mWidth,
+          ),
+          heading(
+            '2',
+            "Payment Details",
+          ),
+          createTextField(
+            'Credit Card',
+            false,
+            mWidth,
+            true,
+          ),
+          createTextField(
+            "CVV",
+            true,
+            mWidth,
+            true,
+          ),
+          createTextField(
+            "Expiry",
+            false,
+            mWidth,
+            true,
+          ),
+          confirmPayment(),
+        ],
       );
     }
 
@@ -486,74 +558,7 @@ class CheckOutScreen extends StatelessWidget {
                                             confirmPayment(),
                                           ],
                                         )
-                                      : Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            heading(
-                                              '1',
-                                              "User Details",
-                                            ),
-                                            createTextField(
-                                              'Full Name',
-                                              false,
-                                              mWidth,
-                                              true,
-                                            ),
-                                            createTextField(
-                                              'Phone Number',
-                                              false,
-                                              mWidth,
-                                              true,
-                                            ),
-                                            createTextField(
-                                              'Address 1',
-                                              false,
-                                              mWidth,
-                                              true,
-                                            ),
-                                            createTextField(
-                                              'Address 2',
-                                              false,
-                                              mWidth,
-                                            ),
-                                            createTextField(
-                                              'City',
-                                              false,
-                                              mWidth,
-                                            ),
-                                            createTextField(
-                                              'Country',
-                                              false,
-                                              mWidth,
-                                            ),
-                                            heading(
-                                              '2',
-                                              "Payment Details",
-                                            ),
-                                            createTextField(
-                                              'Credit Card',
-                                              false,
-                                              mWidth,
-                                              true,
-                                            ),
-                                            createTextField(
-                                              "CVV",
-                                              true,
-                                              mWidth,
-                                              true,
-                                            ),
-                                            createTextField(
-                                              "Expiry",
-                                              false,
-                                              mWidth,
-                                              true,
-                                            ),
-                                            confirmPayment(),
-                                          ],
-                                        ),
+                                      : mobileTextFieldsView(),
                                 ),
                               ),
                             ),
@@ -581,66 +586,7 @@ class CheckOutScreen extends StatelessWidget {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  heading(
-                                    '1',
-                                    "User Details",
-                                  ),
-                                  createTextField(
-                                    'Full Name',
-                                    false,
-                                    mWidth,
-                                  ),
-                                  createTextField(
-                                    'Phone Number',
-                                    false,
-                                    mWidth,
-                                  ),
-                                  createTextField(
-                                    'Address 1',
-                                    false,
-                                    mWidth,
-                                  ),
-                                  createTextField(
-                                    'Address 2',
-                                    false,
-                                    mWidth,
-                                  ),
-                                  createTextField(
-                                    'City',
-                                    false,
-                                    mWidth,
-                                  ),
-                                  createTextField(
-                                    'Country',
-                                    false,
-                                    mWidth,
-                                  ),
-                                  heading(
-                                    '2',
-                                    "Payment Details",
-                                  ),
-                                  createTextField(
-                                    'Credit Card',
-                                    false,
-                                    mWidth,
-                                  ),
-                                  createTextField(
-                                    "CVV",
-                                    true,
-                                    mWidth,
-                                  ),
-                                  createTextField(
-                                    "Expiry",
-                                    false,
-                                    mWidth,
-                                  ),
-                                  confirmPayment(),
-                                ],
-                              ),
+                              child: mobileTextFieldsView(),
                             ),
                           ),
                         ],

@@ -24,7 +24,7 @@ class CartButton extends StatelessWidget {
                 size: 16.0,
               ),
             ),
-            if (state.cartList != null && state.cartList!.isNotEmpty)
+            if (state.cartList.isNotEmpty)
               Container(
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
@@ -33,7 +33,7 @@ class CartButton extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    state.cartList?.length.toString() ?? '',
+                    state.cartList.length.toString(),
                     style: const TextStyle(fontSize: 10.0),
                   ),
                 ),

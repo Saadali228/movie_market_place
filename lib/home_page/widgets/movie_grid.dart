@@ -33,7 +33,7 @@ class _MovieGridState extends State<MovieGrid> {
   @override
   Widget build(BuildContext context) {
     List<CartRepoModel> movieCartModel =
-        context.watch<CartBloc>().state.cartList ?? [];
+        context.watch<CartBloc>().state.cartList;
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
         return AnimationLimiter(

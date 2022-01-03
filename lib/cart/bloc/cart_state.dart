@@ -7,13 +7,13 @@ enum DeleteFromCartStatus { initial, loaded, error }
 
 class CartState {
   final CartStatus cartStatus;
-  final List<CartRepoModel>? cartList;
+  final List<CartRepoModel> cartList;
   final AddToCartStatus addToCartStatus;
   final DeleteFromCartStatus deleteFromCartStatus;
 
   CartState({
     this.cartStatus = CartStatus.initial,
-    this.cartList,
+    this.cartList = const [],
     this.addToCartStatus = AddToCartStatus.initial,
     this.deleteFromCartStatus = DeleteFromCartStatus.initial,
   });
@@ -33,5 +33,5 @@ class CartState {
   }
 
   List<Object> get props =>
-      [cartStatus, cartList!, addToCartStatus, deleteFromCartStatus];
+      [cartStatus, cartList, addToCartStatus, deleteFromCartStatus];
 }
