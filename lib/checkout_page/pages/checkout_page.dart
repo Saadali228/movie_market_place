@@ -4,6 +4,7 @@ import 'package:formz/formz.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/checkout_page/bloc/checkout_bloc.dart';
 import 'package:movie_market_place/checkout_page/widgets/checkout_item.dart';
+import 'package:movie_market_place/checkout_page/widgets/checkout_total.dart';
 import 'package:movie_market_place/checkout_page/widgets/mobile_textfield_view.dart';
 import 'package:movie_market_place/checkout_page/widgets/web_textfield_view.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
@@ -11,8 +12,8 @@ import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';
 
-double _tablet = 870;
-double _mobile = 550;
+double _tablet = 900;
+double _mobile = 700;
 
 class CheckOutScreen extends StatelessWidget {
   static const checkOutPageRoute = '/checkout';
@@ -65,10 +66,10 @@ class CheckOutScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(
-              top: 78.0,
-              left: 48.0,
-              right: 48.0,
-              bottom: 48.0,
+              top: 50.0,
+              left: 25.0,
+              right: 25.0,
+              bottom: 25.0,
             ),
             child: Material(
               elevation: 6.0,
@@ -91,33 +92,51 @@ class CheckOutScreen extends StatelessWidget {
                     }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(32.0),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 35.0,
+                      horizontal: size.width > _mobile ? 75.0 : 50.0,
+                    ),
                     child: size.width > _mobile
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: mWidth * 0.3,
-                                child: checkoutItemsList(
-                                    const BouncingScrollPhysics(),
-                                    false,
-                                    context),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: SizedBox(
+                                  width: mWidth * 0.3,
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        child: RawScrollbar(
+                                          thumbColor: const Color(0xff14141c),
+                                          radius: const Radius.circular(25),
+                                          isAlwaysShown: true,
+                                          thickness: 8,
+                                          child: CustomScrollView(
+                                            slivers: checkoutItemsList(context),
+                                          ),
+                                        ),
+                                      ),
+                                      const CheckoutTotal(),
+                                    ],
+                                  ),
+                                ),
                               ),
                               Container(
                                 width: size.width < _tablet
                                     ? size.width * 0.4
-                                    : size.width * 0.5,
+                                    : size.width * 0.45,
                                 decoration: const BoxDecoration(
                                   color: Color(0xff14141c),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(25),
                                   ),
                                 ),
-                                child: SingleChildScrollView(
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: SingleChildScrollView(
+                                    primary: false,
+                                    child: Center(
                                       child: size.width > _tablet
                                           ? const WebFieldsView()
                                           : const MobileFieldsView(),
@@ -127,30 +146,25 @@ class CheckOutScreen extends StatelessWidget {
                               )
                             ],
                           )
-                        : ListView(
-                            padding: const EdgeInsets.all(0),
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              SizedBox(
-                                width: mWidth,
-                                height: mHeight * 0.35,
-                                child: checkoutItemsList(
-                                    const ClampingScrollPhysics(),
-                                    true,
-                                    context),
+                        : CustomScrollView(
+                            slivers: [
+                              ...checkoutItemsList(context),
+                              const SliverToBoxAdapter(
+                                child: CheckoutTotal(),
                               ),
-                              const SizedBox(height: 12),
-                              Container(
-                                width: mWidth,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xff14141c),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(25),
+                              SliverToBoxAdapter(
+                                child: Container(
+                                  width: mWidth,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xff14141c),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(25),
+                                    ),
                                   ),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: MobileFieldsView(),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: MobileFieldsView(),
+                                  ),
                                 ),
                               ),
                             ],
@@ -165,13 +179,10 @@ class CheckOutScreen extends StatelessWidget {
     );
   }
 
-  Widget checkoutItemsList(
-      ScrollPhysics physics, bool shrinkWrap, BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
+  List<Widget> checkoutItemsList(BuildContext context) {
+    return [
+      SliverToBoxAdapter(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
             Text(
@@ -192,58 +203,28 @@ class CheckOutScreen extends StatelessWidget {
             ),
           ],
         ),
-        BlocBuilder<CartBloc, CartState>(
-          builder: (context, state) {
-            return Expanded(
-              child: ListView.builder(
-                  padding: const EdgeInsets.only(
-                    top: 10.0,
-                  ),
-                  itemCount: state.cartList.length,
-                  scrollDirection: Axis.vertical,
-                  physics: physics,
-                  shrinkWrap: shrinkWrap,
-                  primary: false,
-                  itemBuilder: (context, index) {
-                    return CheckoutItem(
-                      item: state.cartList[index],
-                    );
-                  }),
-            );
-          },
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: size.width < _mobile ? 0 : 20,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Total Amount:',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              BlocBuilder<CartBloc, CartState>(
-                builder: (context, state) {
-                  return Text(
-                    "\$${state.subTotal.toStringAsFixed(2)}",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                    ),
+      ),
+      BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          return SliverPadding(
+            padding: const EdgeInsets.only(
+              top: 20.0,
+              right: 15,
+            ),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return CheckoutItem(
+                    item: state.cartList[index],
                   );
                 },
+                childCount: state.cartList.length,
               ),
-            ],
-          ),
-        ),
-      ],
-    );
+            ),
+          );
+        },
+      ),
+    ];
   }
 
   showAlertDialog(BuildContext context) {

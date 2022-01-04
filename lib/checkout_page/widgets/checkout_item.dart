@@ -7,38 +7,37 @@ class CheckoutItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 120,
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 15,
+      ),
       child: Row(
         // crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Image.network(
             'https://image.tmdb.org/t/p/w185/${item.image}',
             height: 90,
             width: 70,
           ),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Text(
-                item.title,
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
+          const SizedBox(width: 8.0),
+          Expanded(
+            child: Text(
+              item.title,
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
+          // const Spacer(),
           Padding(
-            padding: const EdgeInsets.only(
-              top: 8.0,
-            ),
+            padding: const EdgeInsets.only(left: 12.0),
             child: Text(
               "\$" + item.price.toString(),
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.right,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
