@@ -52,7 +52,7 @@ class ConfirmButton extends StatelessWidget {
                 ),
               ],
             ),
-            onPressed: () => state.status.isValidated
+            onPressed: state.status.isValidated
                 ? () => context.read<CheckoutBloc>().add(CheckoutSubmitted())
                 : null,
           ),

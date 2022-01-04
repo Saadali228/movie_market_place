@@ -22,7 +22,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     final name = Name.dirty(event.name);
     emit(
       state.copyWith(
-        name: name.valid ? name : Name.pure(event.name),
+        name: name,
         status: Formz.validate([
           name,
           state.number,
@@ -40,7 +40,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     final number = Number.dirty(event.number);
     emit(
       state.copyWith(
-        number: number.valid ? number : Number.pure(event.number),
+        number: number,
         status: Formz.validate([
           state.name,
           number,
@@ -58,7 +58,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     final address = Address.dirty(event.address);
     emit(
       state.copyWith(
-        address: address.valid ? address : Address.pure(event.address),
+        address: address,
         status: Formz.validate([
           state.name,
           state.number,
@@ -77,8 +77,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     final postalCode = PostalCode.dirty(event.postalCode);
     emit(
       state.copyWith(
-        postalCode:
-            postalCode.valid ? postalCode : PostalCode.pure(event.postalCode),
+        postalCode: postalCode,
         status: Formz.validate([
           state.name,
           state.number,
@@ -97,8 +96,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     final creditCard = CreditCard.dirty(event.creditCard);
     emit(
       state.copyWith(
-        creditCard:
-            creditCard.valid ? creditCard : CreditCard.pure(event.creditCard),
+        creditCard: creditCard,
         status: Formz.validate([
           state.name,
           state.number,
@@ -116,7 +114,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     final cvv = Cvv.dirty(event.cvv);
     emit(
       state.copyWith(
-        cvv: cvv.valid ? cvv : Cvv.pure(event.cvv),
+        cvv: cvv,
         status: Formz.validate([
           state.name,
           state.number,
@@ -134,7 +132,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     final expiry = Expiry.dirty(event.expiry);
     emit(
       state.copyWith(
-        expiry: expiry.valid ? expiry : Expiry.pure(event.expiry),
+        expiry: expiry,
         status: Formz.validate([
           state.name,
           state.number,

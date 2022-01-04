@@ -7,7 +7,7 @@ class PostalCode extends FormzInput<String, PostalCodeValidationError> {
   const PostalCode.dirty([String value = '']) : super.dirty(value);
 
   static final _postalCodeRegex = RegExp(
-    r'(^(?:[+0]9)?[0-9]{10,12}$)',
+    r'(^(?:[+0]9)?[0-9]{5,7}$)',
   );
 
   @override

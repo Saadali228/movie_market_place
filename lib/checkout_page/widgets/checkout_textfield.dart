@@ -7,7 +7,7 @@ class CheckoutTextField extends StatelessWidget {
     required this.error,
     required this.initialValue,
     required this.onChanged,
-    this.obsec,
+    this.obsecure,
     this.width,
   }) : super(key: key);
 
@@ -15,7 +15,7 @@ class CheckoutTextField extends StatelessWidget {
   final String? error;
   final String? initialValue;
   final Function(String)? onChanged;
-  final bool? obsec;
+  final bool? obsecure;
   final double? width;
 
   @override
@@ -32,7 +32,7 @@ class CheckoutTextField extends StatelessWidget {
           style: const TextStyle(
             color: Colors.white,
           ),
-          obscureText: obsec ?? false,
+          obscureText: obsecure ?? false,
           decoration: InputDecoration(
             isDense: true,
             hintStyle: const TextStyle(

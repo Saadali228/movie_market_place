@@ -80,10 +80,7 @@ class CheckOutScreen extends StatelessWidget {
                   listener: (context, state) {
                     if (state.status.isSubmissionSuccess) {
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      showDialog<void>(
-                        context: context,
-                        builder: (_) => showAlertDialog(context),
-                      );
+                      showAlertDialog(context);
                     }
                     if (state.status.isSubmissionInProgress) {
                       ScaffoldMessenger.of(context)

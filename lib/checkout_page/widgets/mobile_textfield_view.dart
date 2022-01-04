@@ -86,7 +86,7 @@ class MobileFieldsView extends StatelessWidget {
             CheckoutTextField(
               name: "CVV",
               width: mWidth,
-              obsec: true,
+              obsecure: true,
               initialValue: state.cvv.value,
               error: state.cvv.invalid
                   ? 'Please ensure the CVV entered is valid!'
@@ -100,7 +100,7 @@ class MobileFieldsView extends StatelessWidget {
               width: mWidth,
               initialValue: state.expiry.value,
               error: state.expiry.invalid
-                  ? 'Please ensure the Expiry entered is valid!'
+                  ? 'Expiry Date can not be empty!'
                   : null,
               onChanged: (value) {
                 context.read<CheckoutBloc>().add(ExpiryChanged(expiry: value));

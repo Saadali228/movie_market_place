@@ -97,7 +97,7 @@ class WebFieldsView extends StatelessWidget {
               children: [
                 CheckoutTextField(
                   name: "CVV",
-                  obsec: true,
+                  obsecure: true,
                   initialValue: state.cvv.value,
                   error: state.cvv.invalid
                       ? 'Please ensure the CVV entered is valid!'
@@ -111,7 +111,7 @@ class WebFieldsView extends StatelessWidget {
                   name: "Expiry",
                   initialValue: state.expiry.value,
                   error: state.expiry.invalid
-                      ? 'Please ensure the Expiry entered is valid!'
+                      ? 'Expiry Date can not be empty!'
                       : null,
                   onChanged: (value) {
                     context
