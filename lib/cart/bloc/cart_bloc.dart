@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 
@@ -19,7 +21,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         if (state.cartList.isEmpty) {
           final _cartList = await cartRepository.getCartProducts();
           emit(
-            state.copyWith(cartList: _cartList, cartStatus: CartStatus.loaded),
+            state.copyWith(
+              cartList: _cartList,
+              cartStatus: CartStatus.loaded,
+              subTotal: calculateTotal(_cartList),
+            ),
           );
         } else {
           emit(
@@ -38,7 +44,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         if (state.cartList.isEmpty) {
           final _cartList = await cartRepository.getCartProducts();
           emit(
-            state.copyWith(cartList: _cartList, cartStatus: CartStatus.loaded),
+            state.copyWith(
+              cartList: _cartList,
+              cartStatus: CartStatus.loaded,
+              subTotal: calculateTotal(_cartList),
+            ),
           );
         } else {
           emit(
@@ -59,7 +69,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           newCartList.add(event.product);
           emit(
             state.copyWith(
-                cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
+              cartList: newCartList,
+              addToCartStatus: AddToCartStatus.loaded,
+              subTotal: calculateTotal(newCartList),
+            ),
           );
         } else if (state.cartList
             .any((element) => element.id == event.product.id)) {
@@ -78,39 +91,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           newCartList.add(event.product);
           emit(
             state.copyWith(
-                cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
+              cartList: newCartList,
+              addToCartStatus: AddToCartStatus.loaded,
+              subTotal: calculateTotal(newCartList),
+            ),
           );
         }
       } catch (_) {
         emit(state.copyWith(addToCartStatus: AddToCartStatus.error));
-      }
-    });
-
-    on<IncrementQuantity>((event, emit) async {
-      try {
-        await cartRepository.incrementCartProduct(event.product);
-        final newCartList = state.cartList;
-        int index = newCartList.indexOf(event.product);
-        newCartList[index] = event.product;
-        emit(
-          state.copyWith(cartList: newCartList, cartStatus: CartStatus.loaded),
-        );
-      } catch (_) {
-        emit(state.copyWith(cartStatus: CartStatus.error));
-      }
-    });
-
-    on<DecrementQuantity>((event, emit) async {
-      try {
-        await cartRepository.decrementCartProduct(event.product);
-        final newCartList = state.cartList;
-        int index = newCartList.indexOf(event.product);
-        newCartList[index] = event.product;
-        emit(
-          state.copyWith(cartList: newCartList, cartStatus: CartStatus.loaded),
-        );
-      } catch (_) {
-        emit(state.copyWith(cartStatus: CartStatus.error));
       }
     });
 
@@ -123,6 +111,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           state.copyWith(
             cartList: newCartList,
             deleteFromCartStatus: DeleteFromCartStatus.loaded,
+            subTotal: calculateTotal(newCartList),
           ),
         );
       } catch (_) {
@@ -155,8 +144,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         state.copyWith(
           cartStatus: CartStatus.initial,
           cartList: [],
+          subTotal: 0.0,
         ),
       );
     });
+  }
+  double calculateTotal(List<CartRepoModel> cartList) {
+    var ans = 0.0;
+    for (var element in cartList) {
+      ans += element.price;
+    }
+    return ans;
   }
 }

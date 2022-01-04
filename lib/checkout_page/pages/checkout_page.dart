@@ -165,14 +165,6 @@ class CheckOutScreen extends StatelessWidget {
     );
   }
 
-  num subTotal(BuildContext context) {
-    num ans = 0;
-    for (var element in context.read<CartBloc>().state.cartList) {
-      ans += element.price;
-    }
-    return ans;
-  }
-
   Widget checkoutItemsList(
       ScrollPhysics physics, bool shrinkWrap, BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -235,13 +227,17 @@ class CheckOutScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                "\$${subTotal(context).toString()}",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  return Text(
+                    "\$${state.subTotal.toStringAsFixed(2)}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  );
+                },
               ),
             ],
           ),
