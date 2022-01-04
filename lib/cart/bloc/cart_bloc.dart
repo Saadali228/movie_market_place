@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 
@@ -16,10 +17,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         state.copyWith(cartStatus: CartStatus.loading),
       );
       try {
-        if (state.cartList == null) {
+        if (state.cartList.isEmpty) {
           final _cartList = await cartRepository.getCartProducts();
           emit(
-            state.copyWith(cartList: _cartList, cartStatus: CartStatus.loaded),
+            state.copyWith(
+              cartList: _cartList,
+              cartStatus: CartStatus.loaded,
+              subTotal: calculateTotal(_cartList),
+            ),
           );
         } else {
           emit(
@@ -35,10 +40,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         state.copyWith(cartStatus: CartStatus.loading),
       );
       try {
-        if (state.cartList == null) {
+        if (state.cartList.isEmpty) {
           final _cartList = await cartRepository.getCartProducts();
           emit(
-            state.copyWith(cartList: _cartList, cartStatus: CartStatus.loaded),
+            state.copyWith(
+              cartList: _cartList,
+              cartStatus: CartStatus.loaded,
+              subTotal: calculateTotal(_cartList),
+            ),
           );
         } else {
           emit(
@@ -53,15 +62,18 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<AddProduct>((event, emit) async {
       try {
         await cartRepository.addToCart(event.product);
-        if (state.cartList == null) {
+        if (state.cartList.isEmpty) {
           List<CartRepoModel> newCartList = [];
           // state.cartList!.map((e) => newCartList.add(e)).toList();
           newCartList.add(event.product);
           emit(
             state.copyWith(
-                cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
+              cartList: newCartList,
+              addToCartStatus: AddToCartStatus.loaded,
+              subTotal: calculateTotal(newCartList),
+            ),
           );
-        } else if (state.cartList!
+        } else if (state.cartList
             .any((element) => element.id == event.product.id)) {
           final newCartList = state.cartList;
           // int index = newCartList.indexWhere((e) => event.product.id == e.id);
@@ -74,11 +86,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           );
         } else {
           List<CartRepoModel> newCartList = [];
-          state.cartList!.map((e) => newCartList.add(e)).toList();
+          state.cartList.map((e) => newCartList.add(e)).toList();
           newCartList.add(event.product);
           emit(
             state.copyWith(
-                cartList: newCartList, addToCartStatus: AddToCartStatus.loaded),
+              cartList: newCartList,
+              addToCartStatus: AddToCartStatus.loaded,
+              subTotal: calculateTotal(newCartList),
+            ),
           );
         }
       } catch (_) {
@@ -86,43 +101,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
     });
 
-    on<IncrementQuantity>((event, emit) async {
-      try {
-        await cartRepository.incrementCartProduct(event.product);
-        final newCartList = state.cartList;
-        int index = newCartList!.indexOf(event.product);
-        newCartList[index] = event.product;
-        emit(
-          state.copyWith(cartList: newCartList, cartStatus: CartStatus.loaded),
-        );
-      } catch (_) {
-        emit(state.copyWith(cartStatus: CartStatus.error));
-      }
-    });
-
-    on<DecrementQuantity>((event, emit) async {
-      try {
-        await cartRepository.decrementCartProduct(event.product);
-        final newCartList = state.cartList;
-        int index = newCartList!.indexOf(event.product);
-        newCartList[index] = event.product;
-        emit(
-          state.copyWith(cartList: newCartList, cartStatus: CartStatus.loaded),
-        );
-      } catch (_) {
-        emit(state.copyWith(cartStatus: CartStatus.error));
-      }
-    });
-
     on<DeleteProduct>((event, emit) async {
       try {
         await cartRepository.deleteProductFromCart(event.product);
         final newCartList = state.cartList;
-        newCartList!.removeWhere((e) => e.id == event.product.id);
+        newCartList.removeWhere((e) => e.id == event.product.id);
         emit(
           state.copyWith(
             cartList: newCartList,
             deleteFromCartStatus: DeleteFromCartStatus.loaded,
+            subTotal: calculateTotal(newCartList),
           ),
         );
       } catch (_) {
@@ -155,8 +143,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         state.copyWith(
           cartStatus: CartStatus.initial,
           cartList: [],
+          subTotal: 0.0,
         ),
       );
     });
+  }
+  double calculateTotal(List<CartRepoModel> cartList) {
+    var ans = 0.0;
+    for (var element in cartList) {
+      ans += element.price;
+    }
+    return ans;
   }
 }

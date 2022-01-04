@@ -11,7 +11,7 @@ import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'cart/data_layer/cart_data_layer.dart';
-import 'cart/pages/check_out.dart';
+import 'checkout_page/pages/checkout_page.dart';
 
 void main() {
   setPathUrlStrategy();

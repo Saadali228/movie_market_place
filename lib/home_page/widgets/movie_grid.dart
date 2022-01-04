@@ -4,7 +4,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart'
     as a;
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
-import 'package:movie_market_place/cart/pages/check_out.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
@@ -34,17 +33,21 @@ class _MovieGridState extends State<MovieGrid> {
   @override
   Widget build(BuildContext context) {
     List<CartRepoModel> movieCartModel =
-        context.watch<CartBloc>().state.cartList ?? [];
+        context.watch<CartBloc>().state.cartList;
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
         return AnimationLimiter(
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.width <= mobile ? 30 : 20,
-              left: 40,
-              right: 40,
-            ),
+          child: RawScrollbar(
+            thumbColor: Colors.deepPurple,
+            radius: const Radius.circular(25),
+            isAlwaysShown: true,
+            controller: _scrollController,
             child: GridView.builder(
+                padding: const EdgeInsets.only(
+                  top: 60,
+                  left: 40,
+                  right: 40,
+                ),
                 physics: const BouncingScrollPhysics(),
                 controller: _scrollController,
                 itemCount: state.movieList.length,

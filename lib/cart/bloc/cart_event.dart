@@ -17,22 +17,6 @@ class AddProduct extends CartEvent {
   List<Object?> get props => [];
 }
 
-class IncrementQuantity extends CartEvent {
-  final CartRepoModel product;
-  final bool isAdd;
-  IncrementQuantity({required this.product, this.isAdd = true});
-  @override
-  List<Object?> get props => [];
-}
-
-class DecrementQuantity extends CartEvent {
-  final CartRepoModel product;
-  final bool isAdd;
-  DecrementQuantity({required this.product, this.isAdd = false});
-  @override
-  List<Object?> get props => [];
-}
-
 class DeleteProduct extends CartEvent {
   final CartRepoModel product;
   DeleteProduct(this.product);

@@ -32,7 +32,7 @@ class TitleSubtitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CartRepoModel> movieCartModel =
-        context.watch<CartBloc>().state.cartList ?? [];
+        context.watch<CartBloc>().state.cartList;
     SizeConfig().init(context);
     return BlocListener<CartBloc, CartState>(
       listenWhen: (previous, current) =>

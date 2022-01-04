@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
-import 'package:movie_market_place/cart/pages/check_out.dart';
+import 'package:movie_market_place/checkout_page/pages/checkout_page.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/cart/widgets/cart_item.dart';
 import 'package:movie_market_place/home_page/widgets/dialog_box.dart';
@@ -27,7 +27,7 @@ class CartDrawer extends StatelessWidget {
                 return const _CartLoading();
               case CartStatus.loaded:
                 return _CartLoaded(
-                  cartList: state.cartList!,
+                  cartList: state.cartList,
                 );
               case CartStatus.error:
               default:
@@ -117,17 +117,6 @@ class _CartLoadedState extends State<_CartLoaded> {
       listenWhen: (previous, current) =>
           previous.deleteFromCartStatus != current.deleteFromCartStatus,
       listener: (context, state) {
-        // if (state.deleteFromCartStatus == DeleteFromCartStatus.loaded) {
-        //   showDialog(
-        //     context: context,
-        //     builder: (_) => const DialogBox(
-        //       title: 'Movie Removed from Cart',
-        //       icon: Icons.remove_circle_outline,
-        //       iconColor: Colors.red,
-        //     ),
-        //   );
-        //   context.read<CartBloc>().add(DeleteCartInitial());
-        // }
         if (state.deleteFromCartStatus == DeleteFromCartStatus.error) {
           showDialog(
             context: context,
