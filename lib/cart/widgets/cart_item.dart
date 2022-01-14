@@ -28,6 +28,16 @@ class CartItem extends StatelessWidget {
               child: Image.network(
                 'https://image.tmdb.org/t/p/w185/${item.image}',
                 height: 60,
+                // errorBuilder: (context, error, stackTrace) {
+                //   return Container(
+                //     height: 60,
+                //     color: Colors.white,
+                //     child: const Icon(
+                //       Icons.person,
+                //       color: Color(0xff322043),
+                //     ),
+                //   );
+                // },
               ),
             ),
             Expanded(
@@ -37,7 +47,7 @@ class CartItem extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 15.0),
+                      padding: const EdgeInsets.only(top: 25.0),
                       child: Text(
                         item.title,
                         textAlign: TextAlign.left,
