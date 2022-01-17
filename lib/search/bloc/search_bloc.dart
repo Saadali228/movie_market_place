@@ -23,9 +23,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             searchStatus: SearchStatus.loaded,
             query: event.text,
             searchItems: _searchItems,
+            subTotal: calculateTotal(_searchItems),
           ),
         );
       },
     );
+  }
+
+   double calculateTotal(SearchRepoModel searchItem) {
+    var ans = 0.0;
+    for (var element in searchItem.searchItems ?? []) {
+      ans += element.price ?? 0;
+    }
+    return ans;
   }
 }

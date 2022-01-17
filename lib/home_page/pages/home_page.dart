@@ -8,7 +8,7 @@ import 'package:movie_market_place/home_page/widgets/home_banner.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/movie_grid.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
-import 'package:movie_market_place/search/bloc/search_bloc.dart';
+import 'package:movie_market_place/search/pages/search_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -59,29 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 3 * SizeConfig.blockSizeHorizontal!,
               ),
               const LogoWidget(),
-              SizedBox(
-                width: 3 * SizeConfig.blockSizeHorizontal!,
-              ),
-              TextField(
-                controller: _textController,
-                autocorrect: false,
-                onChanged: (text) {
-                  BlocProvider.of<SearchBloc>(context).add(
-                    SearchItemsLoaded(text: text),
-                  );
-                },
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: GestureDetector(
-                    onTap: () => BlocProvider.of<SearchBloc>(context).add(
-                      SearchItemsLoaded(text: ''),
-                    ),
-                    child: const Icon(Icons.clear),
-                  ),
-                  border: InputBorder.none,
-                  hintText: 'Enter a search term',
-                ),
-              ),
+              // SizedBox(
+              //   width: 3 * SizeConfig.blockSizeHorizontal!,
+              // ),
+              const SearchPage(),
+              // SizedBox(
+              //   width: 3 * SizeConfig.blockSizeHorizontal!,
+              // ),              
             ],
           ),
           actions: [

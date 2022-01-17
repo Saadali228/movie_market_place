@@ -17,12 +17,12 @@ class SearchDataLayer {
       {
         'api_key': _apiKey,
         'query': query,
-        'include_adult': false,
+        'include_adult': false.toString(),
       },
     );
 
     final searchResponse = await _httpClient.get(searchRequest);
-
+    print(searchResponse.statusCode);
     if (searchResponse.statusCode != 200) {
       throw 'Item Request Failure';
     }

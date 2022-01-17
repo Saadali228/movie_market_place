@@ -21,7 +21,7 @@ class SearchPage extends StatelessWidget {
             return const _SearchLoading();
           case SearchStatus.loaded:
             return _SearchLoaded(
-              searchItems: state.searchItems,
+              searchItem: state.searchItems,
               query: state.query,
             );
           case SearchStatus.error:
@@ -60,15 +60,17 @@ class _SearchLoading extends StatelessWidget {
 
 class _SearchLoaded extends StatelessWidget {
   const _SearchLoaded(
-      {Key? key, required this.query, required this.searchItems})
+      {Key? key, required this.query, required this.searchItem})
       : super(key: key);
 
   final String? query;
-  final SearchRepoModel? searchItems;
+  final SearchRepoModel? searchItem;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<dynamic>(
+      menuMaxHeight: 150,
+      itemHeight: 120,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
         suffixIcon: GestureDetector(
@@ -91,11 +93,11 @@ class _SearchLoaded extends StatelessWidget {
       },
       onTap: () {},
       items: List.generate(
-        searchItems?.searchList?.length ?? 10,
+        searchItem?.searchItems?.length ?? 10,
         (index) {
           return DropdownMenuItem(
             child: DropDownItem(
-              searchItem: searchItems?.searchList?[index],
+              searchItem: searchItem?.searchItems?[index],
             ),
           );
         },

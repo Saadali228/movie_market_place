@@ -10,7 +10,7 @@ class SearchRepoLayer {
   Future<SearchRepoModel> searchMovies(String query) async {
     var _searchItems = await _searchDataLayer.searchMovies(query);
     return SearchRepoModel(
-      searchList: _searchItems.searchList
+      searchItems: _searchItems.searchList
           ?.map(
             (e) => SearchItemRepoModel(
               id: e.id,
