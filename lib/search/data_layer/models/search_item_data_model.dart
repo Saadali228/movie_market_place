@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class SearchRepoModel extends Equatable {
+class SearchItemDataModel extends Equatable {
   final int id;
   final String title;
   final String? image;
@@ -8,7 +8,7 @@ class SearchRepoModel extends Equatable {
   final String overview;
   final num? price;
 
-  const SearchRepoModel({
+  const SearchItemDataModel({
     required this.id,
     required this.title,
     required this.image,
@@ -17,8 +17,8 @@ class SearchRepoModel extends Equatable {
     required this.price,
   });
 
-  factory SearchRepoModel.fromJson(Map<String, dynamic> map) {
-    return SearchRepoModel(
+  factory SearchItemDataModel.fromJson(Map<String, dynamic> map) {
+    return SearchItemDataModel(
       id: map['id'],
       title: map['title'],
       image: map['backdrop_path'],

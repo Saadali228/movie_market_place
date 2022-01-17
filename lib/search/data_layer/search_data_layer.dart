@@ -10,13 +10,14 @@ class SearchDataLayer {
   static const _baseURL = 'api.themoviedb.org';
   static const _apiKey = '2e3196b2667f3f54ded1d98d15b5020d';
 
-  Future<List<SearchDataModel>> searchMovies(String query) async {
+  Future<SearchDataModel> searchMovies(String query) async {
     final searchRequest = Uri.https(
       _baseURL,
       '/3/search/movie',
       {
         'api_key': _apiKey,
         'query': query,
+        'include_adult': false,
       },
     );
 
@@ -32,15 +33,12 @@ class SearchDataLayer {
       throw 'Item Not Found Failure';
     }
 
-    final _searchJson = bodyJson['results'] as List;
+    final _searchJson = bodyJson['results'];
 
     if (_searchJson.isEmpty) {
       throw 'Item Not Found';
     }
 
-    final _searchItems =
-        _searchJson.map((e) => SearchDataModel.fromJson(e)).toList();
-
-    return _searchItems;
+    return SearchDataModel.fromJson(_searchJson);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:movie_market_place/search/repository_layer/models/search_repository_model.dart';
-import 'package:movie_market_place/search/repository_layer/search_repository_layer.dart';
+import 'package:movie_market_place/search/repository_layer/models/search_repo_model.dart';
+import 'package:movie_market_place/search/repository_layer/search_repo_layer.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
@@ -21,8 +21,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         emit(
           state.copyWith(
             searchStatus: SearchStatus.loaded,
+            query: event.text,
             searchItems: _searchItems,
-            query: state.query,
           ),
         );
       },
