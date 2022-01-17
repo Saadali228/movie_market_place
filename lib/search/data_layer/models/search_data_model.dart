@@ -29,5 +29,5 @@ class SearchDataModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id, title, image, poster, overview, price];
 }

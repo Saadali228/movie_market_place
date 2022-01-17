@@ -1,8 +1,8 @@
 part of 'search_bloc.dart';
 
-abstract class SearchEvent extends Equatable {
-  const SearchEvent();
+abstract class SearchEvent extends Equatable {}
 
+class SearchItemsLoaded extends SearchEvent {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
