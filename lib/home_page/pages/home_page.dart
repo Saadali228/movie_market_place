@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         RepositoryProvider.of(context),
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xff1F0C3F),
         appBar: AppBar(
           title: Row(

@@ -28,16 +28,16 @@ class CartItem extends StatelessWidget {
               child: Image.network(
                 'https://image.tmdb.org/t/p/w185/${item.image}',
                 height: 60,
-                // errorBuilder: (context, error, stackTrace) {
-                //   return Container(
-                //     height: 60,
-                //     color: Colors.white,
-                //     child: const Icon(
-                //       Icons.person,
-                //       color: Color(0xff322043),
-                //     ),
-                //   );
-                // },
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 60,
+                    color: Colors.white,
+                    child: const Icon(
+                      Icons.person,
+                      color: Color(0xff322043),
+                    ),
+                  );
+                },
               ),
             ),
             Expanded(

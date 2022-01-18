@@ -22,6 +22,7 @@ class MovieDataLayer {
       {
         'api_key': _apiKey,
         'page': page.toString(),
+        'include_adult': false.toString(),
       },
     );
     final movieResponse = await _httpClient.get(movieRequest);
