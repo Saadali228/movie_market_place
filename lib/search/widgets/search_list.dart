@@ -67,15 +67,24 @@ class _SearchLoaded extends StatelessWidget {
   Widget build(BuildContext context) {
     return searchItem!.searchList!.isEmpty
         ? const Text('No Movie Found')
-        : ListView.builder(
-            itemCount: searchItem?.searchList?.length ?? 10,
-            itemBuilder: (context, index) {
-              return Expanded(
-                child: SearchItem(
+        : Container(
+            height: 300,
+            decoration: const BoxDecoration(
+              color: Color(0xff14141c),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+            ),
+            child: ListView.builder(
+              padding: const EdgeInsets.all(0),
+              itemCount: searchItem?.searchList?.length ?? 10,
+              itemBuilder: (context, index) {
+                return SearchItem(
                   searchItem: searchItem?.searchList?[index],
-                ),
-              );
-            },
+                );
+              },
+            ),
           );
   }
 }

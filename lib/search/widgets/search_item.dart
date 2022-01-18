@@ -8,19 +8,19 @@ class SearchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      color: Colors.blue,
+    return SizedBox(
+      height: 150,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
             Image.network(
               'https://image.tmdb.org/t/p/w185/${searchItem?.poster}',
-              height: 90,
+              height: 120,
               errorBuilder: (context, error, stackTrace) {
                 return Container(
-                  height: 90,
+                  width: 60,
+                  height: 120,
                   color: Colors.white,
                   child: const Icon(
                     Icons.person,
@@ -30,36 +30,40 @@ class SearchItem extends StatelessWidget {
               },
             ),
             const SizedBox(width: 8.0),
-            Column(
-              children: [
-                Text(
-                  searchItem?.title ?? 'Unknown',
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    searchItem?.title ?? 'Unknown',
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  searchItem?.overview ?? 'An Amazing Movie',
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                  Text(
+                    searchItem?.overview ?? 'An Amazing Movie',
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-                Text(
-                  searchItem?.price?.toString() ?? 'Out of Stock',
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                  Text(
+                    searchItem?.price?.toString() ?? 'Out of Stock',
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

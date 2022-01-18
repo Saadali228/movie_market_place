@@ -14,33 +14,54 @@ class _SearchTextFieldState extends State<SearchTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      width: 150,
-      child: TextField(
-        controller: _textEditingController,
-        autocorrect: false,
-        onChanged: (text) {
-          BlocProvider.of<SearchBloc>(context).add(
-            SearchItemsLoaded(
-              text: text,
-            ),
-          );
-        },
-        decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.search),
-          suffixIcon: GestureDetector(
-            onTap: () {
-              _textEditingController.text = '';
-              BlocProvider.of<SearchBloc>(context).add(
+    return TextField(
+      controller: _textEditingController,
+      autocorrect: false,
+      style: const TextStyle(
+        color: Colors.white,
+      ),
+      onChanged: (text) {
+        BlocProvider.of<SearchBloc>(context).add(
+          SearchItemsLoaded(
+            text: text,
+          ),
+        );
+      },
+      decoration: InputDecoration(
+        hintStyle: const TextStyle(
+          color: Color(0xff3f3f3f),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            width: 2,
+            color: Color(0xff3f3f3f),
+          ),
+          borderRadius: BorderRadius.circular(
+            10,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            width: 2,
+            color: Colors.purple,
+          ),
+          borderRadius: BorderRadius.circular(
+            10,
+          ),
+        ),
+        prefixIcon: const Icon(
+          Icons.search,
+        ),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            _textEditingController.text = '';
+            BlocProvider.of<SearchBloc>(context).add(
               SearchItemsLoaded(text: ''),
             );
-            },
-            child: const Icon(Icons.clear),
-          ),
-          border: InputBorder.none,
-          hintText: 'Search!',
+          },
+          child: const Icon(Icons.clear),
         ),
+        hintText: 'Search!',
       ),
     );
   }

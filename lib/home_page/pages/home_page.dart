@@ -23,7 +23,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final PageController controller = PageController();
-  final _textController = TextEditingController();
 
   @override
   void initState() {
@@ -38,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _textController.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -51,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         RepositoryProvider.of(context),
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xff1F0C3F),
         appBar: AppBar(
           title: Row(
@@ -59,13 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 3 * SizeConfig.blockSizeHorizontal!,
               ),
               const LogoWidget(),
-              // SizedBox(
-              //   width: 3 * SizeConfig.blockSizeHorizontal!,
-              // ),
-              const SearchPage(),
-              // SizedBox(
-              //   width: 3 * SizeConfig.blockSizeHorizontal!,
-              // ),              
             ],
           ),
           actions: [
