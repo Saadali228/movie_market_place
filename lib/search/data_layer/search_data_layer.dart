@@ -22,23 +22,17 @@ class SearchDataLayer {
     );
 
     final searchResponse = await _httpClient.get(searchRequest);
-    print(searchResponse.statusCode);
+
     if (searchResponse.statusCode != 200) {
       throw 'Item Request Failure';
     }
 
-    final bodyJson = jsonDecode(searchResponse.body) as Map<String, dynamic>;
+    final decoded = jsonDecode(searchResponse.body) as Map<String, dynamic>;
 
-    if (bodyJson.isEmpty) {
+    if (decoded.isEmpty) {
       throw 'Item Not Found Failure';
     }
 
-    final _searchJson = bodyJson['results'];
-
-    if (_searchJson.isEmpty) {
-      throw 'Item Not Found';
-    }
-
-    return SearchDataModel.fromJson(_searchJson);
+    return SearchDataModel.fromJson(decoded);
   }
 }

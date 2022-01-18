@@ -12,29 +12,27 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this.searchRepoLayer) : super(const SearchState()) {
     on<SearchItemsLoaded>(
       (event, emit) async {
-        emit(
-          state.copyWith(
-            searchStatus: SearchStatus.loading,
-          ),
-        );
-        final _searchItems = await searchRepoLayer.searchMovies(state.query);
+        if (event.text.isEmpty) {
+          emit(
+            state.copyWith(
+              searchStatus: SearchStatus.initial,
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              searchStatus: SearchStatus.loading,
+            ),
+          );
+        }
+        final _searchItems = await searchRepoLayer.searchMovies(event.text);
         emit(
           state.copyWith(
             searchStatus: SearchStatus.loaded,
-            query: event.text,
             searchItems: _searchItems,
-            subTotal: calculateTotal(_searchItems),
           ),
         );
       },
     );
-  }
-
-   double calculateTotal(SearchRepoModel searchItem) {
-    var ans = 0.0;
-    for (var element in searchItem.searchItems ?? []) {
-      ans += element.price ?? 0;
-    }
-    return ans;
   }
 }
