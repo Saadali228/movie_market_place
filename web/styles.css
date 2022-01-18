@@ -3,6 +3,8 @@ body {
     height: 100%;
     width: 100%;
     background-color: #361F41;
+    /* background-color: #361F41; */
+    /* background-image: linear-gradient( #322043, #1F0C3F); */
 }
 
 .center {
