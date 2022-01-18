@@ -21,11 +21,13 @@ class _SearchTextFieldState extends State<SearchTextField> {
         color: Colors.white,
       ),
       onChanged: (text) {
-        BlocProvider.of<SearchBloc>(context).add(
-          SearchItemsLoaded(
-            text: text,
-          ),
-        );
+        text.length > 1
+            ? BlocProvider.of<SearchBloc>(context).add(
+                SearchItemsLoaded(
+                  text: text,
+                ),
+              )
+            : null;
       },
       decoration: InputDecoration(
         hintStyle: const TextStyle(
@@ -54,14 +56,14 @@ class _SearchTextFieldState extends State<SearchTextField> {
         ),
         suffixIcon: GestureDetector(
           onTap: () {
-            _textEditingController.text = '';
             BlocProvider.of<SearchBloc>(context).add(
               SearchItemsLoaded(text: ''),
             );
+            _textEditingController.text = '';
           },
           child: const Icon(Icons.clear),
         ),
-        hintText: 'Search!',
+        hintText: 'Search Your Movie',
       ),
     );
   }

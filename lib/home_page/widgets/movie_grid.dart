@@ -10,6 +10,8 @@ import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 import 'package:movie_market_place/search/pages/search_page.dart';
 
+double _mobile = 500;
+
 class MovieGrid extends StatefulWidget {
   const MovieGrid({
     Key? key,
@@ -33,13 +35,14 @@ class _MovieGridState extends State<MovieGrid> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     List<CartRepoModel> movieCartModel =
         context.watch<CartBloc>().state.cartList;
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.only(
-            top: 65,
+          padding: EdgeInsets.only(
+            top: size.width > _mobile ? 60 : 80,
             left: 40,
             right: 40,
           ),
