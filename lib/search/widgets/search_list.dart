@@ -37,7 +37,7 @@ class _SearchInitial extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        'Search Your Favourite Movie!',
+        '',
         style: TextStyle(fontSize: 12),
       ),
     );
@@ -71,9 +71,8 @@ class _SearchLoaded extends StatelessWidget {
             height: 300,
             decoration: const BoxDecoration(
               color: Color(0xff14141c),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
               ),
             ),
             child: ListView.builder(

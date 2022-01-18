@@ -8,7 +8,6 @@ import 'package:movie_market_place/home_page/widgets/home_banner.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/movie_grid.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
-import 'package:movie_market_place/search/pages/search_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({

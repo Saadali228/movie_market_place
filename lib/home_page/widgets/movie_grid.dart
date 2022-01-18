@@ -39,7 +39,7 @@ class _MovieGridState extends State<MovieGrid> {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(
-            top: 60,
+            top: 65,
             left: 40,
             right: 40,
           ),
@@ -48,7 +48,7 @@ class _MovieGridState extends State<MovieGrid> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SearchPage(),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               Expanded(
                 child: AnimationLimiter(
                   child: RawScrollbar(

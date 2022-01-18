@@ -45,8 +45,10 @@ class SearchItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    searchItem?.overview ?? 'An Amazing Movie',
+                    searchItem?.overview ?? 'No Overview',
                     textAlign: TextAlign.left,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
