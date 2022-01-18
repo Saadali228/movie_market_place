@@ -18,7 +18,7 @@ class MovieState extends Equatable {
   final int page;
   final PageLoader pageLoader;
   final MovieGenreRepoModel? selectedGenre;
-  final int selectedYear;
+  final int? selectedYear;
   // final ReleaseYearStatus releaseYearStatus;
   // final GenreStatus genreStatus;
 
@@ -27,8 +27,8 @@ class MovieState extends Equatable {
     this.movieList = const [],
     this.page = 1,
     this.pageLoader = PageLoader.initial,
-    this.selectedGenre = null,
-    this.selectedYear = 0,
+    this.selectedGenre,
+    this.selectedYear,
     // this.releaseYearStatus = ReleaseYearStatus.intial,
     // this.genreStatus = GenreStatus.intial,
   });
@@ -38,7 +38,7 @@ class MovieState extends Equatable {
     List<MovieRepoModel>? movieList,
     int? page,
     PageLoader? pageLoader,
-    final MovieGenreRepoModel? selectedGenre,
+    MovieGenreRepoModel? selectedGenre,
     int? selectedYear,
     // ReleaseYearStatus? releaseYearStatus,
     // GenreStatus? genreStatus,
@@ -56,12 +56,13 @@ class MovieState extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         movieStatus,
         movieList,
         page,
         pageLoader,
-        selectedGenre!,
+        selectedGenre,
+        selectedYear,
         // releaseYearStatus,
         // genreStatus
       ];

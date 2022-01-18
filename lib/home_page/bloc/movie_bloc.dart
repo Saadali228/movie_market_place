@@ -51,7 +51,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
         final movieRepoList = await movieRepository.getMoviesWithFilters(
             state.page,
-            year: state.selectedYear,
+            year: event.year,
             genre: state.selectedGenre);
         var page = state.page + 1;
         var stateMovies = state.movieList;
@@ -70,9 +70,10 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         ));
 
         final movieRepoList = await movieRepository.getMoviesWithFilters(
-            state.page,
-            year: state.selectedYear,
-            genre: state.selectedGenre);
+          state.page,
+          year: state.selectedYear,
+          genre: state.selectedGenre,
+        );
         var page = state.page + 1;
         var stateMovies = state.movieList;
         stateMovies.addAll(movieRepoList);

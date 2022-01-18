@@ -14,6 +14,8 @@ class MovieNextPageFetched extends MovieEvent {
 }
 
 class MovieSelectedReleaseYear extends MovieEvent {
+  MovieSelectedReleaseYear(this.year);
+  final int year;
   @override
   List<Object?> get props => [];
 }

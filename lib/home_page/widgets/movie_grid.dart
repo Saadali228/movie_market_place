@@ -24,15 +24,45 @@ class MovieGrid extends StatefulWidget {
 
 class _MovieGridState extends State<MovieGrid> {
   final _scrollController = ScrollController();
+  final List<String> numOfYears = [];
+  String dropDownValue = '2021';
+  // List<String> array = ['1', '2', '3', '2021'];
 
   @override
   void initState() {
     super.initState();
+    for (int i = 1990; i < 2022; i++) {
+      numOfYears.add('$i');
+    }
     _scrollController.addListener(_onScroll);
   }
 
   @override
   Widget build(BuildContext context) {
+    showAlertDialog(BuildContext context) {
+      Widget okButton = TextButton(
+        child: const Text("Go Back Home"),
+        onPressed: () {},
+      );
+      AlertDialog alert = AlertDialog(
+        title: const Text(
+          "Order Placed",
+        ),
+        content: const Text(
+          "Thanks for ordering",
+        ),
+        actions: [
+          okButton,
+        ],
+      );
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+
     List<CartRepoModel> movieCartModel =
         context.watch<CartBloc>().state.cartList;
     return BlocBuilder<MovieBloc, MovieState>(
@@ -48,6 +78,26 @@ class _MovieGridState extends State<MovieGrid> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SearchPage(),
+              DropdownButton(
+                onTap: () {
+                  BlocProvider.of<MovieBloc>(context)
+                      .add(MovieSelectedReleaseYear(int.parse(dropDownValue)));
+                },
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+                dropdownColor: Colors.purple,
+                value: dropDownValue,
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: numOfYears.map((String items) {
+                  return DropdownMenuItem(value: items, child: Text(items));
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    dropDownValue = newValue.toString();
+                  });
+                },
+              ),
               const SizedBox(height: 8),
               Expanded(
                 child: AnimationLimiter(
