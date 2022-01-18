@@ -31,7 +31,7 @@ body {
 
 /* Credits: https://tobiasahlin.com/spinkit/ */
 
-.sk-chase {
+/* .sk-chase {
     width: 40px;
     height: 40px;
     position: relative;
@@ -130,4 +130,4 @@ body {
     0% {
         transform: scale(1.0);
     }
-}
+} */
