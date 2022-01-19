@@ -13,7 +13,6 @@ class SearchList extends StatelessWidget {
       builder: (context, state) {
         switch (state.searchStatus) {
           case SearchStatus.initial:
-            // state.searchItems?.searchList?.isEmpty ?? 'Search!';
             return const _SearchInitial();
           case SearchStatus.loading:
             return const _SearchLoading();

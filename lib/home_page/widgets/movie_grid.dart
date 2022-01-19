@@ -49,9 +49,11 @@ class _MovieGridState extends State<MovieGrid> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SearchPage(),
-              const SizedBox(height: 20),
-               SortButton(scrollController: _scrollController,),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
+              SortButton(
+                scrollController: _scrollController,
+              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: AnimationLimiter(
                   child: RawScrollbar(
