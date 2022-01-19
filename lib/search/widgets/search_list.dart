@@ -45,7 +45,10 @@ class _SearchLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: CircularProgressIndicator(),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }
@@ -61,7 +64,17 @@ class _SearchLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return searchItem!.searchList!.isEmpty
-        ? const Text('No Movie Found')
+        ? const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'No Movie Found',
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
+                fontSize: 20.0,
+              ),
+            ),
+          )
         : Container(
             height: 300,
             decoration: const BoxDecoration(
