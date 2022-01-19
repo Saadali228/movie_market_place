@@ -7,6 +7,7 @@ import 'package:movie_market_place/home_page/widgets/cart_button.dart';
 import 'package:movie_market_place/home_page/widgets/home_banner.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/movie_grid.dart';
+import 'package:movie_market_place/home_page/widgets/search_button.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         RepositoryProvider.of(context),
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xff1F0C3F),
         appBar: AppBar(
           title: Row(
@@ -59,6 +61,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           actions: [
+            controller.hasClients && controller.page != 0
+                ? Container()
+                : SearchButton(
+                    onTap: () => controller.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    ),
+                  ),
+            SizedBox(
+              width: 1 * SizeConfig.blockSizeHorizontal!,
+            ),
             Builder(builder: (context) {
               return CartButton(
                 onTap: () {

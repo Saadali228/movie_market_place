@@ -9,6 +9,9 @@ import 'package:movie_market_place/detail_page/repository_layer/movie_detail_rep
 import 'package:movie_market_place/home_page/data_layer/movie_data_layer.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.dart';
+import 'package:movie_market_place/search/bloc/search_bloc.dart';
+import 'package:movie_market_place/search/data_layer/search_data_layer.dart';
+import 'package:movie_market_place/search/repository_layer/search_repo_layer.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'cart/data_layer/cart_data_layer.dart';
 import 'checkout_page/pages/checkout_page.dart';
@@ -22,12 +25,15 @@ void main() {
       MovieDetailRepoLayer(_movieDetailProvider);
   CartProvider _cartProvider = CartProvider();
   CartRepository cartRepository = CartRepository(_cartProvider);
+  SearchDataLayer _searchDataLayer = SearchDataLayer();
+  SearchRepoLayer searchRepository = SearchRepoLayer(_searchDataLayer);
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: movieRepository),
         RepositoryProvider.value(value: movieDetailRepository),
         RepositoryProvider.value(value: cartRepository),
+        RepositoryProvider.value(value: searchRepository),
       ],
       child: const MyApp(),
     ),
@@ -39,10 +45,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartBloc(
-        RepositoryProvider.of(context),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SearchBloc(
+            RepositoryProvider.of(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CartBloc(
+            RepositoryProvider.of(context),
+          ),
+        ),
+      ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Movie Mart',

@@ -8,6 +8,9 @@ import 'package:movie_market_place/cart/repository_layer/models/cart_repository_
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
+import 'package:movie_market_place/search/pages/search_page.dart';
+
+double _mobile = 500;
 
 class MovieGrid extends StatefulWidget {
   const MovieGrid({
@@ -32,89 +35,105 @@ class _MovieGridState extends State<MovieGrid> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     List<CartRepoModel> movieCartModel =
         context.watch<CartBloc>().state.cartList;
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
-        return AnimationLimiter(
-          child: RawScrollbar(
-            thumbColor: Colors.deepPurple,
-            radius: const Radius.circular(25),
-            isAlwaysShown: true,
-            controller: _scrollController,
-            child: GridView.builder(
-                padding: const EdgeInsets.only(
-                  top: 60,
-                  left: 40,
-                  right: 40,
-                ),
-                physics: const BouncingScrollPhysics(),
-                controller: _scrollController,
-                itemCount: state.movieList.length,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 400,
-                  childAspectRatio: 0.67,
-                  //crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemBuilder: (context, index) {
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    duration: const Duration(milliseconds: 300),
-                    child: SlideAnimation(
-                      child: a.FadeInAnimation(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 8.0,
-                            right: 8.0,
-                            bottom: 8.0,
-                          ),
-                          child: Stack(
-                            alignment: Alignment.topRight,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    DetailPage.detailPageRoute(
-                                        state.movieList[index].id),
-                                  );
-                                },
-                                child: Hero(
-                                  tag: state.movieList[index].id,
-                                  child: Image.network(
-                                    "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
-                                    width: 420.0,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: const Color(0xff322043),
-                                        alignment: Alignment.center,
-                                        child: const Icon(
-                                          Icons.person,
-                                          color: Colors.white,
+        return Padding(
+          padding: EdgeInsets.only(
+            top: size.width > _mobile ? 60 : 80,
+            left: 40,
+            right: 40,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SearchPage(),
+              const SizedBox(height: 20),
+              Expanded(
+                child: AnimationLimiter(
+                  child: RawScrollbar(
+                    thumbColor: Colors.deepPurple,
+                    radius: const Radius.circular(25),
+                    isAlwaysShown: true,
+                    controller: _scrollController,
+                    child: GridView.builder(
+                        padding: const EdgeInsets.all(0),
+                        physics: const BouncingScrollPhysics(),
+                        controller: _scrollController,
+                        itemCount: state.movieList.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 400,
+                          childAspectRatio: 0.67,
+                          //crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                        itemBuilder: (context, index) {
+                          return AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: const Duration(milliseconds: 300),
+                            child: SlideAnimation(
+                              child: a.FadeInAnimation(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 8.0,
+                                    right: 8.0,
+                                    bottom: 8.0,
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.topRight,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            DetailPage.detailPageRoute(
+                                                state.movieList[index].id),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: state.movieList[index].id,
+                                          child: Image.network(
+                                            "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
+                                            width: 420.0,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Container(
+                                                color: const Color(0xff322043),
+                                                alignment: Alignment.center,
+                                                child: const Icon(
+                                                  Icons.person,
+                                                  color: Colors.white,
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
-                                      );
-                                    },
+                                      ),
+                                      cartButton(
+                                        context,
+                                        state.movieList[index],
+                                        movieCartModel.contains(CartRepoModel(
+                                          id: state.movieList[index].id,
+                                          title: state.movieList[index].title!,
+                                          price: state.movieList[index].price!,
+                                          image: state.movieList[index].poster,
+                                        )),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                              cartButton(
-                                context,
-                                state.movieList[index],
-                                movieCartModel.contains(CartRepoModel(
-                                  id: state.movieList[index].id,
-                                  title: state.movieList[index].title!,
-                                  price: state.movieList[index].price!,
-                                  image: state.movieList[index].poster,
-                                )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }),
+                            ),
+                          );
+                        }),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
