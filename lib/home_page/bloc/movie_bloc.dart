@@ -21,10 +21,12 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         );
 
         final movieRepoList = await movieRepository.getMovies(state.page);
+        final genreRepoList = await movieRepository.getGenres();
         emit(state.copyWith(
           movieStatus: MovieStatus.loaded,
           movieList: movieRepoList,
-          page: state.page + 1,
+          page: state.page,
+          genreList: genreRepoList,
         ));
       },
     );
@@ -32,8 +34,8 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       (event, emit) async {
         emit(state.copyWith(pageLoader: PageLoader.loading));
 
-        final movieRepoList = await movieRepository.getMovies(state.page);
         var page = state.page + 1;
+        final movieRepoList = await movieRepository.getMovies(page);
         var stateMovies = state.movieList;
         stateMovies.addAll(movieRepoList);
         emit(state.copyWith(
@@ -49,17 +51,20 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
           pageLoader: PageLoader.loading,
         ));
 
-        final movieRepoList = await movieRepository.getMoviesWithFilters(
-            state.page,
-            year: event.year,
-            genre: state.selectedGenre);
-        var page = state.page + 1;
-        var stateMovies = state.movieList;
-        stateMovies.addAll(movieRepoList);
+        final movieRepoList = await movieRepository.getMovies(
+          state.page,
+          year: event.year,
+          genre: state.selectedGenre,
+        );
+        // var page = state.page + 1;
+        // var stateMovies = state.movieList;
+        // stateMovies.addAll(movieRepoList);
         emit(state.copyWith(
           pageLoader: PageLoader.loaded,
-          movieList: stateMovies,
-          page: page,
+          movieList: movieRepoList,
+          selectedYear: event.year,
+          selectedGenre: state.selectedGenre,
+          // page: page,
         ));
       },
     );
@@ -69,18 +74,19 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
           pageLoader: PageLoader.loading,
         ));
 
-        final movieRepoList = await movieRepository.getMoviesWithFilters(
+        final movieRepoList = await movieRepository.getMovies(
           state.page,
           year: state.selectedYear,
-          genre: state.selectedGenre,
+          genre: event.selectedGenre,
         );
-        var page = state.page + 1;
-        var stateMovies = state.movieList;
-        stateMovies.addAll(movieRepoList);
+        // var page = state.page + 1;
+        // var stateMovies = state.movieList;
+        // stateMovies.addAll(movieRepoList);
         emit(state.copyWith(
           pageLoader: PageLoader.loaded,
-          movieList: stateMovies,
-          page: page,
+          movieList: movieRepoList,
+          selectedYear: state.selectedYear,
+          selectedGenre: event.selectedGenre,
         ));
       },
     );

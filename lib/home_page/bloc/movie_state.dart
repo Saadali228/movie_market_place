@@ -19,6 +19,7 @@ class MovieState extends Equatable {
   final PageLoader pageLoader;
   final MovieGenreRepoModel? selectedGenre;
   final int? selectedYear;
+  final List<MovieGenreRepoModel>? genreList;
   // final ReleaseYearStatus releaseYearStatus;
   // final GenreStatus genreStatus;
 
@@ -29,6 +30,8 @@ class MovieState extends Equatable {
     this.pageLoader = PageLoader.initial,
     this.selectedGenre,
     this.selectedYear,
+    this.genreList,
+
     // this.releaseYearStatus = ReleaseYearStatus.intial,
     // this.genreStatus = GenreStatus.intial,
   });
@@ -40,6 +43,7 @@ class MovieState extends Equatable {
     PageLoader? pageLoader,
     MovieGenreRepoModel? selectedGenre,
     int? selectedYear,
+    List<MovieGenreRepoModel>? genreList,
     // ReleaseYearStatus? releaseYearStatus,
     // GenreStatus? genreStatus,
   }) {
@@ -50,6 +54,7 @@ class MovieState extends Equatable {
       pageLoader: pageLoader ?? this.pageLoader,
       selectedGenre: selectedGenre ?? this.selectedGenre,
       selectedYear: selectedYear ?? this.selectedYear,
+      genreList: genreList ?? this.genreList,
       // releaseYearStatus: releaseYearStatus ?? this.releaseYearStatus,
       // genreStatus: genreStatus ?? this.genreStatus,
     );
@@ -63,6 +68,7 @@ class MovieState extends Equatable {
         pageLoader,
         selectedGenre,
         selectedYear,
+        genreList,
         // releaseYearStatus,
         // genreStatus
       ];

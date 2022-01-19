@@ -7,6 +7,7 @@ import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
+import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_genre.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 import 'package:movie_market_place/search/pages/search_page.dart';
 
@@ -24,49 +25,57 @@ class MovieGrid extends StatefulWidget {
 
 class _MovieGridState extends State<MovieGrid> {
   final _scrollController = ScrollController();
-  final List<String> numOfYears = [];
-  String dropDownValue = '2021';
+  final List<int> numOfYears = [];
+  // String dropDownValue = '2021';
+  // String dropDownGenre = 'Action';
+  // late MovieGenreRepoModel selectedGenre;
+  // late int selectedId;
   // List<String> array = ['1', '2', '3', '2021'];
 
   @override
   void initState() {
     super.initState();
     for (int i = 1990; i < 2022; i++) {
-      numOfYears.add('$i');
+      numOfYears.add(i);
     }
     _scrollController.addListener(_onScroll);
   }
 
   @override
   Widget build(BuildContext context) {
-    showAlertDialog(BuildContext context) {
-      Widget okButton = TextButton(
-        child: const Text("Go Back Home"),
-        onPressed: () {},
-      );
-      AlertDialog alert = AlertDialog(
-        title: const Text(
-          "Order Placed",
-        ),
-        content: const Text(
-          "Thanks for ordering",
-        ),
-        actions: [
-          okButton,
-        ],
-      );
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alert;
-        },
-      );
-    }
+    // showAlertDialog(BuildContext context) {
+    //   Widget okButton = TextButton(
+    //     child: const Text("Go Back Home"),
+    //     onPressed: () {},
+    //   );
+    //   AlertDialog alert = AlertDialog(
+    //     title: const Text(
+    //       "Order Placed",
+    //     ),
+    //     content: const Text(
+    //       "Thanks for ordering",
+    //     ),
+    //     actions: [
+    //       okButton,
+    //     ],
+    //   );
+    //   showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return alert;
+    //     },
+    //   );
+    // }
 
     List<CartRepoModel> movieCartModel =
         context.watch<CartBloc>().state.cartList;
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
+        List<String> genreList = [];
+        //= state.genreList;
+        for (int i = 0; i < state.genreList!.length; i++) {
+          genreList.add(state.genreList![i].name);
+        }
         return Padding(
           padding: const EdgeInsets.only(
             top: 65,
@@ -78,25 +87,78 @@ class _MovieGridState extends State<MovieGrid> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SearchPage(),
-              DropdownButton(
-                onTap: () {
-                  BlocProvider.of<MovieBloc>(context)
-                      .add(MovieSelectedReleaseYear(int.parse(dropDownValue)));
-                },
-                style: const TextStyle(
-                  color: Colors.white,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Filter by',
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: DropdownButton<int>(
+                        // onTap: () {
+                        //   print('tappd');
+
+                        //   if (dropDownValue != null) {
+
+                        //   }
+                        // },
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        dropdownColor: Colors.purple,
+                        value: state.selectedYear,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: numOfYears.map((items) {
+                          return DropdownMenuItem(
+                              value: items, child: Text(items.toString()));
+                        }).toList(),
+                        onChanged: (newValue) {
+                          // setState(() {
+                          //   dropDownValue = newValue.toString();
+                          // });
+                          if (newValue != null) {
+                            print('sent');
+                            BlocProvider.of<MovieBloc>(context).add(
+                              MovieSelectedReleaseYear(
+                                newValue,
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    DropdownButton(
+                      onTap: () {
+                        // print('tappd');
+                      },
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      dropdownColor: Colors.purple,
+                      value: state.selectedGenre?.name,
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      items: genreList.map((String items) {
+                        return DropdownMenuItem(
+                            value: items, child: Text(items));
+                      }).toList(),
+                      onChanged: (newValue) {
+                        final dropDownGenre = newValue.toString();
+                        final selectedGenre = state.genreList!.firstWhere(
+                            (element) => element.name == dropDownGenre);
+                        BlocProvider.of<MovieBloc>(context)
+                            .add(MovieGenre(selectedGenre));
+                      },
+                    ),
+                  ],
                 ),
-                dropdownColor: Colors.purple,
-                value: dropDownValue,
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items: numOfYears.map((String items) {
-                  return DropdownMenuItem(value: items, child: Text(items));
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    dropDownValue = newValue.toString();
-                  });
-                },
               ),
               const SizedBox(height: 8),
               Expanded(

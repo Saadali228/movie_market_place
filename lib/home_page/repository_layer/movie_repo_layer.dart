@@ -7,8 +7,13 @@ class MovieRepoLayer {
 
   MovieRepoLayer(this._dataProvider);
 
-  Future<List<MovieRepoModel>> getMovies(int page) async {
-    var _moviesList = await _dataProvider.getMovies(page);
+  Future<List<MovieRepoModel>> getMovies(
+    int page, {
+    int? year,
+    MovieGenreRepoModel? genre,
+  }) async {
+    var _moviesList =
+        await _dataProvider.getMovies(page, year: year, genre: genre);
     return _moviesList
         .map(
           (e) => MovieRepoModel(
@@ -23,27 +28,39 @@ class MovieRepoLayer {
         .toList();
   }
 
-  Future<List<MovieRepoModel>> getMoviesWithFilters(
-    int page, {
-    int? year,
-    MovieGenreRepoModel? genre,
-  }) async {
-    var _moviesList = await _dataProvider.getMoviesWithFilter(
-      page,
-      year: year,
-      genre: genre,
-    );
+  Future<List<MovieGenreRepoModel>> getGenres() async {
+    var _moviesList = await _dataProvider.getGenres();
     return _moviesList
         .map(
-          (e) => MovieRepoModel(
+          (e) => MovieGenreRepoModel(
             id: e.id,
-            title: e.title,
-            image: e.image,
-            poster: e.poster,
-            overview: e.overview,
-            price: e.price,
+            name: e.name,
           ),
         )
         .toList();
   }
+
+//   Future<List<MovieRepoModel>> getMoviesWithFilters(
+//     int page, {
+//     int? year,
+//     MovieGenreRepoModel? genre,
+//   }) async {
+//     var _moviesList = await _dataProvider.getMoviesWithFilter(
+//       page,
+//       year: year,
+//       genre: genre,
+//     );
+//     return _moviesList
+//         .map(
+//           (e) => MovieRepoModel(
+//             id: e.id,
+//             title: e.title,
+//             image: e.image,
+//             poster: e.poster,
+//             overview: e.overview,
+//             price: e.price,
+//           ),
+//         )
+//         .toList();
+//   }
 }

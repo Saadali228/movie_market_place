@@ -21,6 +21,8 @@ class MovieSelectedReleaseYear extends MovieEvent {
 }
 
 class MovieGenre extends MovieEvent {
+  MovieGenre(this.selectedGenre);
+  final MovieGenreRepoModel selectedGenre;
   @override
   List<Object?> get props => [];
 }
