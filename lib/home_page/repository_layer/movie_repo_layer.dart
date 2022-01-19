@@ -6,8 +6,8 @@ class MovieRepoLayer {
 
   MovieRepoLayer(this._dataProvider);
 
-  Future<List<MovieRepoModel>> getMovies(int page) async {
-    var _moviesList = await _dataProvider.getMovies(page);
+  Future<List<MovieRepoModel>> getMovies(int page, String? sort) async {
+    var _moviesList = await _dataProvider.getMovies(page, sort);
     return _moviesList
         .map(
           (e) => MovieRepoModel(

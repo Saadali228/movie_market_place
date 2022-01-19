@@ -28,7 +28,9 @@ class _HomeBannerState extends State<HomeBanner> {
       builder: (context, state) {
         switch (state.movieStatus) {
           case MovieStatus.initial:
-            context.read<MovieBloc>().add(MovieFetched());
+            context.read<MovieBloc>().add(
+                  MovieFetched(),
+                );
             return const _MovieInitial();
           case MovieStatus.loading:
             return const _MovieLoading();

@@ -8,6 +8,7 @@ import 'package:movie_market_place/cart/repository_layer/models/cart_repository_
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
+import 'package:movie_market_place/home_page/widgets/sort_button.dart';
 import 'package:movie_market_place/search/pages/search_page.dart';
 
 class MovieGrid extends StatefulWidget {
@@ -48,6 +49,8 @@ class _MovieGridState extends State<MovieGrid> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SearchPage(),
+              const SizedBox(height: 20),
+               SortButton(scrollController: _scrollController,),
               const SizedBox(height: 20),
               Expanded(
                 child: AnimationLimiter(

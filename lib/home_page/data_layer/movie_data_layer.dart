@@ -14,7 +14,8 @@ class MovieDataLayer {
   static const _baseURL = 'api.themoviedb.org';
   static const _apiKey = '2e3196b2667f3f54ded1d98d15b5020d';
 
-  Future<List<MovieDataModel>> getMovies(int page) async {
+  Future<List<MovieDataModel>> getMovies(int page, String? sortBy) async {
+   String sort = (sortBy != null) ? '$sortBy.desc' : 'popularity.desc';
     final movieRequest = Uri.https(
       _baseURL,
       '/3/discover/movie',
@@ -22,6 +23,7 @@ class MovieDataLayer {
         'api_key': _apiKey,
         'page': page.toString(),
         'include_adult': false.toString(),
+        'sort_by': sort,
       },
     );
     final movieResponse = await _httpClient.get(movieRequest);
