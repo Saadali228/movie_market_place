@@ -30,13 +30,14 @@ class _SearchTextFieldState extends State<SearchTextField> {
             : null;
       },
       decoration: InputDecoration(
+        isDense: true,
         hintStyle: const TextStyle(
-          color: Color(0xff3f3f3f),
+          color: Colors.grey,
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             width: 2,
-            color: Color(0xff3f3f3f),
+            color: Colors.grey,
           ),
           borderRadius: BorderRadius.circular(
             10,
@@ -45,7 +46,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             width: 2,
-            color: Colors.purple,
+            color: Colors.white,
           ),
           borderRadius: BorderRadius.circular(
             10,
@@ -53,15 +54,20 @@ class _SearchTextFieldState extends State<SearchTextField> {
         ),
         prefixIcon: const Icon(
           Icons.search,
+          color: Colors.grey,
         ),
-        suffixIcon: GestureDetector(
+        suffixIcon: InkWell(
+          borderRadius: BorderRadius.circular(20),
           onTap: () {
             BlocProvider.of<SearchBloc>(context).add(
               SearchItemsLoaded(text: ''),
             );
             _textEditingController.text = '';
           },
-          child: const Icon(Icons.clear),
+          child: const Icon(
+            Icons.clear,
+            color: Colors.grey,
+          ),
         ),
         hintText: 'Search Your Movie',
       ),

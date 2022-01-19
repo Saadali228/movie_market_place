@@ -35,12 +35,7 @@ class _SearchInitial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        '',
-        style: TextStyle(fontSize: 12),
-      ),
-    );
+    return Container();
   }
 }
 

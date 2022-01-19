@@ -61,11 +61,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           actions: [
-           controller.hasClients && controller.page != 0 ? Container() : SearchButton(
-              onTap: () => controller.nextPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOut,
-              ),
+            controller.hasClients && controller.page != 0
+                ? Container()
+                : SearchButton(
+                    onTap: () => controller.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    ),
+                  ),
+            SizedBox(
+              width: 1 * SizeConfig.blockSizeHorizontal!,
             ),
             Builder(builder: (context) {
               return CartButton(
