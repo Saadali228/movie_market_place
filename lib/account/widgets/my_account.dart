@@ -19,20 +19,19 @@ class MyAccount extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20.0),
-        Wrap(
-          alignment: WrapAlignment.start,
-          spacing: 20,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             AccountGrid(
               heading: 'Personal Profile',
               title: 'Khizr Farooqui',
-              subTitle: 'khizr_farooqui@hotmail.com',
+              subTitle: 'khizr.farooqui@venturedive.com',
             ),
             AccountGrid(
               heading: 'Address Book',
               title: 'Khizr Farooqui',
               subTitle:
-                  'House#B-215, Block 13D-1, Gulshan-e-Iqbal, Karachi Sindh - Karachi - Gulshan-e-Iqbal - Block 13 (+92) 3362209062',
+                  'Dilkusha Forum, 12th Floor, Tariq Rd, Delhi CHS PECHS, Karachi, Karachi City, Sindh',
             ),
           ],
         ),

@@ -6,7 +6,6 @@ import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';
 
-double _tablet = 900;
 double _mobile = 700;
 
 class AccountPage extends StatefulWidget {
@@ -29,14 +28,16 @@ class _AccountPageState extends State<AccountPage> {
         body: Row(
           children: [
             NavigationRail(
-              leading: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              leading: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (MediaQuery.of(context).size.width < _mobile)
                     IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(
                         Icons.arrow_back,
+                        color: Colors.white,
+                        size: 20,
                       ),
                     ),
                   InkWell(
@@ -48,7 +49,13 @@ class _AccountPageState extends State<AccountPage> {
                             .pushReplacementNamed(HomeScreen.homePageRoute);
                       }
                     },
-                    child: const LogoWidget(),
+                    child: SizeConfig.screenWidth! > _mobile
+                        ? const LogoWidget()
+                        : const Icon(
+                            Icons.movie,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                   ),
                 ],
               ),
@@ -99,15 +106,17 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: _selectedIndex == 0
-                  ? const MyAccount()
-                  : _selectedIndex == 1
-                      ? Container()
-                      : _selectedIndex == 2
-                          ? const AddressBook()
-                          : Container(),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: _selectedIndex == 0
+                    ? const MyAccount()
+                    : _selectedIndex == 1
+                        ? Container()
+                        : _selectedIndex == 2
+                            ? const AddressBook()
+                            : Container(),
+              ),
             ),
           ],
         ),

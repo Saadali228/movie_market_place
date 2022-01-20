@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:movie_market_place/account/widgets/account_grid.dart';
-// import 'package:movie_market_place/home_page/pages/home_page.dart';
-// import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
-// import 'package:movie_market_place/home_page/widgets/size_config.dart';
-// import 'package:movie_market_place/utils/constants.dart';
-
-double _tablet = 900;
-double _mobile = 700;
 
 class AddressBook extends StatelessWidget {
-  // static const addressBookPageRoute = '/address-book';
   const AddressBook({Key? key}) : super(key: key);
+
   Widget buildColumn(msg1, msg2) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
