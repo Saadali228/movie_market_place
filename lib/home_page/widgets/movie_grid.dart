@@ -65,31 +65,28 @@ class _MovieGridState extends State<MovieGrid> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SearchPage(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 60,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Filter by',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
+                    DropdownButtonHideUnderline(
                       child: DropdownButton<int>(
+                        elevation: 0,
+                        icon: const Icon(Icons.date_range),
+                        iconDisabledColor: Colors.grey,
+                        iconEnabledColor: Colors.white,
+                        iconSize: 20.0,
+                        // isExpanded: true,
+                        borderRadius: BorderRadius.circular(20.0),
+                        dropdownColor: const Color(0xff14141c),
                         style: const TextStyle(
                           color: Colors.white,
-                        ),
-                        dropdownColor: const Color(0xff14141c),
-                        borderRadius: BorderRadius.circular(
-                          20,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
                         ),
                         value: state.selectedYear ?? 2022,
-                        icon: const Icon(Icons.keyboard_arrow_down),
                         items: numOfYears.map((items) {
                           return DropdownMenuItem(
                               value: items, child: Text(items.toString()));
@@ -105,38 +102,43 @@ class _MovieGridState extends State<MovieGrid> {
                         },
                       ),
                     ),
-                    DropdownButton(
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        20,
-                      ),
-                      dropdownColor: const Color(0xff14141c),
-                      value: state.selectedGenre?.name ?? 'Any',
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      items: genreList.map((String items) {
-                        return DropdownMenuItem(
-                            value: items, child: Text(items));
-                      }).toList(),
-                      onChanged: (newValue) {
-                        final dropDownGenre = newValue.toString();
-                        if (newValue != 'Any') {
-                          final selectedGenre = state.genreList!.firstWhere(
-                              (element) => element.name == dropDownGenre);
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        elevation: 0,
+                        icon: const Icon(Icons.category),
+                        iconDisabledColor: Colors.grey,
+                        iconEnabledColor: Colors.white,
+                        iconSize: 20.0,
+                        // isExpanded: true,
+                        borderRadius: BorderRadius.circular(20.0),
+                        dropdownColor: const Color(0xff14141c),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        value: state.selectedGenre?.name ?? 'Any',
+                        items: genreList.map((String items) {
+                          return DropdownMenuItem(
+                              value: items, child: Text(items));
+                        }).toList(),
+                        onChanged: (newValue) {
+                          final dropDownGenre = newValue.toString();
+                          if (newValue != 'Any') {
+                            final selectedGenre = state.genreList!.firstWhere(
+                                (element) => element.name == dropDownGenre);
 
-                          BlocProvider.of<MovieBloc>(context)
-                              .add(MovieGenre(selectedGenre));
-                        }
-                      },
+                            BlocProvider.of<MovieBloc>(context)
+                                .add(MovieGenre(selectedGenre));
+                          }
+                        },
+                      ),
+                    ),
+                    SortButton(
+                      scrollController: _scrollController,
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 8),
-              const SizedBox(height: 10),
-              SortButton(
-                scrollController: _scrollController,
               ),
               const SizedBox(height: 10),
               Expanded(

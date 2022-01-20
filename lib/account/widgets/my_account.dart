@@ -109,8 +109,8 @@ class MyAccount extends StatelessWidget {
                       ),
                       textColumn(
                         'Total',
-                        'Rs. 699',
-                        'Rs. 999',
+                        '\$73',
+                        '\$84',
                       ),
                     ],
                   ),

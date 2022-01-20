@@ -19,7 +19,7 @@ class SortButton extends StatelessWidget {
             iconDisabledColor: Colors.grey,
             iconEnabledColor: Colors.white,
             iconSize: 20.0,
-            isExpanded: true,
+            // isExpanded: true,
             borderRadius: BorderRadius.circular(20.0),
             dropdownColor: const Color(0xff14141c),
             value: state.sortBy,
