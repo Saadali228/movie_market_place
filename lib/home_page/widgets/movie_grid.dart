@@ -7,7 +7,6 @@ import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
-import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_genre.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 import 'package:movie_market_place/home_page/widgets/sort_button.dart';
 import 'package:movie_market_place/search/pages/search_page.dart';
@@ -84,7 +83,10 @@ class _MovieGridState extends State<MovieGrid> {
                         style: const TextStyle(
                           color: Colors.white,
                         ),
-                        dropdownColor: Colors.purple,
+                        dropdownColor: const Color(0xff14141c),
+                        borderRadius: BorderRadius.circular(
+                          20,
+                        ),
                         value: state.selectedYear,
                         icon: const Icon(Icons.keyboard_arrow_down),
                         items: numOfYears.map((items) {
@@ -92,7 +94,6 @@ class _MovieGridState extends State<MovieGrid> {
                               value: items, child: Text(items.toString()));
                         }).toList(),
                         onChanged: (newValue) {
-                          print(numOfYears);
                           if (newValue != null) {
                             BlocProvider.of<MovieBloc>(context).add(
                               MovieSelectedReleaseYear(
@@ -104,13 +105,13 @@ class _MovieGridState extends State<MovieGrid> {
                       ),
                     ),
                     DropdownButton(
-                      onTap: () {
-                        // print('tappd');
-                      },
                       style: const TextStyle(
                         color: Colors.white,
                       ),
-                      dropdownColor: Colors.purple,
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                      dropdownColor: const Color(0xff14141c),
                       value: state.selectedGenre?.name ?? 'Any',
                       icon: const Icon(Icons.keyboard_arrow_down),
                       items: genreList.map((String items) {

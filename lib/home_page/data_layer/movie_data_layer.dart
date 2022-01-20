@@ -22,11 +22,17 @@ class MovieDataLayer {
   //   int? year,
   //   MovieGenreRepoModel? genre,
   // }) async {
-  Future<List<MovieDataModel>> getMovies(int page, String? sortBy, 
+  Future<List<MovieDataModel>> getMovies(
+    int page,
+    String? sortBy,
     int? year,
     MovieGenreRepoModel? genre,
   ) async {
-   String sort = (sortBy != null) ? '$sortBy.desc' : 'popularity.desc';
+    if (sortBy == 'rating') {
+      sortBy = 'vote_average';
+    }
+    String sort = (sortBy != null) ? '$sortBy.desc' : 'popularity.desc';
+
     final movieRequest = Uri.https(
       _baseURL,
       '/3/discover/movie',
