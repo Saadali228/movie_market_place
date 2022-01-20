@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_market_place/account/pages/my_account.dart';
+import 'package:movie_market_place/account/pages/account_page.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/pages/cart_page.dart';
-import 'package:movie_market_place/checkout_page/pages/checkout_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/widgets/account_button.dart';
 import 'package:movie_market_place/home_page/widgets/cart_button.dart';
@@ -79,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MyAccount.myAccountPageRoute,
+                  AccountPage.accountPageRoute,
                 );
               },
             ),
