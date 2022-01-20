@@ -114,7 +114,7 @@ class _MovieGridState extends State<MovieGrid> {
                           color: Colors.white,
                         ),
                         dropdownColor: Colors.purple,
-                        value: state.selectedYear,
+                        value: state.selectedYear ?? 1990,
                         icon: const Icon(Icons.keyboard_arrow_down),
                         items: numOfYears.map((items) {
                           return DropdownMenuItem(
@@ -143,7 +143,7 @@ class _MovieGridState extends State<MovieGrid> {
                         color: Colors.white,
                       ),
                       dropdownColor: Colors.purple,
-                      value: state.selectedGenre?.name,
+                      value: state.selectedGenre?.name ?? 'Action',
                       icon: const Icon(Icons.keyboard_arrow_down),
                       items: genreList.map((String items) {
                         return DropdownMenuItem(
