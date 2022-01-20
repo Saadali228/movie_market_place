@@ -39,6 +39,7 @@ class _MovieGridState extends State<MovieGrid> {
     for (int i = 1990; i < 2022; i++) {
       numOfYears.add(i);
     }
+    numOfYears.add(2022);
     _scrollController.addListener(_onScroll);
   }
 
@@ -87,7 +88,7 @@ class _MovieGridState extends State<MovieGrid> {
                         borderRadius: BorderRadius.circular(
                           20,
                         ),
-                        value: state.selectedYear,
+                        value: state.selectedYear ?? 2022,
                         icon: const Icon(Icons.keyboard_arrow_down),
                         items: numOfYears.map((items) {
                           return DropdownMenuItem(

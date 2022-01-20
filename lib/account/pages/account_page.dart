@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_market_place/account/pages/address_book.dart';
 import 'package:movie_market_place/account/widgets/my_account.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
@@ -105,7 +106,7 @@ class _AccountPageState extends State<AccountPage> {
                   : _selectedIndex == 1
                       ? Container()
                       : _selectedIndex == 2
-                          ? Container()
+                          ? const AddressBook()
                           : Container(),
             ),
           ],
