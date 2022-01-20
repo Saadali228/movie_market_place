@@ -35,6 +35,7 @@ class _MovieGridState extends State<MovieGrid> {
   @override
   void initState() {
     super.initState();
+    // numOfYears.add('Any');
     for (int i = 1990; i < 2022; i++) {
       numOfYears.add(i);
     }
@@ -43,36 +44,12 @@ class _MovieGridState extends State<MovieGrid> {
 
   @override
   Widget build(BuildContext context) {
-    // showAlertDialog(BuildContext context) {
-    //   Widget okButton = TextButton(
-    //     child: const Text("Go Back Home"),
-    //     onPressed: () {},
-    //   );
-    //   AlertDialog alert = AlertDialog(
-    //     title: const Text(
-    //       "Order Placed",
-    //     ),
-    //     content: const Text(
-    //       "Thanks for ordering",
-    //     ),
-    //     actions: [
-    //       okButton,
-    //     ],
-    //   );
-    //   showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return alert;
-    //     },
-    //   );
-    // }
-
     List<CartRepoModel> movieCartModel =
         context.watch<CartBloc>().state.cartList;
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
         List<String> genreList = [];
-        //= state.genreList;
+        genreList.add('Any');
         for (int i = 0; i < state.genreList!.length; i++) {
           genreList.add(state.genreList![i].name);
         }
@@ -103,32 +80,22 @@ class _MovieGridState extends State<MovieGrid> {
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
                       child: DropdownButton<int>(
-                        // onTap: () {
-                        //   print('tappd');
-
-                        //   if (dropDownValue != null) {
-
-                        //   }
-                        // },
                         style: const TextStyle(
                           color: Colors.white,
                         ),
                         dropdownColor: Colors.purple,
-                        value: state.selectedYear ?? 1990,
+                        value: state.selectedYear,
                         icon: const Icon(Icons.keyboard_arrow_down),
                         items: numOfYears.map((items) {
                           return DropdownMenuItem(
                               value: items, child: Text(items.toString()));
                         }).toList(),
                         onChanged: (newValue) {
-                          // setState(() {
-                          //   dropDownValue = newValue.toString();
-                          // });
+                          print(numOfYears);
                           if (newValue != null) {
-                            print('sent');
                             BlocProvider.of<MovieBloc>(context).add(
                               MovieSelectedReleaseYear(
-                                newValue,
+                                int.parse(newValue.toString()),
                               ),
                             );
                           }
@@ -143,7 +110,7 @@ class _MovieGridState extends State<MovieGrid> {
                         color: Colors.white,
                       ),
                       dropdownColor: Colors.purple,
-                      value: state.selectedGenre?.name ?? 'Action',
+                      value: state.selectedGenre?.name ?? 'Any',
                       icon: const Icon(Icons.keyboard_arrow_down),
                       items: genreList.map((String items) {
                         return DropdownMenuItem(
@@ -151,10 +118,13 @@ class _MovieGridState extends State<MovieGrid> {
                       }).toList(),
                       onChanged: (newValue) {
                         final dropDownGenre = newValue.toString();
-                        final selectedGenre = state.genreList!.firstWhere(
-                            (element) => element.name == dropDownGenre);
-                        BlocProvider.of<MovieBloc>(context)
-                            .add(MovieGenre(selectedGenre));
+                        if (newValue != 'Any') {
+                          final selectedGenre = state.genreList!.firstWhere(
+                              (element) => element.name == dropDownGenre);
+
+                          BlocProvider.of<MovieBloc>(context)
+                              .add(MovieGenre(selectedGenre));
+                        }
                       },
                     ),
                   ],
