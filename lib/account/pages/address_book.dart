@@ -7,15 +7,13 @@ import 'package:movie_market_place/utils/constants.dart';
 double _tablet = 900;
 double _mobile = 700;
 
-class MyAccount extends StatelessWidget {
-  static const myAccountPageRoute = '/my-account';
-  const MyAccount({Key? key}) : super(key: key);
+class AddressBook extends StatelessWidget {
+  static const addressBookPageRoute = '/address-book';
+  const AddressBook({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    double mHeight = MediaQuery.of(context).size.height;
-    double mWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: backgroundGradient,
       child: Scaffold(
@@ -58,17 +56,15 @@ class MyAccount extends StatelessWidget {
           child: Column(
             children: [
               const Text(
-                'Manage My Account',
+                'Address Book',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 25,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Container(
-                // color: const Color(0xff361F41),
-                color: Colors.red,
-                child: Text('ss'),
+              Row(
+                children: [],
               ),
             ],
           ),

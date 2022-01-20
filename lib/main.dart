@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_market_place/account/pages/address_book.dart';
 import 'package:movie_market_place/account/pages/my_account.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
@@ -89,6 +90,12 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 settings: settings,
                 builder: (context) => const MyAccount(),
+              );
+            }
+            if (settingsUri.path == "/address-book") {
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (context) => const AddressBook(),
               );
             }
             if (settingsUri.path == "/checkout") {
