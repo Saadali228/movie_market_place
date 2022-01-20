@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SearchButton extends StatelessWidget {
-  const SearchButton({Key? key, required this.onTap}) : super(key: key);
+class AccountButton extends StatelessWidget {
+  const AccountButton({Key? key, required this.onTap}) : super(key: key);
 
   final Function() onTap;
 
@@ -10,11 +10,11 @@ class SearchButton extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomLeft,
       child: FloatingActionButton.small(
-        heroTag: "fab2",
+        heroTag: "fab3",
         elevation: 0,
         onPressed: onTap,
         child: const Icon(
-          Icons.search,
+          Icons.person,
           size: 18.0,
         ),
       ),

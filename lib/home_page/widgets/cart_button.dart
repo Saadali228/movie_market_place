@@ -18,6 +18,7 @@ class CartButton extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           children: [
             FloatingActionButton.small(
+              heroTag: "fab1",
               elevation: 0,
               onPressed: onTap,
               child: const Icon(
