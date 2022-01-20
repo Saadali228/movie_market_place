@@ -26,3 +26,11 @@ class MovieGenre extends MovieEvent {
   @override
   List<Object?> get props => [];
 }
+class SortedMoviesFetched extends MovieEvent {
+  SortedMoviesFetched({required this.sort});
+
+  final SortBy sort;
+
+  @override
+  List<Object?> get props => [sort];
+}

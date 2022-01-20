@@ -20,28 +20,42 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
           ),
         );
 
-        final movieRepoList = await movieRepository.getMovies(state.page);
+        final movieRepoList =
+            await movieRepository.getMovies(state.page, null, null, null);
         final genreRepoList = await movieRepository.getGenres();
         emit(state.copyWith(
           movieStatus: MovieStatus.loaded,
           movieList: movieRepoList,
-          page: state.page,
+          // page: state.page,
           genreList: genreRepoList,
+          sortBy: state.sortBy,
         ));
       },
     );
+    // final movieRepoList = await movieRepository.getMovies(state.page, null);
+    // emit(state.copyWith(
+    //   movieStatus: MovieStatus.loaded,
+    //   movieList: movieRepoList,
+    //   //  page: state.page,
+    //   sortBy: state.sortBy,
+    // ));
+    //   },
+    // );
+
     on<MovieNextPageFetched>(
       (event, emit) async {
         emit(state.copyWith(pageLoader: PageLoader.loading));
 
         var page = state.page + 1;
-        final movieRepoList = await movieRepository.getMovies(page);
+        final movieRepoList =
+            await movieRepository.getMovies(page, null, null, null);
         var stateMovies = state.movieList;
         stateMovies.addAll(movieRepoList);
         emit(state.copyWith(
           pageLoader: PageLoader.loaded,
           movieList: stateMovies,
           page: page,
+          sortBy: state.sortBy,
         ));
       },
     );
@@ -53,8 +67,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
         final movieRepoList = await movieRepository.getMovies(
           state.page,
-          year: event.year,
-          genre: state.selectedGenre,
+          null,
+          event.year,
+          state.selectedGenre,
         );
         // var page = state.page + 1;
         // var stateMovies = state.movieList;
@@ -68,26 +83,53 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         ));
       },
     );
-    on<MovieGenre>(
+    on<MovieGenre>((event, emit) async {
+      emit(state.copyWith(
+        pageLoader: PageLoader.loading,
+      ));
+
+      final movieRepoList = await movieRepository.getMovies(
+        state.page,
+        null,
+        state.selectedYear,
+        event.selectedGenre,
+      );
+      // var page = state.page + 1;
+      // var stateMovies = state.movieList;
+      // stateMovies.addAll(movieRepoList);
+      emit(state.copyWith(
+        pageLoader: PageLoader.loaded,
+        movieList: movieRepoList,
+        selectedYear: state.selectedYear,
+        selectedGenre: event.selectedGenre,
+      ));
+    });
+
+    on<SortedMoviesFetched>(
       (event, emit) async {
-        emit(state.copyWith(
-          pageLoader: PageLoader.loading,
-        ));
+        emit(
+          state.copyWith(
+            movieStatus: MovieStatus.loading,
+          ),
+        );
 
         final movieRepoList = await movieRepository.getMovies(
           state.page,
-          year: state.selectedYear,
-          genre: event.selectedGenre,
+          event.sort.name,
+          state.selectedYear,
+          state.selectedGenre,
         );
-        // var page = state.page + 1;
-        // var stateMovies = state.movieList;
-        // stateMovies.addAll(movieRepoList);
-        emit(state.copyWith(
-          pageLoader: PageLoader.loaded,
-          movieList: movieRepoList,
-          selectedYear: state.selectedYear,
-          selectedGenre: event.selectedGenre,
-        ));
+
+        emit(
+          state.copyWith(
+            movieStatus: MovieStatus.loaded,
+            movieList: movieRepoList,
+            page: state.page,
+            sortBy: event.sort,
+            selectedYear: state.selectedYear,
+            selectedGenre: state.selectedGenre,
+          ),
+        );
       },
     );
   }

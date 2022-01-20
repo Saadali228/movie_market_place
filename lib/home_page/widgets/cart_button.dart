@@ -18,10 +18,11 @@ class CartButton extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           children: [
             FloatingActionButton.small(
+              elevation: 0,
               onPressed: onTap,
               child: const Icon(
                 Icons.shopping_cart_rounded,
-                size: 16.0,
+                size: 18.0,
               ),
             ),
             if (state.cartList.isNotEmpty)

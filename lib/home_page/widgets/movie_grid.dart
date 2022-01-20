@@ -9,6 +9,7 @@ import 'package:movie_market_place/detail_page/pages/detail_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_genre.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
+import 'package:movie_market_place/home_page/widgets/sort_button.dart';
 import 'package:movie_market_place/search/pages/search_page.dart';
 
 class MovieGrid extends StatefulWidget {
@@ -55,7 +56,7 @@ class _MovieGridState extends State<MovieGrid> {
         }
         return Padding(
           padding: const EdgeInsets.only(
-            top: 65,
+            top: 80,
             left: 40,
             right: 40,
           ),
@@ -131,6 +132,11 @@ class _MovieGridState extends State<MovieGrid> {
                 ),
               ),
               const SizedBox(height: 8),
+              const SizedBox(height: 10),
+              SortButton(
+                scrollController: _scrollController,
+              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: AnimationLimiter(
                   child: RawScrollbar(

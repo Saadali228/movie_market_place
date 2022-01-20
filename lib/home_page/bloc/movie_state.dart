@@ -12,10 +12,13 @@ enum PageLoader {
   loaded,
 }
 
+enum SortBy { popularity, release, rating }
+
 class MovieState extends Equatable {
   final MovieStatus movieStatus;
   final List<MovieRepoModel> movieList;
   final int page;
+  final SortBy sortBy;
   final PageLoader pageLoader;
   final MovieGenreRepoModel? selectedGenre;
   final int? selectedYear;
@@ -27,6 +30,7 @@ class MovieState extends Equatable {
     this.movieStatus = MovieStatus.initial,
     this.movieList = const [],
     this.page = 1,
+    this.sortBy = SortBy.popularity,
     this.pageLoader = PageLoader.initial,
     this.selectedGenre,
     this.selectedYear,
@@ -40,6 +44,7 @@ class MovieState extends Equatable {
     MovieStatus? movieStatus,
     List<MovieRepoModel>? movieList,
     int? page,
+    SortBy? sortBy,
     PageLoader? pageLoader,
     MovieGenreRepoModel? selectedGenre,
     int? selectedYear,
@@ -51,6 +56,7 @@ class MovieState extends Equatable {
       movieList: movieList ?? this.movieList,
       movieStatus: movieStatus ?? this.movieStatus,
       page: page ?? this.page,
+      sortBy: sortBy ?? this.sortBy,
       pageLoader: pageLoader ?? this.pageLoader,
       selectedGenre: selectedGenre ?? this.selectedGenre,
       selectedYear: selectedYear ?? this.selectedYear,
@@ -65,6 +71,7 @@ class MovieState extends Equatable {
         movieStatus,
         movieList,
         page,
+        sortBy,
         pageLoader,
         selectedGenre,
         selectedYear,

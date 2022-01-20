@@ -24,14 +24,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               searchStatus: SearchStatus.loading,
             ),
           );
+          final _searchItems = await searchRepoLayer.searchMovies(event.text);
+          emit(
+            state.copyWith(
+              searchStatus: SearchStatus.loaded,
+              searchItems: _searchItems,
+            ),
+          );
         }
-        final _searchItems = await searchRepoLayer.searchMovies(event.text);
-        emit(
-          state.copyWith(
-            searchStatus: SearchStatus.loaded,
-            searchItems: _searchItems,
-          ),
-        );
       },
     );
   }
