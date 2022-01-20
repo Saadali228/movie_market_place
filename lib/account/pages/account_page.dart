@@ -26,6 +26,8 @@ class _AccountPageState extends State<AccountPage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             NavigationRail(
               leading: Column(
@@ -106,17 +108,15 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ],
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: _selectedIndex == 0
-                    ? const MyAccount()
-                    : _selectedIndex == 1
-                        ? Container()
-                        : _selectedIndex == 2
-                            ? const AddressBook()
-                            : Container(),
-              ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: _selectedIndex == 0
+                  ? const MyAccount()
+                  : _selectedIndex == 1
+                      ? Container()
+                      : _selectedIndex == 2
+                          ? const AddressBook()
+                          : Container(),
             ),
           ],
         ),

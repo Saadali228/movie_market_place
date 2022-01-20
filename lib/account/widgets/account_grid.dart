@@ -18,8 +18,8 @@ class AccountGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width > _tablet ? 350 : 275,
-      height: 200,
+      width: size.width > _tablet ? 400 : 275,
+      height: 160,
       child: Card(
         color: const Color(0xff361F41),
         shape: RoundedRectangleBorder(
@@ -36,7 +36,7 @@ class AccountGrid extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 8.0),
@@ -44,7 +44,7 @@ class AccountGrid extends StatelessWidget {
                 title,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -52,7 +52,7 @@ class AccountGrid extends StatelessWidget {
                 subTitle,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
               ),
