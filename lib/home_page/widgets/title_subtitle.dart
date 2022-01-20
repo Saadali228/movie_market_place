@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/widgets/animator_widget.dart';
 import 'package:flutter_animator/widgets/fading_entrances/fade_in_up.dart';
@@ -172,6 +171,18 @@ class TitleSubtitle extends StatelessWidget {
                                     ),
                                     child: Image.network(
                                       "https://image.tmdb.org/t/p/w500/${BlocProvider.of<MovieBloc>(context).state.movieList[index].image}",
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Container(
+                                          height: 60,
+                                          width: 200,
+                                          color: Colors.white,
+                                          child: const Icon(
+                                            Icons.person,
+                                            color: Color(0xff322043),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),
@@ -221,52 +232,52 @@ class TitleSubtitle extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       child: !inCart
           ? ElevatedButton.icon(
-        key: const Key('1'),
-        onPressed: () {
-          if (!inCart) {
-            context.read<CartBloc>().add(
-              AddProduct(
-                CartRepoModel(
-                  id: movie.id,
-                  title: movie.title!,
-                  price: movie.price!,
-                  image: movie.poster!,
-                ),
+              key: const Key('1'),
+              onPressed: () {
+                if (!inCart) {
+                  context.read<CartBloc>().add(
+                        AddProduct(
+                          CartRepoModel(
+                            id: movie.id,
+                            title: movie.title!,
+                            price: movie.price!,
+                            image: movie.poster!,
+                          ),
+                        ),
+                      );
+                }
+              },
+              icon: const Icon(Icons.add),
+              label: const Text("BUY NOW"),
+              style: const ButtonStyle(
+                backgroundColor: null,
               ),
-            );
-          }
-        },
-        icon: const Icon(Icons.add),
-        label: const Text("BUY NOW"),
-        style: const ButtonStyle(
-          backgroundColor: null,
-        ),
-      )
+            )
           : ElevatedButton.icon(
-        key: const Key('2'),
-        onPressed: () {
-          if (!inCart) {
-            context.read<CartBloc>().add(
-              AddProduct(
-                CartRepoModel(
-                  id: movie.id,
-                  title: movie.title!,
-                  price: movie.price!,
-                  image: movie.poster!,
-                  // qty: movieList[index].id,
-                  // totalPrice: 1 * movieList[index].id +
-                  //     Random().nextDouble(),
-                ),
+              key: const Key('2'),
+              onPressed: () {
+                if (!inCart) {
+                  context.read<CartBloc>().add(
+                        AddProduct(
+                          CartRepoModel(
+                            id: movie.id,
+                            title: movie.title!,
+                            price: movie.price!,
+                            image: movie.poster!,
+                            // qty: movieList[index].id,
+                            // totalPrice: 1 * movieList[index].id +
+                            //     Random().nextDouble(),
+                          ),
+                        ),
+                      );
+                }
+              },
+              icon: const Icon(Icons.check),
+              label: const Text("ADDED"),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
-            );
-          }
-        },
-        icon: const Icon(Icons.check),
-        label: const Text("ADDED"),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.green),
-        ),
-      ),
+            ),
     );
   }
 }

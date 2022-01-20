@@ -25,10 +25,20 @@ class MovieGrid extends StatefulWidget {
 
 class _MovieGridState extends State<MovieGrid> {
   final _scrollController = ScrollController();
+  final List<int> numOfYears = [];
+  // String dropDownValue = '2021';
+  // String dropDownGenre = 'Action';
+  // late MovieGenreRepoModel selectedGenre;
+  // late int selectedId;
+  // List<String> array = ['1', '2', '3', '2021'];
 
   @override
   void initState() {
     super.initState();
+    // numOfYears.add('Any');
+    for (int i = 1990; i < 2022; i++) {
+      numOfYears.add(i);
+    }
     _scrollController.addListener(_onScroll);
   }
 
@@ -38,6 +48,11 @@ class _MovieGridState extends State<MovieGrid> {
         context.watch<CartBloc>().state.cartList;
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
+        List<String> genreList = [];
+        genreList.add('Any');
+        for (int i = 0; i < state.genreList!.length; i++) {
+          genreList.add(state.genreList![i].name);
+        }
         return Padding(
           padding: const EdgeInsets.only(
             top: 80,
@@ -49,6 +64,75 @@ class _MovieGridState extends State<MovieGrid> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SearchPage(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Filter by',
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: DropdownButton<int>(
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        dropdownColor: const Color(0xff14141c),
+                        borderRadius: BorderRadius.circular(
+                          20,
+                        ),
+                        value: state.selectedYear,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: numOfYears.map((items) {
+                          return DropdownMenuItem(
+                              value: items, child: Text(items.toString()));
+                        }).toList(),
+                        onChanged: (newValue) {
+                          if (newValue != null) {
+                            BlocProvider.of<MovieBloc>(context).add(
+                              MovieSelectedReleaseYear(
+                                int.parse(newValue.toString()),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    DropdownButton(
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                      dropdownColor: const Color(0xff14141c),
+                      value: state.selectedGenre?.name ?? 'Any',
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      items: genreList.map((String items) {
+                        return DropdownMenuItem(
+                            value: items, child: Text(items));
+                      }).toList(),
+                      onChanged: (newValue) {
+                        final dropDownGenre = newValue.toString();
+                        if (newValue != 'Any') {
+                          final selectedGenre = state.genreList!.firstWhere(
+                              (element) => element.name == dropDownGenre);
+
+                          BlocProvider.of<MovieBloc>(context)
+                              .add(MovieGenre(selectedGenre));
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
               const SizedBox(height: 10),
               SortButton(
                 scrollController: _scrollController,
