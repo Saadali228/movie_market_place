@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_market_place/account/pages/address_book.dart';
 import 'package:movie_market_place/account/pages/my_account.dart';
+import 'package:movie_market_place/account/pages/account_page.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
 import 'package:movie_market_place/detail_page/data_layer/movie_detail_data_layer.dart';
@@ -86,18 +87,18 @@ class MyApp extends StatelessWidget {
                 builder: (context) => DetailPage(id: movieId!),
               );
             }
-            if (settingsUri.path == "/my-account") {
+            if (settingsUri.path == "/account") {
               return MaterialPageRoute(
                 settings: settings,
-                builder: (context) => const MyAccount(),
+                builder: (context) => const AccountPage(),
               );
             }
-            if (settingsUri.path == "/address-book") {
-              return MaterialPageRoute(
-                settings: settings,
-                builder: (context) => const AddressBook(),
-              );
-            }
+            // if (settingsUri.path == "/address-book") {
+            //   return MaterialPageRoute(
+            //     settings: settings,
+            //     builder: (context) => const AddressBook(),
+            //   );
+            // }
             if (settingsUri.path == "/checkout") {
               return MaterialPageRoute(
                 settings: settings,
