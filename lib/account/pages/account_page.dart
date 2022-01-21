@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movie_market_place/account/widgets/address_book.dart';
+import 'package:movie_market_place/account/widgets/my_address.dart';
 import 'package:movie_market_place/account/widgets/my_account.dart';
+import 'package:movie_market_place/account/widgets/my_profile.dart';
+import 'package:movie_market_place/account/widgets/my_review.dart';
 import 'package:movie_market_place/account/widgets/my_cancellations.dart';
 import 'package:movie_market_place/account/widgets/my_orders.dart';
 import 'package:movie_market_place/account/widgets/my_returns.dart';
@@ -124,6 +126,11 @@ class _AccountPageState extends State<AccountPage> {
                   selectedIcon: Icon(Icons.cancel),
                   label: Text('My Cancellations'),
                 ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.reviews_outlined),
+                  selectedIcon: Icon(Icons.reviews),
+                  label: Text('My Reviews'),
+                ),
               ],
             ),
             Padding(
@@ -131,16 +138,16 @@ class _AccountPageState extends State<AccountPage> {
               child: _selectedIndex == 0
                   ? const MyAccount()
                   : _selectedIndex == 1
-                      ? Container()
+                      ? const MyProfile()
                       : _selectedIndex == 2
-                          ? const AddressBook()
+                          ? const MyAddress()
                           : _selectedIndex == 3
                               ? const MyOrders()
                               : _selectedIndex == 4
                                   ? const MyReturns()
                                   : _selectedIndex == 5
                                       ? const MyCancellations()
-                                      : Container(),
+                                      : const MyReviews(),
             ),
           ],
         ),

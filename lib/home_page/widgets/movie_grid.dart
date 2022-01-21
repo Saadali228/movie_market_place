@@ -26,12 +26,6 @@ class MovieGrid extends StatefulWidget {
 class _MovieGridState extends State<MovieGrid> {
   final _scrollController = ScrollController();
   final List<int> numOfYears = [];
-  // String dropDownValue = '2021';
-  // String dropDownGenre = 'Action';
-  // late MovieGenreRepoModel selectedGenre;
-  // late int selectedId;
-  // List<String> array = ['1', '2', '3', '2021'];
-
   @override
   void initState() {
     super.initState();
