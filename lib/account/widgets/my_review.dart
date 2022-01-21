@@ -82,7 +82,8 @@ class MyReviews extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: SizedBox(
-          height: isMobile ? size.height * 0.5 : size.height * 0.35,
+          height: isMobile ? 275 : 225,
+          // height: 225,
           width: size.width * 0.85,
           child: Card(
             color: const Color(0xff361F41),

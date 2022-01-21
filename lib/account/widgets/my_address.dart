@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddressBook extends StatelessWidget {
-  const AddressBook({Key? key}) : super(key: key);
+class MyAddress extends StatelessWidget {
+  const MyAddress({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
