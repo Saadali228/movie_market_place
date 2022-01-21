@@ -91,98 +91,101 @@ class MyReviews extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        purchased,
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Your product rating & review:',
-                        style: TextStyle(
-                          color: Colors.white70,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Image.network(
-                            imageUrl,
-                            scale: 4,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          purchased,
+                          style: const TextStyle(
+                            color: Colors.white,
                           ),
-                          const SizedBox(
-                            width: 20,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          'Your product rating & review:',
+                          style: TextStyle(
+                            color: Colors.white70,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                movieName,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  starIcon(),
-                                  starIcon(),
-                                  starIcon(),
-                                  rating
-                                      ? const Icon(
-                                          Icons.star_border,
-                                          color: Colors.yellow,
-                                        )
-                                      : starIcon(),
-                                  rating
-                                      ? const Icon(
-                                          Icons.star_border,
-                                          color: Colors.yellow,
-                                        )
-                                      : starIcon(),
-                                  const SizedBox(
-                                    width: 10,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Image.network(
+                              imageUrl,
+                              scale: 4,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  movieName,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      reviewText,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: [
+                                    starIcon(),
+                                    starIcon(),
+                                    starIcon(),
+                                    rating
+                                        ? const Icon(
+                                            Icons.star_border,
+                                            color: Colors.yellow,
+                                          )
+                                        : starIcon(),
+                                    rating
+                                        ? const Icon(
+                                            Icons.star_border,
+                                            color: Colors.yellow,
+                                          )
+                                        : starIcon(),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        reviewText,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 13,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              if (isMobile) buildColumn(),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  if (!isMobile)
-                    const SizedBox(
-                      width: 300,
+                                  ],
+                                ),
+                                if (isMobile) buildColumn(),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  if (!isMobile) buildColumn(),
-                ],
+                    if (!isMobile)
+                      const SizedBox(
+                        width: 300,
+                      ),
+                    if (!isMobile) buildColumn(),
+                  ],
+                ),
               ),
             ),
           ),

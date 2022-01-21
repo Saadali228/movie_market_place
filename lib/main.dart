@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_market_place/account/pages/account_page.dart';
-import 'package:movie_market_place/account/pages/logic_page.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
 import 'package:movie_market_place/detail_page/data_layer/movie_detail_data_layer.dart';
@@ -86,7 +85,6 @@ class MyApp extends StatelessWidget {
                 builder: (context) => const HomeScreen(),
               );
             }
-            
             if (settingsUri.path == "/movie") {
               int? movieId =
                   int.tryParse(settingsUri.queryParameters["id"] ?? "");
@@ -101,12 +99,12 @@ class MyApp extends StatelessWidget {
                 builder: (context) => const AccountPage(),
               );
             }
-            if (settingsUri.path == "/login") {
-              MaterialPageRoute(
-                settings: settings,
-                builder: (context) => const LoginPage(),
-              );
-            }
+            // if (settingsUri.path == "/login") {
+            //   MaterialPageRoute(
+            //     settings: settings,
+            //     builder: (context) => const LoginPage(),
+            //   );
+            // }
             if (settingsUri.path == "/checkout") {
               return MaterialPageRoute(
                 settings: settings,

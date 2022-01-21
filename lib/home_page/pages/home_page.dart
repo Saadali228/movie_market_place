@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:movie_market_place/account/pages/address_book.dart';
 import 'package:movie_market_place/account/pages/account_page.dart';
-import 'package:movie_market_place/account/pages/logic_page.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/pages/cart_page.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
@@ -78,15 +76,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             AccountButton(
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  AccountPage.accountPageRoute,
                 );
-                // Navigator.pushNamed(
-                //   context,
-                //   // AccountPage.accountPageRoute,
-                //   LoginPage.loginPageRoute,
-                // );
               },
             ),
             SizedBox(
