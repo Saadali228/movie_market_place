@@ -13,7 +13,6 @@ class MyReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    print(size.width);
     double _mobile = 1100;
     final isMobile = size.width < _mobile ? true : false;
     Widget buildColumn() {
