@@ -84,7 +84,7 @@ class MyReviews extends StatelessWidget {
         child: SizedBox(
           height: isMobile ? 275 : 225,
           // height: 225,
-          width: size.width * 0.85,
+          width: isMobile ? size.width * 0.78 : size.width * 0.75,
           child: Card(
             color: const Color(0xff361F41),
             shape: RoundedRectangleBorder(

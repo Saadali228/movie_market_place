@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_market_place/account/widgets/my_address.dart';
 import 'package:movie_market_place/account/widgets/my_account.dart';
+import 'package:movie_market_place/account/widgets/my_profile.dart';
 import 'package:movie_market_place/account/widgets/my_review.dart';
 import 'package:movie_market_place/account/widgets/my_cancellations.dart';
 import 'package:movie_market_place/account/widgets/my_orders.dart';
@@ -137,7 +138,7 @@ class _AccountPageState extends State<AccountPage> {
               child: _selectedIndex == 0
                   ? const MyAccount()
                   : _selectedIndex == 1
-                      ? Container()
+                      ? const MyProfile()
                       : _selectedIndex == 2
                           ? const MyAddress()
                           : _selectedIndex == 3
