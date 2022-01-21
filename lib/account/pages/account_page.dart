@@ -27,6 +27,8 @@ class _AccountPageState extends State<AccountPage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             NavigationRail(
               leading: Column(
