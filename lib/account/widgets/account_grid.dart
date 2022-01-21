@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-double _tablet = 900;
-
 class AccountGrid extends StatelessWidget {
   const AccountGrid({
     Key? key,
@@ -16,9 +14,8 @@ class AccountGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width > _tablet ? 400 : 275,
+      width: 350,
       height: 160,
       child: Card(
         color: const Color(0xff361F41),
