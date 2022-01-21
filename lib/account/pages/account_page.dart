@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_market_place/account/widgets/my_address.dart';
 import 'package:movie_market_place/account/widgets/my_account.dart';
-import 'package:movie_market_place/account/widgets/my_profile.dart';
 import 'package:movie_market_place/account/widgets/my_review.dart';
+import 'package:movie_market_place/account/widgets/my_cancellations.dart';
+import 'package:movie_market_place/account/widgets/my_orders.dart';
+import 'package:movie_market_place/account/widgets/my_returns.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
@@ -96,7 +98,7 @@ class _AccountPageState extends State<AccountPage> {
                 NavigationRailDestination(
                   icon: Icon(Icons.account_circle_outlined),
                   selectedIcon: Icon(Icons.account_circle),
-                  label: Text('Manage My Account'),
+                  label: Text('My Account'),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.person_outline),
@@ -109,25 +111,42 @@ class _AccountPageState extends State<AccountPage> {
                   label: Text('Address Book'),
                 ),
                 NavigationRailDestination(
+                  icon: Icon(Icons.shop_2_outlined),
+                  selectedIcon: Icon(Icons.shop_2),
+                  label: Text('My Orders'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.swap_horizontal_circle_outlined),
+                  selectedIcon: Icon(Icons.swap_horizontal_circle),
+                  label: Text('My Returns'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.cancel_outlined),
+                  selectedIcon: Icon(Icons.cancel),
+                  label: Text('My Cancellations'),
+                ),
+                NavigationRailDestination(
                   icon: Icon(Icons.reviews_outlined),
                   selectedIcon: Icon(Icons.reviews),
                   label: Text('My Reviews'),
                 ),
               ],
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: _selectedIndex == 0
-                    ? const MyAccount()
-                    : _selectedIndex == 1
-                        ? const MyProfile()
-                        : _selectedIndex == 2
-                            ? const MyAddress()
-                            : _selectedIndex == 3
-                                ? const MyReviews()
-                                : Container(),
-              ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: _selectedIndex == 0
+                  ? const MyAccount()
+                  : _selectedIndex == 1
+                      ? Container()
+                      : _selectedIndex == 2
+                          ? const MyAddress()
+                          : _selectedIndex == 3
+                              ? const MyOrders()
+                              : _selectedIndex == 4
+                                  ? const MyReturns()
+                                  : _selectedIndex == 5
+                                      ? const MyCancellations()
+                                      : const MyReviews(),
             ),
           ],
         ),
