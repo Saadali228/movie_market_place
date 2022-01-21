@@ -20,7 +20,7 @@ class AddressBook extends StatelessWidget {
         ),
         const SizedBox(height: 30.0),
         SizedBox(
-          height: size.height * 0.7,
+          height: size.height * 0.8,
           width: size.width * 0.75,
           child: Card(
             color: const Color(0xff361F41),
@@ -36,7 +36,55 @@ class AddressBook extends StatelessWidget {
                     children: [
                       textColumn(
                         'Full Name',
-                        'Vendian',
+                        'Vendian1',
+                      ),
+                      textColumn(
+                        'Address',
+                        'Dilkusha Forum, 12th Floor, Tariq Rd, Delhi CHS PECHS',
+                      ),
+                      textColumn(
+                        'Region',
+                        'Sindh, Karachi, PK',
+                      ),
+                      textColumn(
+                        'Phone Number',
+                        '00000000000',
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      textColumn(
+                        'Full Name',
+                        'Vendian2',
+                      ),
+                      textColumn(
+                        'Address',
+                        'Dilkusha Forum, 12th Floor, Tariq Rd, Delhi CHS PECHS',
+                      ),
+                      textColumn(
+                        'Region',
+                        'Sindh, Karachi, PK',
+                      ),
+                      textColumn(
+                        'Phone Number',
+                        '00000000000',
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      textColumn(
+                        'Full Name',
+                        'Vendian3',
                       ),
                       textColumn(
                         'Address',
@@ -107,5 +155,4 @@ class AddressBook extends StatelessWidget {
       ],
     );
   }
-
 }

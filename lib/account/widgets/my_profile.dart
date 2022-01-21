@@ -83,19 +83,19 @@ class MyProfile extends StatelessWidget {
                   children: [
                     buildColumn(
                       'Full Name',
-                      'Syed Saad Ali',
+                      'Vendian',
                       'Birthday',
-                      '02/03/1999',
+                      '01/01/2012',
                     ),
                     buildColumn(
                       'Email Address',
-                      'saad.ali@venturedive.com',
+                      'venture@venturedive.com',
                       'Gender',
                       'Male',
                     ),
                     buildColumn(
                       'Mobile',
-                      '+923343586862',
+                      '+923343586878',
                       'Account Type',
                       'Standard',
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_market_place/account/widgets/address_book.dart';
 import 'package:movie_market_place/account/widgets/my_account.dart';
 import 'package:movie_market_place/account/widgets/my_profile.dart';
+import 'package:movie_market_place/account/widgets/my_review.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
@@ -107,6 +108,11 @@ class _AccountPageState extends State<AccountPage> {
                   selectedIcon: Icon(Icons.place),
                   label: Text('Address Book'),
                 ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.reviews_outlined),
+                  selectedIcon: Icon(Icons.reviews),
+                  label: Text('My Reviews'),
+                ),
               ],
             ),
             Expanded(
@@ -118,7 +124,9 @@ class _AccountPageState extends State<AccountPage> {
                         ? const MyProfile()
                         : _selectedIndex == 2
                             ? const AddressBook()
-                            : Container(),
+                            : _selectedIndex == 3
+                                ? const MyReviews()
+                                : Container(),
               ),
             ),
           ],
