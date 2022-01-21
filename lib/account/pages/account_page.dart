@@ -9,7 +9,6 @@ import 'package:movie_market_place/account/widgets/my_returns.dart';
 import 'package:movie_market_place/account/widgets/my_wishlist.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
-import 'package:movie_market_place/home_page/widgets/size_config.dart';
 import 'package:movie_market_place/utils/constants.dart';
 
 double _mobile = 700;
@@ -27,6 +26,7 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
       decoration: backgroundGradient,
       child: Scaffold(
@@ -65,7 +65,7 @@ class _AccountPageState extends State<AccountPage> {
                                       HomeScreen.homePageRoute);
                                 }
                               },
-                              child: SizeConfig.screenWidth! > _mobile
+                              child: size.width > _mobile
                                   ? const LogoWidget()
                                   : const Icon(
                                       Icons.movie,
@@ -78,7 +78,7 @@ class _AccountPageState extends State<AccountPage> {
                         backgroundColor: const Color(0xff361F41),
                         elevation: 1,
                         extended:
-                            SizeConfig.screenWidth! > _mobile ? true : false,
+                            size.width > _mobile ? true : false,
                         selectedIconTheme: const IconThemeData(
                           color: Colors.white,
                           size: 25,

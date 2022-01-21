@@ -13,16 +13,10 @@ class LoginForm extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         width: MediaQuery.of(context).size.width * 0.7,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // ConstrainedBox(
-            //   constraints: BoxConstraints(
-            //       maxWidth: MediaQuery.of(context).size.width * 6 / 15),
-            //   child: const Text(
-            //     'Testing clipping with soft wrap',
-            //     softWrap: true,
-            //   ),
-            // ),
+          children: [
+            
           ],
         ),
       ),
