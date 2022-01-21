@@ -13,7 +13,7 @@ class MyAccount extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const Text(
-            'Manage My Account',
+            'My Account',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -68,13 +68,19 @@ class MyAccount extends StatelessWidget {
                       children: [
                         textColumn(
                           'Order #',
-                          '1',
-                          '2',
+                          '319',
+                          '402',
+                          '266',
+                          '241',
+                          '198',
                         ),
                         textColumn(
                           'Placed On',
                           '31/12/2021',
                           '19/11/2021',
+                          '06/09/2021',
+                          '28/08/2021',
+                          '23/08/2021',
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -94,22 +100,54 @@ class MyAccount extends StatelessWidget {
                               ),
                               Image.network(
                                 'https://image.tmdb.org/t/p/w500/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg',
-                                scale: 10,
+                                scale: 11,
                               ),
                               const SizedBox(
                                 height: 15,
                               ),
                               Image.network(
                                 'https://image.tmdb.org/t/p/w500/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
-                                scale: 10,
+                                scale: 11,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Image.network(
+                                'https://image.tmdb.org/t/p/w500/mFbS5TwN95BcSEfiztdchLgTQ0v.jpg',
+                                scale: 11,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Image.network(
+                                'https://image.tmdb.org/t/p/w500/zlj0zHo67xXoj7hvwGtaKRkSdBV.jpg',
+                                scale: 11,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Image.network(
+                                'https://image.tmdb.org/t/p/w500/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
+                                scale: 11,
                               ),
                             ],
                           ),
                         ),
                         textColumn(
+                          'Status',
+                          'Delivered',
+                          'Delivered',
+                          'Refunded',
+                          'Cancelled',
+                          'Cancelled',
+                        ),
+                        textColumn(
                           'Total',
                           '\$73',
                           '\$84',
+                          '\$75',
+                          '\$64',
+                          '\$77',
                         ),
                       ],
                     ),
@@ -127,6 +165,9 @@ class MyAccount extends StatelessWidget {
     String text1,
     String text2,
     String text3,
+    String text4,
+    String text5,
+    String text6,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,6 +196,39 @@ class MyAccount extends StatelessWidget {
         ),
         Text(
           text3,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          text4,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          text5,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          text6,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 16,

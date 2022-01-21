@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_market_place/account/widgets/address_book.dart';
 import 'package:movie_market_place/account/widgets/my_account.dart';
+import 'package:movie_market_place/account/widgets/my_cancellations.dart';
+import 'package:movie_market_place/account/widgets/my_orders.dart';
+import 'package:movie_market_place/account/widgets/my_returns.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
@@ -94,7 +97,7 @@ class _AccountPageState extends State<AccountPage> {
                 NavigationRailDestination(
                   icon: Icon(Icons.account_circle_outlined),
                   selectedIcon: Icon(Icons.account_circle),
-                  label: Text('Manage My Account'),
+                  label: Text('My Account'),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.person_outline),
@@ -106,6 +109,21 @@ class _AccountPageState extends State<AccountPage> {
                   selectedIcon: Icon(Icons.place),
                   label: Text('Address Book'),
                 ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.shop_2_outlined),
+                  selectedIcon: Icon(Icons.shop_2),
+                  label: Text('My Orders'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.swap_horizontal_circle_outlined),
+                  selectedIcon: Icon(Icons.swap_horizontal_circle),
+                  label: Text('My Returns'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.cancel_outlined),
+                  selectedIcon: Icon(Icons.cancel),
+                  label: Text('My Cancellations'),
+                ),
               ],
             ),
             Padding(
@@ -116,7 +134,13 @@ class _AccountPageState extends State<AccountPage> {
                       ? Container()
                       : _selectedIndex == 2
                           ? const AddressBook()
-                          : Container(),
+                          : _selectedIndex == 3
+                              ? const MyOrders()
+                              : _selectedIndex == 4
+                                  ? const MyReturns()
+                                  : _selectedIndex == 5
+                                      ? const MyCancellations()
+                                      : Container(),
             ),
           ],
         ),
