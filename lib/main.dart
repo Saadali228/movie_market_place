@@ -12,6 +12,7 @@ import 'package:movie_market_place/detail_page/repository_layer/movie_detail_rep
 import 'package:movie_market_place/home_page/data_layer/movie_data_layer.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.dart';
+import 'package:movie_market_place/login/pages/login_page.dart';
 import 'package:movie_market_place/search/bloc/search_bloc.dart';
 import 'package:movie_market_place/search/data_layer/search_data_layer.dart';
 import 'package:movie_market_place/search/repository_layer/search_repo_layer.dart';
@@ -76,10 +77,16 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
             textTheme: GoogleFonts.mulishTextTheme(),
           ),
-          initialRoute: "/",
+          initialRoute: "/login",
           onGenerateRoute: (settings) {
-            final settingsUri = Uri.parse(settings.name ?? "/");
-            if (settingsUri.path == "/") {
+            final settingsUri = Uri.parse(settings.name ?? "/login");
+            if (settingsUri.path == "/login") {
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (context) => const LoginPage(),
+              );
+            }
+             if (settingsUri.path == "/home") {
               return MaterialPageRoute(
                 settings: settings,
                 builder: (context) => const HomeScreen(),

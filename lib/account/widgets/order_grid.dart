@@ -116,6 +116,7 @@ class OrderGrid extends StatelessWidget {
                             image,
                             scale: 3,
                           ),
+                          const SizedBox(height: 10),
                           Text(
                             'Title: $title',
                             style: const TextStyle(
@@ -124,6 +125,7 @@ class OrderGrid extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
+                          const SizedBox(height: 10),
                           Text(
                             'Status: $status',
                             style: const TextStyle(
@@ -132,6 +134,7 @@ class OrderGrid extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
+                          const SizedBox(height: 10),
                           Text(
                             date,
                             style: const TextStyle(

@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  static const homePageRoute = '/';
+  static const homePageRoute = '/home';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movie_market_place/account/widgets/account_grid.dart';
 
+double _scroll = 550;
+
 class MyAccount extends StatelessWidget {
   const MyAccount({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     double mWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
@@ -63,98 +66,12 @@ class MyAccount extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20.0),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          textColumn(
-                            'Order #',
-                            '319',
-                            '402',
-                            '266',
-                            '241',
-                            '198',
+                    size.width > _scroll
+                        ? textColumns()
+                        : SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: textColumns(),
                           ),
-                          textColumn(
-                            'Placed On',
-                            '31/12/2021',
-                            '19/11/2021',
-                            '06/09/2021',
-                            '28/08/2021',
-                            '23/08/2021',
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Items',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Image.network(
-                                  'https://image.tmdb.org/t/p/w500/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg',
-                                  scale: 12,
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Image.network(
-                                    'https://image.tmdb.org/t/p/w500/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
-                                    scale: 12),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Image.network(
-                                  'https://image.tmdb.org/t/p/w500/mFbS5TwN95BcSEfiztdchLgTQ0v.jpg',
-                                  scale: 12,
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Image.network(
-                                  'https://image.tmdb.org/t/p/w500/zlj0zHo67xXoj7hvwGtaKRkSdBV.jpg',
-                                  scale: 12,
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Image.network(
-                                  'https://image.tmdb.org/t/p/w500/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
-                                  scale: 12,
-                                ),
-                              ],
-                            ),
-                          ),
-                          textColumn(
-                            'Status',
-                            'Delivered',
-                            'Delivered',
-                            'Refunded',
-                            'Cancelled',
-                            'Cancelled',
-                          ),
-                          textColumn(
-                            'Total',
-                            '\$73',
-                            '\$84',
-                            '\$75',
-                            '\$64',
-                            '\$77',
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -162,6 +79,97 @@ class MyAccount extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Row textColumns() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        textColumn(
+          'Order #',
+          '319',
+          '402',
+          '266',
+          '241',
+          '198',
+        ),
+        textColumn(
+          'Placed On',
+          '31/12/2021',
+          '19/11/2021',
+          '06/09/2021',
+          '28/08/2021',
+          '23/08/2021',
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Items',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Image.network(
+                'https://image.tmdb.org/t/p/w500/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg',
+                scale: 12,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Image.network(
+                  'https://image.tmdb.org/t/p/w500/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
+                  scale: 12),
+              const SizedBox(
+                height: 15,
+              ),
+              Image.network(
+                'https://image.tmdb.org/t/p/w500/mFbS5TwN95BcSEfiztdchLgTQ0v.jpg',
+                scale: 12,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Image.network(
+                'https://image.tmdb.org/t/p/w500/zlj0zHo67xXoj7hvwGtaKRkSdBV.jpg',
+                scale: 12,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Image.network(
+                'https://image.tmdb.org/t/p/w500/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
+                scale: 12,
+              ),
+            ],
+          ),
+        ),
+        textColumn(
+          'Status',
+          'Delivered',
+          'Delivered',
+          'Refunded',
+          'Cancelled',
+          'Cancelled',
+        ),
+        textColumn(
+          'Total',
+          '\$73',
+          '\$84',
+          '\$75',
+          '\$64',
+          '\$77',
+        ),
+      ],
     );
   }
 
