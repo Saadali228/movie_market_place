@@ -6,6 +6,7 @@ import 'package:movie_market_place/account/widgets/my_review.dart';
 import 'package:movie_market_place/account/widgets/my_cancellations.dart';
 import 'package:movie_market_place/account/widgets/my_orders.dart';
 import 'package:movie_market_place/account/widgets/my_returns.dart';
+import 'package:movie_market_place/account/widgets/my_wishlist.dart';
 import 'package:movie_market_place/home_page/pages/home_page.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
@@ -118,7 +119,7 @@ class _AccountPageState extends State<AccountPage> {
                           NavigationRailDestination(
                             icon: Icon(Icons.place_outlined),
                             selectedIcon: Icon(Icons.place),
-                            label: Text('Address Book'),
+                            label: Text('My Address'),
                           ),
                           NavigationRailDestination(
                             icon: Icon(Icons.shop_2_outlined),
@@ -139,6 +140,11 @@ class _AccountPageState extends State<AccountPage> {
                             icon: Icon(Icons.reviews_outlined),
                             selectedIcon: Icon(Icons.reviews),
                             label: Text('My Reviews'),
+                          ),
+                          NavigationRailDestination(
+                            icon: Icon(Icons.favorite_outline_outlined),
+                            selectedIcon: Icon(Icons.favorite_outlined),
+                            label: Text('My Wishlist'),
                           ),
                         ],
                       ),
@@ -162,7 +168,11 @@ class _AccountPageState extends State<AccountPage> {
                                     ? const MyReturns()
                                     : _selectedIndex == 5
                                         ? const MyCancellations()
-                                        : const MyReviews(),
+                                        : _selectedIndex == 6
+                                            ? const MyReviews()
+                                            : _selectedIndex == 7
+                                                ? const MyWishlist()
+                                                : Container(),
               ),
             ),
           ],

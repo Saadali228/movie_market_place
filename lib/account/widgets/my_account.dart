@@ -100,35 +100,34 @@ class MyAccount extends StatelessWidget {
                               ),
                               Image.network(
                                 'https://image.tmdb.org/t/p/w500/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg',
-                                scale: 11,
+                                scale: 12,
                               ),
                               const SizedBox(
                                 height: 15,
                               ),
                               Image.network(
-                                'https://image.tmdb.org/t/p/w500/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
-                                scale: 11,
-                              ),
+                                  'https://image.tmdb.org/t/p/w500/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
+                                  scale: 12),
                               const SizedBox(
                                 height: 15,
                               ),
                               Image.network(
                                 'https://image.tmdb.org/t/p/w500/mFbS5TwN95BcSEfiztdchLgTQ0v.jpg',
-                                scale: 11,
+                                scale: 12,
                               ),
                               const SizedBox(
                                 height: 15,
                               ),
                               Image.network(
                                 'https://image.tmdb.org/t/p/w500/zlj0zHo67xXoj7hvwGtaKRkSdBV.jpg',
-                                scale: 11,
+                                scale: 12,
                               ),
                               const SizedBox(
                                 height: 15,
                               ),
                               Image.network(
                                 'https://image.tmdb.org/t/p/w500/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
-                                scale: 11,
+                                scale: 12,
                               ),
                             ],
                           ),
