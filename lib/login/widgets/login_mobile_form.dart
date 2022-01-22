@@ -10,19 +10,28 @@ class LoginMobileForm extends StatefulWidget {
 }
 
 class _LoginMobileFormState extends State<LoginMobileForm> {
+    final TextEditingController _fName = TextEditingController();
+    final TextEditingController _lName = TextEditingController();
+    final TextEditingController _email = TextEditingController();
+    final TextEditingController _password = TextEditingController();
+   final  _formKey = GlobalKey<FormState>();
   bool showSignIn = true;
   void toggleView() {
     setState(() => showSignIn = !showSignIn);
   }
 
   @override
+  void dispose() {
+    _fName.dispose();
+    _lName.dispose();
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double mWidth = MediaQuery.of(context).size.width;
-    final _formKey = GlobalKey<FormState>();
-    TextEditingController _fName = TextEditingController();
-    TextEditingController _lName = TextEditingController();
-    TextEditingController _email = TextEditingController();
-    TextEditingController _password = TextEditingController();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: showSignIn

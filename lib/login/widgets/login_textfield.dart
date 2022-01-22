@@ -23,6 +23,7 @@ class LoginTextfield extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
         child: TextFormField(
+          textInputAction: TextInputAction.next,
           controller: controller,
           obscureText: obscure,
           validator: (value) {

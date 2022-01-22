@@ -31,7 +31,7 @@ class RegisterMobileColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top: 50.0),
+        padding: const EdgeInsets.only(top: 80.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,14 +40,14 @@ class RegisterMobileColumn extends StatelessWidget {
               'START FOR FREE',
               style: TextStyle(
                 color: Colors.grey,
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),
             ),
             RichText(
               text: const TextSpan(
                 style: TextStyle(
-                  fontSize: 50.0,
+                  fontSize: 35.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -57,20 +57,19 @@ class RegisterMobileColumn extends StatelessWidget {
                     text: '.',
                     style: TextStyle(
                       color: Colors.purple,
-                      fontSize: 75.0,
+                      fontSize: 60.0,
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   'Already A Member?',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 20.0,
                     color: Colors.grey,
                     fontWeight: FontWeight.w500,
                   ),
@@ -82,7 +81,7 @@ class RegisterMobileColumn extends StatelessWidget {
                   child: const Text(
                     'Log In',
                     style: TextStyle(
-                      fontSize: 30.0,
+                      fontSize: 20.0,
                       color: Colors.purple,
                       fontWeight: FontWeight.w500,
                     ),

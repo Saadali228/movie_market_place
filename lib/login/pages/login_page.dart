@@ -14,13 +14,13 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      backgroundColor: const Color(0xff302c3c),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: false,
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         title: Row(
           children: const [
             SizedBox(
@@ -30,7 +30,6 @@ class LoginPage extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: const Color(0xff302c3c),
       body: size.width > _screen
           ? Stack(
               children: const [
