@@ -1,158 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:movie_market_place/account/widgets/address_grid.dart';
 
 class MyAddress extends StatelessWidget {
   const MyAddress({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Address Book',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 30.0),
-        SizedBox(
-          height: size.height * 0.8,
-          width: size.width * 0.75,
-          child: Card(
-            color: const Color(0xff361F41),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      textColumn(
-                        'Full Name',
-                        'Vendian1',
-                      ),
-                      textColumn(
-                        'Address',
-                        'Dilkusha Forum, 12th Floor, Tariq Rd, Delhi CHS PECHS',
-                      ),
-                      textColumn(
-                        'Region',
-                        'Sindh, Karachi, PK',
-                      ),
-                      textColumn(
-                        'Phone Number',
-                        '00000000000',
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      textColumn(
-                        'Full Name',
-                        'Vendian2',
-                      ),
-                      textColumn(
-                        'Address',
-                        'Dilkusha Forum, 12th Floor, Tariq Rd, Delhi CHS PECHS',
-                      ),
-                      textColumn(
-                        'Region',
-                        'Sindh, Karachi, PK',
-                      ),
-                      textColumn(
-                        'Phone Number',
-                        '00000000000',
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      textColumn(
-                        'Full Name',
-                        'Vendian3',
-                      ),
-                      textColumn(
-                        'Address',
-                        'Dilkusha Forum, 12th Floor, Tariq Rd, Delhi CHS PECHS',
-                      ),
-                      textColumn(
-                        'Region',
-                        'Sindh, Karachi, PK',
-                      ),
-                      textColumn(
-                        'Phone Number',
-                        '00000000000',
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 50.0, top: 50.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {},
-                          child: const Text(
-                            '+Add New Address',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                            ),
-                          ))
-                    ],
-                  ),
-                )
-              ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          Text(
+            'My Address',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
             ),
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget textColumn(String text1, String text2) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          text1,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+          SizedBox(height: 30.0),
+          AddressGrid(
+            name: 'Vendian1',
+            address: 'Dilkusha Forum, 12th Floor, Tariq Rd, Delhi CHS PECHS',
+            region: 'Sindh, Karachi, PK',
+            phoneNo: '00000000000',
           ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          text2,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+          SizedBox(height: 20.0),
+          AddressGrid(
+            name: 'Vendian2',
+            address: '225 CCA, Sector FF, Phase 4, DHA, 54810',
+            region: 'Punjab, Lahore, PK',
+            phoneNo: '11111111111',
           ),
-        ),
-      ],
+          SizedBox(height: 20.0),
+          AddressGrid(
+            name: 'Vendian3',
+            address: 'Astro Labs, Cluster R Parkside, Retail Level',
+            region: 'UAE, Dubai',
+            phoneNo: '22222222222',
+          ),
+        ],
+      ),
     );
   }
 }
