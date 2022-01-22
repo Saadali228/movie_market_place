@@ -13,13 +13,6 @@ class MovieNextPageFetched extends MovieEvent {
   List<Object?> get props => [];
 }
 
-class FavIconChanged extends MovieEvent {
-  final Color color;
-  FavIconChanged(this.color);
-  @override
-  List<Object?> get props => [color];
-}
-
 class MovieSelectedReleaseYear extends MovieEvent {
   MovieSelectedReleaseYear(this.year);
   final int year;

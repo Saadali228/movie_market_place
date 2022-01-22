@@ -33,14 +33,6 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       },
     );
 
-    // on<FavIconChanged>((event, emit) async {
-    //   emit(
-    //     state.copyWith(
-    //       favIconStatus: 
-    //     ),
-    //   );
-    // });
-
     on<MovieNextPageFetched>(
       (event, emit) async {
         emit(state.copyWith(pageLoader: PageLoader.loading));
