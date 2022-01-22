@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
 import 'package:movie_market_place/login/widgets/background_image.dart';
 import 'package:movie_market_place/login/widgets/login_form.dart';
+import 'package:movie_market_place/login/widgets/login_mobile_form.dart';
+
+double _screen = 850;
 
 class LoginPage extends StatelessWidget {
   static const loginPageRoute = '/login';
@@ -9,6 +12,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
@@ -27,11 +31,12 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         backgroundColor: const Color(0xff302c3c),
-        body: Stack(
+        body: size.width > _screen ? Stack(
           children: const [
             BackgroundImage(),
             LoginForm(),
           ],
-        ));
+        ) : const LoginMobileForm(),
+        );
   }
 }

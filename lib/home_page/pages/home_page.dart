@@ -8,9 +8,11 @@ import 'package:movie_market_place/home_page/widgets/account_button.dart';
 import 'package:movie_market_place/home_page/widgets/cart_button.dart';
 import 'package:movie_market_place/home_page/widgets/home_banner.dart';
 import 'package:movie_market_place/home_page/widgets/logo_widget.dart';
+import 'package:movie_market_place/home_page/widgets/logout_button.dart';
 import 'package:movie_market_place/home_page/widgets/movie_grid.dart';
 import 'package:movie_market_place/home_page/widgets/search_button.dart';
 import 'package:movie_market_place/home_page/widgets/size_config.dart';
+import 'package:movie_market_place/login/pages/login_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -85,13 +87,26 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               width: 1 * SizeConfig.blockSizeHorizontal!,
             ),
-            Builder(builder: (context) {
-              return CartButton(
-                onTap: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-              );
-            }),
+            Builder(
+              builder: (context) {
+                return CartButton(
+                  onTap: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                );
+              },
+            ),
+            SizedBox(
+              width: 1 * SizeConfig.blockSizeHorizontal!,
+            ),
+            LogoutButton(
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  LoginPage.loginPageRoute,
+                );
+              },
+            ),
             SizedBox(
               width: 3 * SizeConfig.blockSizeHorizontal!,
             ),
