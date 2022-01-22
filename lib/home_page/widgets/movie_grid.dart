@@ -26,6 +26,8 @@ class MovieGrid extends StatefulWidget {
 class _MovieGridState extends State<MovieGrid> {
   final _scrollController = ScrollController();
   final List<int> numOfYears = [];
+  Color _iconColor = Colors.purple;
+
   @override
   void initState() {
     super.initState();
@@ -206,6 +208,11 @@ class _MovieGridState extends State<MovieGrid> {
                                           image: state.movieList[index].poster,
                                         )),
                                       ),
+                                      Positioned(
+                                        left: 0,
+                                        top: 0,
+                                        child: favButton(context),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -306,6 +313,19 @@ class _MovieGridState extends State<MovieGrid> {
                 ),
               ),
             ),
+    );
+  }
+
+  Widget favButton(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.favorite, color: _iconColor),
+      onPressed: () {
+        setState(
+          () {
+            _iconColor = Colors.green;
+          },
+        );
+      },
     );
   }
 

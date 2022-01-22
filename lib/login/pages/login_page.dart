@@ -14,29 +14,31 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          centerTitle: false,
-          automaticallyImplyLeading: false,
-          title: Row(
-            children: const [
-              SizedBox(
-                width: 20,
-              ),
-              LogoWidget(),
-            ],
-          ),
-        ),
-        backgroundColor: const Color(0xff302c3c),
-        body: size.width > _screen ? Stack(
+      resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: false,
+        // automaticallyImplyLeading: false,
+        title: Row(
           children: const [
-            BackgroundImage(),
-            LoginForm(),
+            SizedBox(
+              width: 20,
+            ),
+            LogoWidget(),
           ],
-        ) : const LoginMobileForm(),
-        );
+        ),
+      ),
+      backgroundColor: const Color(0xff302c3c),
+      body: size.width > _screen
+          ? Stack(
+              children: const [
+                BackgroundImage(),
+                LoginForm(),
+              ],
+            )
+          : const LoginMobileForm(),
+    );
   }
 }

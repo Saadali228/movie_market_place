@@ -19,10 +19,10 @@ class _LoginMobileFormState extends State<LoginMobileForm> {
   Widget build(BuildContext context) {
     double mWidth = MediaQuery.of(context).size.width;
     final _formKey = GlobalKey<FormState>();
-    final _fName = TextEditingController();
-    final _lName = TextEditingController();
-    final _email = TextEditingController();
-    final _password = TextEditingController();
+    TextEditingController _fName = TextEditingController();
+    TextEditingController _lName = TextEditingController();
+    TextEditingController _email = TextEditingController();
+    TextEditingController _password = TextEditingController();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: showSignIn

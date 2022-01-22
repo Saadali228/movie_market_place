@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_genre.dart';
 import 'package:movie_market_place/home_page/repository_layer/models/movie_repo_model.dart';
 import 'package:movie_market_place/home_page/repository_layer/movie_repo_layer.dart';
@@ -32,15 +32,14 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         ));
       },
     );
-    // final movieRepoList = await movieRepository.getMovies(state.page, null);
-    // emit(state.copyWith(
-    //   movieStatus: MovieStatus.loaded,
-    //   movieList: movieRepoList,
-    //   //  page: state.page,
-    //   sortBy: state.sortBy,
-    // ));
-    //   },
-    // );
+
+    // on<FavIconChanged>((event, emit) async {
+    //   emit(
+    //     state.copyWith(
+    //       favIconStatus: 
+    //     ),
+    //   );
+    // });
 
     on<MovieNextPageFetched>(
       (event, emit) async {
