@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_market_place/account/bloc/account_bloc.dart';
+import 'package:movie_market_place/account/data_layer/account_data_layer.dart';
 import 'package:movie_market_place/account/pages/account_page.dart';
+import 'package:movie_market_place/account/repository_layer/account_repo_layer.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/cart_repository.dart';
 import 'package:movie_market_place/detail_page/data_layer/movie_detail_data_layer.dart';
@@ -31,6 +34,8 @@ void main() {
   CartRepository cartRepository = CartRepository(_cartProvider);
   SearchDataLayer _searchDataLayer = SearchDataLayer();
   SearchRepoLayer searchRepository = SearchRepoLayer(_searchDataLayer);
+  AccountDataLayer _accountDataLayer = AccountDataLayer();
+  AccountRepoLayer accountRepository = AccountRepoLayer(_accountDataLayer);
   runApp(
     MultiRepositoryProvider(
       providers: [
@@ -38,6 +43,7 @@ void main() {
         RepositoryProvider.value(value: movieDetailRepository),
         RepositoryProvider.value(value: cartRepository),
         RepositoryProvider.value(value: searchRepository),
+        RepositoryProvider.value(value: accountRepository),
       ],
       child: const MyApp(),
     ),
@@ -58,6 +64,11 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CartBloc(
+            RepositoryProvider.of(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => AccountBloc(
             RepositoryProvider.of(context),
           ),
         ),
@@ -86,7 +97,7 @@ class MyApp extends StatelessWidget {
                 builder: (context) => const LoginPage(),
               );
             }
-             if (settingsUri.path == "/home") {
+            if (settingsUri.path == "/home") {
               return MaterialPageRoute(
                 settings: settings,
                 builder: (context) => const HomeScreen(),

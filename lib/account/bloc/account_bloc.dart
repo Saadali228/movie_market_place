@@ -32,29 +32,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       }
     });
 
-    on<WishListButtonUpdated>((event, emit) async {
-      emit(
-        state.copyWith(accountStatus: AccountStatus.loading),
-      );
-      try {
-        if (state.wishList.isEmpty) {
-          final _wishList = await accountRepoLayer.getWishListProducts();
-          emit(
-            state.copyWith(
-              wishList: _wishList,
-              accountStatus: AccountStatus.loaded,
-            ),
-          );
-        } else {
-          emit(
-            state.copyWith(accountStatus: AccountStatus.loaded),
-          );
-        }
-      } catch (_) {
-        emit(state.copyWith(accountStatus: AccountStatus.error));
-      }
-    });
-
     on<WishAdded>((event, emit) async {
       try {
         await accountRepoLayer.addToWishList(event.wish);

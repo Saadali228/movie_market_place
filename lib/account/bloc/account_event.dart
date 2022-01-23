@@ -12,11 +12,6 @@ part of 'account_bloc.dart';
   List<Object> get props => [];
 }
 
-class WishListButtonUpdated extends AccountEvent {
-  @override
-  List<Object> get props => [];
-}
-
 class WishAdded extends AccountEvent {
   const WishAdded(this.wish);
   final AccountRepoModel wish;

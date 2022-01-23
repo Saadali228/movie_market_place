@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart'
     as a;
+import 'package:movie_market_place/account/bloc/account_bloc.dart';
+import 'package:movie_market_place/account/repository_layer/models/account_repo_model.dart';
 import 'package:movie_market_place/cart/bloc/cart_bloc.dart';
 import 'package:movie_market_place/cart/repository_layer/models/cart_repository_model.dart';
 import 'package:movie_market_place/detail_page/pages/detail_page.dart';
@@ -26,7 +28,6 @@ class MovieGrid extends StatefulWidget {
 class _MovieGridState extends State<MovieGrid> {
   final _scrollController = ScrollController();
   final List<int> numOfYears = [];
-  Color _iconColor = Colors.purple;
 
   @override
   void initState() {
@@ -43,6 +44,8 @@ class _MovieGridState extends State<MovieGrid> {
   Widget build(BuildContext context) {
     List<CartRepoModel> movieCartModel =
         context.watch<CartBloc>().state.cartList;
+    List<AccountRepoModel> movieAccountModel =
+        context.watch<AccountBloc>().state.wishList;
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
         List<String> genreList = [];
@@ -145,81 +148,94 @@ class _MovieGridState extends State<MovieGrid> {
                     isAlwaysShown: true,
                     controller: _scrollController,
                     child: GridView.builder(
-                        padding: const EdgeInsets.all(0),
-                        physics: const BouncingScrollPhysics(),
-                        controller: _scrollController,
-                        itemCount: state.movieList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 400,
-                          childAspectRatio: 0.67,
-                          //crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemBuilder: (context, index) {
-                          return AnimationConfiguration.staggeredList(
-                            position: index,
-                            duration: const Duration(milliseconds: 300),
-                            child: SlideAnimation(
-                              child: a.FadeInAnimation(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 8.0,
-                                    right: 8.0,
-                                    bottom: 8.0,
-                                  ),
-                                  child: Stack(
-                                    alignment: Alignment.topRight,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            DetailPage.detailPageRoute(
-                                                state.movieList[index].id),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: state.movieList[index].id,
-                                          child: Image.network(
-                                            "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
-                                            width: 420.0,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return Container(
-                                                color: const Color(0xff322043),
-                                                alignment: Alignment.center,
-                                                child: const Icon(
-                                                  Icons.person,
-                                                  color: Colors.white,
-                                                ),
-                                              );
-                                            },
-                                          ),
+                      padding: const EdgeInsets.all(0),
+                      physics: const BouncingScrollPhysics(),
+                      controller: _scrollController,
+                      itemCount: state.movieList.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 400,
+                        childAspectRatio: 0.67,
+                        //crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index) {
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 300),
+                          child: SlideAnimation(
+                            child: a.FadeInAnimation(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 8.0,
+                                  right: 8.0,
+                                  bottom: 8.0,
+                                ),
+                                child: Stack(
+                                  alignment: Alignment.topRight,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          DetailPage.detailPageRoute(
+                                              state.movieList[index].id),
+                                        );
+                                      },
+                                      child: Hero(
+                                        tag: state.movieList[index].id,
+                                        child: Image.network(
+                                          "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
+                                          width: 420.0,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Container(
+                                              color: const Color(0xff322043),
+                                              alignment: Alignment.center,
+                                              child: const Icon(
+                                                Icons.person,
+                                                color: Colors.white,
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
-                                      cartButton(
-                                        context,
-                                        state.movieList[index],
-                                        movieCartModel.contains(CartRepoModel(
+                                    ),
+                                    cartButton(
+                                      context,
+                                      state.movieList[index],
+                                      movieCartModel.contains(
+                                        CartRepoModel(
                                           id: state.movieList[index].id,
                                           title: state.movieList[index].title!,
                                           price: state.movieList[index].price!,
                                           image: state.movieList[index].poster,
-                                        )),
+                                        ),
                                       ),
-                                      Positioned(
-                                        left: 0,
-                                        top: 0,
-                                        child: favButton(context),
+                                    ),
+                                    Positioned(
+                                      left: 0,
+                                      child: wishButton(
+                                        context,
+                                        state.movieList[index],
+                                        movieAccountModel.contains(
+                                          AccountRepoModel(
+                                            id: state.movieList[index].id,
+                                            image: state.movieList[index].image,
+                                            title: state.movieList[index].title,
+                                            price: state.movieList[index].price,
+                                          ),
+                                        ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -316,16 +332,64 @@ class _MovieGridState extends State<MovieGrid> {
     );
   }
 
-  Widget favButton(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.favorite, color: _iconColor),
-      onPressed: () {
-        setState(
-          () {
-            _iconColor = Colors.green;
-          },
+  Widget wishButton(
+    BuildContext context,
+    MovieRepoModel movie,
+    bool inWishList,
+  ) {
+    return AnimatedSwitcher(
+      switchInCurve: Curves.bounceIn,
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return ScaleTransition(
+          alignment: Alignment.centerLeft,
+          scale: animation,
+          child: child,
         );
       },
+      duration: const Duration(milliseconds: 500),
+      child: !inWishList
+          ? IconButton(
+              icon: const Icon(
+                Icons.favorite_outlined,
+                color: Colors.purple,
+                size: 35,
+              ),
+              key: const Key('1'),
+              onPressed: () {
+                print(inWishList);
+                context.read<AccountBloc>().add(
+                      WishAdded(
+                        AccountRepoModel(
+                          id: movie.id,
+                          title: movie.title!,
+                          price: movie.price!,
+                          image: movie.poster!,
+                        ),
+                      ),
+                    );
+              },
+            )
+          : IconButton(
+              icon: const Icon(
+                Icons.favorite_outlined,
+                color: Colors.green,
+                size: 35,
+              ),
+              key: const Key('2'),
+              onPressed: () {
+                print(inWishList);
+                context.read<AccountBloc>().add(
+                      WishDeleted(
+                        AccountRepoModel(
+                          id: movie.id,
+                          title: movie.title!,
+                          price: movie.price!,
+                          image: movie.poster!,
+                        ),
+                      ),
+                    );
+              },
+            ),
     );
   }
 

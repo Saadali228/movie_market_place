@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:movie_market_place/account/repository_layer/models/account_repo_model.dart';
 
 double _mobile = 700;
 
 class WishlistGrid extends StatelessWidget {
   const WishlistGrid({
     Key? key,
-    required this.image,
-    required this.title,
-    required this.price,
-    required this.status,
-    required this.date,
+    required this.item,
   }) : super(key: key);
 
-  final String image;
-  final String title;
-  final String price;
-  final String status;
-  final String date;
+  final AccountRepoModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +30,12 @@ class WishlistGrid extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
-                      image,
+                      'https://image.tmdb.org/t/p/w185/${item.image}',
                       scale: 3,
                     ),
                     Flexible(
                       child: Text(
-                        'Title: $title',
+                        'Title: ${item.title}',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -52,7 +45,7 @@ class WishlistGrid extends StatelessWidget {
                     ),
                     Flexible(
                       child: Text(
-                        'Price: $price',
+                        'Price: ${item.price}',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -60,20 +53,20 @@ class WishlistGrid extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Flexible(
+                    const Flexible(
                       child: Text(
-                        'Status: $status',
-                        style: const TextStyle(
+                        'Status: In Stock',
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    Flexible(
+                    const Flexible(
                       child: Text(
-                        'Added on: $date',
-                        style: const TextStyle(
+                        'Added on: 26/01/22',
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -87,11 +80,11 @@ class WishlistGrid extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.network(
-                      image,
+                       'https://image.tmdb.org/t/p/w185/${item.image}',
                       scale: 3,
                     ),
                     Text(
-                      'Title: $title',
+                      'Title: ${item.title}',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -99,24 +92,24 @@ class WishlistGrid extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Price: $price',
+                      'Price: ${item.price}',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      'Status: $status',
-                      style: const TextStyle(
+                    const Text(
+                      'Status: In Stock',
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      'Added on: $date',
-                      style: const TextStyle(
+                    const Text(
+                     'Added on: 26/01/22',
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
