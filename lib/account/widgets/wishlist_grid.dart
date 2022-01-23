@@ -7,9 +7,11 @@ class WishlistGrid extends StatelessWidget {
   const WishlistGrid({
     Key? key,
     required this.item,
+    required this.onDelete,
   }) : super(key: key);
 
   final AccountRepoModel item;
+  final Function() onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,14 @@ class WishlistGrid extends StatelessWidget {
                         ),
                       ),
                     ),
+                    IconButton(
+                      onPressed: onDelete,
+                      icon: const Icon(
+                        Icons.remove_circle,
+                        color: Colors.red,
+                        size: 40,
+                      ),
+                    ),
                   ],
                 )
               : Column(
@@ -80,7 +90,7 @@ class WishlistGrid extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.network(
-                       'https://image.tmdb.org/t/p/w185/${item.image}',
+                      'https://image.tmdb.org/t/p/w185/${item.image}',
                       scale: 3,
                     ),
                     Text(
@@ -108,11 +118,19 @@ class WishlistGrid extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                     'Added on: 26/01/22',
+                      'Added on: 26/01/22',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: onDelete,
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                        size: 25,
                       ),
                     ),
                   ],

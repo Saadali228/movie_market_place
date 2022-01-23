@@ -367,6 +367,7 @@ class _MovieGridState extends State<MovieGrid> {
                         ),
                       ),
                     );
+                    print(inWishList);
               },
             )
           : IconButton(
