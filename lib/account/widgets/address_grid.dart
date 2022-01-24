@@ -145,6 +145,7 @@ class AddressGrid extends StatelessWidget {
                   children: [
                     const Text(
                       'Full Name',
+                        textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -153,6 +154,7 @@ class AddressGrid extends StatelessWidget {
                     ),
                     Text(
                       name,
+                        textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -162,6 +164,7 @@ class AddressGrid extends StatelessWidget {
                     const SizedBox(height: 12.0),
                     const Text(
                       'Address',
+                        textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -170,6 +173,7 @@ class AddressGrid extends StatelessWidget {
                     ),
                     Text(
                       address,
+                        textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -179,6 +183,7 @@ class AddressGrid extends StatelessWidget {
                     const SizedBox(height: 12.0),
                     const Text(
                       'Region',
+                        textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -187,6 +192,7 @@ class AddressGrid extends StatelessWidget {
                     ),
                     Text(
                       region,
+                        textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -196,6 +202,7 @@ class AddressGrid extends StatelessWidget {
                     const SizedBox(height: 12.0),
                     const Text(
                       'Phone Number',
+                        textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -204,6 +211,7 @@ class AddressGrid extends StatelessWidget {
                     ),
                     Text(
                       phoneNo,
+                        textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,

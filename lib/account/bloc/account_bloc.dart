@@ -87,5 +87,11 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         );
       }
     });
+
+    on<SetDeleteWishToInitial>((event, emit) {
+      emit(state.copyWith(
+        deleteFromWishListStatus: DeleteFromWishListStatus.initial,
+      ));
+    });
   }
 }

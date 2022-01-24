@@ -23,7 +23,14 @@ class MyWishlist extends StatelessWidget {
         ),
         const SizedBox(height: 20.0),
         BlocBuilder<AccountBloc, AccountState>(
+          buildWhen: (previous, current) =>
+              previous.accountStatus != current.accountStatus ||
+              previous.deleteFromWishListStatus !=
+                  current.deleteFromWishListStatus,
           builder: (context, state) {
+            if(state.deleteFromWishListStatus == DeleteFromWishListStatus.loaded){
+              context.read<AccountBloc>().add(SetDeleteWishToInitial());
+            }
             switch (state.accountStatus) {
               case AccountStatus.initial:
                 context.read<AccountBloc>().add(
@@ -72,14 +79,21 @@ class _WishListLoading extends StatelessWidget {
   }
 }
 
-class _WishListLoaded extends StatelessWidget {
+class _WishListLoaded extends StatefulWidget {
   final List<AccountRepoModel> wishList;
   const _WishListLoaded({Key? key, required this.wishList}) : super(key: key);
 
   @override
+  State<_WishListLoaded> createState() => _WishListLoadedState();
+}
+
+class _WishListLoadedState extends State<_WishListLoaded> {
+  // final _listKey = GlobalKey<AnimatedListState>();
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: wishList.isEmpty
+      child: widget.wishList.isEmpty
           ? const Text(
               'WishList is Empty!',
               style: TextStyle(
@@ -89,14 +103,18 @@ class _WishListLoaded extends StatelessWidget {
               ),
             )
           : ListView.builder(
+              // key: _listKey,
               padding: const EdgeInsets.all(0),
-              itemCount: wishList.length,
+              scrollDirection: Axis.vertical,
+              itemCount: widget.wishList.length,
               itemBuilder: (context, index) {
                 return WishlistGrid(
-                  item: wishList[index],
+                  item: widget.wishList[index],
+                  // animation: animation,
                   onDelete: () {
+                    // print(index);
                     context.read<AccountBloc>().add(
-                          WishDeleted(wishList[index]),
+                          WishDeleted(widget.wishList[index]),
                         );
                   },
                 );
@@ -104,6 +122,21 @@ class _WishListLoaded extends StatelessWidget {
             ),
     );
   }
+
+  // void removeItem(int index) {
+  //   context.read<AccountBloc>().add(
+  //         WishDeleted(widget.wishList[index]),
+  //       );
+  //   final removedItem = widget.wishList[index];
+  //   _listKey.currentState!.removeItem(
+  //     index,
+  //     (context, animation) => WishlistGrid(
+  //       item: removedItem,
+  //       animation: animation,
+  //       onDelete: () {},
+  //     ),
+  //   );
+  // }
 }
 
 class _WishListError extends StatelessWidget {

@@ -8,10 +8,12 @@ class WishlistGrid extends StatelessWidget {
     Key? key,
     required this.item,
     required this.onDelete,
+    // required this.animation,
   }) : super(key: key);
 
   final AccountRepoModel item;
   final Function() onDelete;
+  // final Animation<double> animation;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +88,7 @@ class WishlistGrid extends StatelessWidget {
                   ],
                 )
               : Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.network(
@@ -95,6 +97,7 @@ class WishlistGrid extends StatelessWidget {
                     ),
                     Text(
                       'Title: ${item.title}',
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -103,6 +106,7 @@ class WishlistGrid extends StatelessWidget {
                     ),
                     Text(
                       'Price: ${item.price}',
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -111,6 +115,7 @@ class WishlistGrid extends StatelessWidget {
                     ),
                     const Text(
                       'Status: In Stock',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -119,6 +124,7 @@ class WishlistGrid extends StatelessWidget {
                     ),
                     const Text(
                       'Added on: 26/01/22',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -128,7 +134,7 @@ class WishlistGrid extends StatelessWidget {
                     IconButton(
                       onPressed: onDelete,
                       icon: const Icon(
-                        Icons.delete,
+                        Icons.remove_circle,
                         color: Colors.red,
                         size: 25,
                       ),

@@ -79,6 +79,7 @@ class OrderGrid extends StatelessWidget {
                           Flexible(
                             child: Text(
                               'Title: $title',
+                              // textWidthBasis: TextWidthBasis.parent,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -119,6 +120,7 @@ class OrderGrid extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(
                             'Title: $title',
+                              textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -128,6 +130,7 @@ class OrderGrid extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(
                             'Status: $status',
+                              textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -137,6 +140,7 @@ class OrderGrid extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(
                             date,
+                              textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,

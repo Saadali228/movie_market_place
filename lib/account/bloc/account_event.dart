@@ -27,3 +27,9 @@ class WishDeleted extends AccountEvent {
   @override
   List<Object> get props => [wish];
 }
+
+class SetDeleteWishToInitial extends AccountEvent {
+
+  @override
+  List<Object> get props => [];
+}

@@ -56,10 +56,6 @@ class AccountDataLayer{
             (e) => AccountDataModel.fromJson(e),
           )
           .toList();
-      // int index = wishList.indexOf(product);
-      // final index = wishList.indexWhere((element) => element.id == newItem.id);
-      // wishList[index].qty++;
-      // wishList[index].totalPrice = wishList[index].qty * wishList[index].price;
       final wishJson = wishList.map((e) => e.toJson()).toList();
       var encodedList = json.encode(wishJson);
       await prefs.setString('wishList', encodedList);

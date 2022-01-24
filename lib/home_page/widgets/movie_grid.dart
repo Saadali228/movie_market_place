@@ -160,6 +160,22 @@ class _MovieGridState extends State<MovieGrid> {
                         mainAxisSpacing: 10,
                       ),
                       itemBuilder: (context, index) {
+                        if (context
+                                .read<AccountBloc>()
+                                .state
+                                .deleteFromWishListStatus ==
+                            DeleteFromWishListStatus.loaded) {
+                          context.read<AccountBloc>().add(
+                                SetDeleteWishToInitial(),
+                              );
+                        }
+                        final findMovie = movieAccountModel
+                            .where((element) =>
+                                element.id == state.movieList[index].id)
+                            .toList();
+                        // if (findMovie.isNotEmpty) {
+                        //   print(findMovie.first);
+                        // }
                         return AnimationConfiguration.staggeredList(
                           position: index,
                           duration: const Duration(milliseconds: 300),
@@ -218,14 +234,7 @@ class _MovieGridState extends State<MovieGrid> {
                                       child: wishButton(
                                         context,
                                         state.movieList[index],
-                                        movieAccountModel.contains(
-                                          AccountRepoModel(
-                                            id: state.movieList[index].id,
-                                            image: state.movieList[index].image,
-                                            title: state.movieList[index].title,
-                                            price: state.movieList[index].price,
-                                          ),
-                                        ),
+                                        findMovie.isNotEmpty,
                                       ),
                                     ),
                                   ],
@@ -356,7 +365,7 @@ class _MovieGridState extends State<MovieGrid> {
               ),
               key: const Key('1'),
               onPressed: () {
-                print(inWishList);
+                // print(inWishList);
                 context.read<AccountBloc>().add(
                       WishAdded(
                         AccountRepoModel(
@@ -367,7 +376,7 @@ class _MovieGridState extends State<MovieGrid> {
                         ),
                       ),
                     );
-                    print(inWishList);
+                // print(inWishList);
               },
             )
           : IconButton(
@@ -378,7 +387,6 @@ class _MovieGridState extends State<MovieGrid> {
               ),
               key: const Key('2'),
               onPressed: () {
-                print(inWishList);
                 context.read<AccountBloc>().add(
                       WishDeleted(
                         AccountRepoModel(
