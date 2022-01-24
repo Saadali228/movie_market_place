@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 
 class SortButton extends StatelessWidget {
-  const SortButton({Key? key, required this.scrollController})
+  const SortButton({Key? key})
       : super(key: key);
-
-  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +34,6 @@ class SortButton extends StatelessWidget {
                       sort: sortBy,
                     ),
                   );
-              scrollController.animateTo(0.0,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn);
             }
           },
           items: SortBy.values.map((sortBy) {

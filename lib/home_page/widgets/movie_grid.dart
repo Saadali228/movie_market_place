@@ -111,9 +111,6 @@ class _MovieGridState extends State<MovieGrid> {
                                   int.parse(newValue.toString()),
                                 ),
                               );
-                              _scrollController.animateTo(0.0,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeIn);
                             }
                           },
                         ),
@@ -151,15 +148,10 @@ class _MovieGridState extends State<MovieGrid> {
 
                               BlocProvider.of<MovieBloc>(context)
                                   .add(MovieGenre(selectedGenre));
-                              _scrollController.animateTo(0.0,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeIn);
                             }
                           },
                         ),
-                        SortButton(
-                          scrollController: _scrollController,
-                        ),
+                        const SortButton(),
                       ],
                     ),
                   ),
