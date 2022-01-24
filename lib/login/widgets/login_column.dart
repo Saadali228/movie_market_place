@@ -27,14 +27,6 @@ class LoginColumn extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Welcome',
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 25,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
         RichText(
           text: const TextSpan(
             style: TextStyle(
@@ -54,13 +46,12 @@ class LoginColumn extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 20),
         Row(
           children: [
             const Text(
               'Need An Account?',
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: 18.0,
                 color: Colors.grey,
                 fontWeight: FontWeight.w500,
               ),
@@ -72,7 +63,7 @@ class LoginColumn extends StatelessWidget {
               child: const Text(
                 'Register',
                 style: TextStyle(
-                  fontSize: 30.0,
+                  fontSize: 18.0,
                   color: Colors.purple,
                   fontWeight: FontWeight.w500,
                 ),
@@ -80,7 +71,7 @@ class LoginColumn extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 20),
         Form(
           key: _formKey,
           child: Column(
@@ -99,33 +90,31 @@ class LoginColumn extends StatelessWidget {
                 icon: Icons.password,
               ),
               const SizedBox(height: 10),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamed(
-                        context,
-                        HomeScreen.homePageRoute,
-                      );
-                    }
-                  },
-                  style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all<Size>(
-                      const Size(160, 40),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.pushNamed(
+                      context,
+                      HomeScreen.homePageRoute,
+                    );
+                  }
+                },
+                style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all<Size>(
+                    const Size(160, 40),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
+                ),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),

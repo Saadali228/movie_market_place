@@ -28,7 +28,8 @@ class MyWishlist extends StatelessWidget {
               previous.deleteFromWishListStatus !=
                   current.deleteFromWishListStatus,
           builder: (context, state) {
-            if(state.deleteFromWishListStatus == DeleteFromWishListStatus.loaded){
+            if (state.deleteFromWishListStatus ==
+                DeleteFromWishListStatus.loaded) {
               context.read<AccountBloc>().add(SetDeleteWishToInitial());
             }
             switch (state.accountStatus) {
@@ -88,18 +89,19 @@ class _WishListLoaded extends StatefulWidget {
 }
 
 class _WishListLoadedState extends State<_WishListLoaded> {
-  // final _listKey = GlobalKey<AnimatedListState>();
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: widget.wishList.isEmpty
-          ? const Text(
-              'WishList is Empty!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
+          ? const Center(
+              child: Text(
+                'WishList is Empty!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             )
           : ListView.builder(

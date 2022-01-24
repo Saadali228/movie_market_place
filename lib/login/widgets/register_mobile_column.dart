@@ -36,14 +36,6 @@ class RegisterMobileColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // const Text(
-            //   'START FOR FREE',
-            //   style: TextStyle(
-            //     color: Colors.grey,
-            //     fontSize: 20,
-            //     fontWeight: FontWeight.w500,
-            //   ),
-            // ),
             const SizedBox(
               height: 20,
             ),
@@ -92,7 +84,7 @@ class RegisterMobileColumn extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             Form(
               key: _formKey,
               child: Column(

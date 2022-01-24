@@ -63,14 +63,14 @@ class OrderGrid extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 16.0,
+                  top: 10.0,
                   left: 16.0,
                   right: 16.0,
                 ),
                 child: size.width > _mobile
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.network(
                             image,

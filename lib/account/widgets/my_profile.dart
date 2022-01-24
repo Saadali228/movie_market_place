@@ -22,7 +22,6 @@ class MyProfile extends StatelessWidget {
         ),
         const SizedBox(height: 30.0),
         SizedBox(
-          height: size.width > _screen ? 300 : 400,
           width: size.width * 0.7,
           child: Card(
             color: const Color(0xff361F41),
@@ -33,7 +32,7 @@ class MyProfile extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: size.width > _screen
                   ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         buildColumn(

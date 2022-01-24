@@ -33,14 +33,6 @@ class LoginMobileColumn extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            const Text(
-              'Welcome',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
             RichText(
               text: const TextSpan(
                 style: TextStyle(
@@ -66,7 +58,7 @@ class LoginMobileColumn extends StatelessWidget {
                 const Text(
                   'Need An Account?',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     color: Colors.grey,
                     fontWeight: FontWeight.w500,
                   ),
@@ -78,7 +70,7 @@ class LoginMobileColumn extends StatelessWidget {
                   child: const Text(
                     'Register',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       color: Colors.purple,
                       fontWeight: FontWeight.w500,
                     ),
@@ -86,7 +78,7 @@ class LoginMobileColumn extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             Form(
               key: _formKey,
               child: Column(

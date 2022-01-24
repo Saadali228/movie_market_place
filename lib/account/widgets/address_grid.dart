@@ -31,7 +31,7 @@ class AddressGrid extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: size.width > _screen
               ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(

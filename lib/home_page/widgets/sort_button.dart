@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_market_place/home_page/bloc/movie_bloc.dart';
 
 class SortButton extends StatelessWidget {
-  const SortButton({Key? key})
-      : super(key: key);
+  const SortButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class SortButton extends StatelessWidget {
           iconDisabledColor: Colors.grey,
           iconEnabledColor: Colors.white,
           iconSize: 20.0,
-          // isExpanded: true,
+          isExpanded: true,
           borderRadius: BorderRadius.circular(20.0),
           dropdownColor: const Color(0xff14141c),
           value: state.sortBy,
@@ -38,10 +37,12 @@ class SortButton extends StatelessWidget {
           },
           items: SortBy.values.map((sortBy) {
             return DropdownMenuItem(
-              alignment: Alignment.center,
               value: sortBy,
               child: Text(
-                sortBy.name,
+                sortBy.name.replaceFirst(
+                  sortBy.name.substring(0, 1),
+                  sortBy.name.substring(0, 1).toUpperCase(),
+                ),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,

@@ -73,12 +73,12 @@ class _MovieGridState extends State<MovieGrid> {
                 const SliverToBoxAdapter(child: SearchPage()),
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 60,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        DropdownButton<int>(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        child: DropdownButton<int>(
                           underline: Container(
                             height: 2,
                             decoration: BoxDecoration(
@@ -91,7 +91,7 @@ class _MovieGridState extends State<MovieGrid> {
                           iconDisabledColor: Colors.grey,
                           iconEnabledColor: Colors.white,
                           iconSize: 18.0,
-                          // isExpanded: true,
+                          isExpanded: true,
                           borderRadius: BorderRadius.circular(20.0),
                           dropdownColor: const Color(0xff14141c),
                           style: const TextStyle(
@@ -114,7 +114,10 @@ class _MovieGridState extends State<MovieGrid> {
                             }
                           },
                         ),
-                        DropdownButton(
+                      ),
+                      SizedBox(
+                        width: 200,
+                        child: DropdownButton(
                           underline: Container(
                             height: 2,
                             decoration: BoxDecoration(
@@ -127,7 +130,7 @@ class _MovieGridState extends State<MovieGrid> {
                           iconDisabledColor: Colors.grey,
                           iconEnabledColor: Colors.white,
                           iconSize: 18.0,
-                          // isExpanded: true,
+                          isExpanded: true,
                           borderRadius: BorderRadius.circular(20.0),
                           dropdownColor: const Color(0xff14141c),
                           style: const TextStyle(
@@ -151,12 +154,15 @@ class _MovieGridState extends State<MovieGrid> {
                             }
                           },
                         ),
-                        const SortButton(),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        width: 200,
+                        child: SortButton(),
+                      ),
+                    ],
                   ),
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                const SliverToBoxAdapter(child: SizedBox(height: 20)),
                 AnimationLimiter(
                   child: SliverGrid(
                     gridDelegate:

@@ -19,9 +19,9 @@ class LoginTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    const mobile = 600;
+    const mobile = 850;
     return SizedBox(
-      width: size.width > mobile ? width ?? size.width * 0.5 : size.width * 0.9,
+      width: size.width > mobile ? width ?? size.width * 0.5 : size.width,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
         child: TextFormField(
