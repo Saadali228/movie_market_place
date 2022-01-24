@@ -15,7 +15,7 @@ class MyCancellations extends StatelessWidget {
             'My Cancellations',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
             ),
           ),

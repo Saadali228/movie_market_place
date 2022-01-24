@@ -15,8 +15,8 @@ class MyReviews extends StatelessWidget {
             'My Reviews',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 20),

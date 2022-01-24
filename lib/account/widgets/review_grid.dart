@@ -225,48 +225,51 @@ class ReviewGrid extends StatelessWidget {
             ),
           ],
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Soly By $soldBy',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            const Text(
-              'Your Seller Review',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  emoji,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
+        SizedBox(
+          width: 125,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Soly By $soldBy',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
                 ),
-                Text(
-                  sellerReview,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
+              ),
+              const SizedBox(height: 8.0),
+              const Text(
+                'Your Seller Review',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(height: 8.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    emoji,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    sellerReview,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );

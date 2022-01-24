@@ -16,7 +16,7 @@ class MyAddress extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 25,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 30.0),

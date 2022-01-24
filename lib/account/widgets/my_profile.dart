@@ -13,11 +13,11 @@ class MyProfile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'My profile',
+          'My Profile',
           style: TextStyle(
             color: Colors.white,
             fontSize: 25,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(height: 30.0),

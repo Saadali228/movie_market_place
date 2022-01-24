@@ -19,7 +19,7 @@ class MyAccount extends StatelessWidget {
             'My Account',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -17,7 +17,7 @@ class MyWishlist extends StatelessWidget {
           'My Wishlist',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
         ),

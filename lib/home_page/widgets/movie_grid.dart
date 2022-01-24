@@ -62,207 +62,200 @@ class _MovieGridState extends State<MovieGrid> {
             left: 40,
             right: 40,
           ),
-          child: CustomScrollView(
-            slivers: [
-              const SliverToBoxAdapter(child: SearchPage()),
-              const SliverToBoxAdapter(child: SizedBox(height: 10)),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 60,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      DropdownButton<int>(
-                        underline: Container(
-                          height: 2,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        elevation: 0,
-                        icon: const Icon(Icons.date_range),
-                        iconDisabledColor: Colors.grey,
-                        iconEnabledColor: Colors.white,
-                        iconSize: 18.0,
-                        // isExpanded: true,
-                        borderRadius: BorderRadius.circular(20.0),
-                        dropdownColor: const Color(0xff14141c),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        value: state.selectedYear ?? 2022,
-                        items: numOfYears.map((items) {
-                          return DropdownMenuItem(
-                              value: items, child: Text(items.toString()));
-                        }).toList(),
-                        onChanged: (newValue) {
-                          if (newValue != null) {
-                            BlocProvider.of<MovieBloc>(context).add(
-                              MovieSelectedReleaseYear(
-                                int.parse(newValue.toString()),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      DropdownButton(
-                        underline: Container(
-                          height: 2,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        elevation: 0,
-                        icon: const Icon(Icons.category),
-                        iconDisabledColor: Colors.grey,
-                        iconEnabledColor: Colors.white,
-                        iconSize: 18.0,
-                        // isExpanded: true,
-                        borderRadius: BorderRadius.circular(20.0),
-                        dropdownColor: const Color(0xff14141c),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        value: state.selectedGenre?.name ?? 'Any',
-                        items: genreList.map((String items) {
-                          return DropdownMenuItem(
-                              value: items, child: Text(items));
-                        }).toList(),
-                        onChanged: (newValue) {
-                          final dropDownGenre = newValue.toString();
-                          if (newValue != 'Any') {
-                            final selectedGenre = state.genreList!.firstWhere(
-                                (element) => element.name == dropDownGenre);
-
-                            BlocProvider.of<MovieBloc>(context)
-                                .add(MovieGenre(selectedGenre));
-                          }
-                        },
-                      ),
-                      SortButton(
-                        scrollController: _scrollController,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 10)),
-              SliverFillRemaining(
-                child: AnimationLimiter(
-                  child: RawScrollbar(
-                    scrollbarOrientation: ScrollbarOrientation.left,
-                    thumbColor: Colors.deepPurple,
-                    radius: const Radius.circular(25),
-                    isAlwaysShown: true,
-                    controller: _scrollController,
-                    child: GridView.builder(
-                      padding: const EdgeInsets.all(0),
-                      physics: const BouncingScrollPhysics(),
-                      controller: _scrollController,
-                      itemCount: state.movieList.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 400,
-                        childAspectRatio: 0.67,
-                        //crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
-                      itemBuilder: (context, index) {
-                        if (context
-                                .read<AccountBloc>()
-                                .state
-                                .deleteFromWishListStatus ==
-                            DeleteFromWishListStatus.loaded) {
-                          context.read<AccountBloc>().add(
-                                SetDeleteWishToInitial(),
-                              );
-                        }
-                        final findMovie = movieAccountModel
-                            .where((element) =>
-                                element.id == state.movieList[index].id)
-                            .toList();
-                        // if (findMovie.isNotEmpty) {
-                        //   print(findMovie.first);
-                        // }
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 300),
-                          child: SlideAnimation(
-                            child: a.FadeInAnimation(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 8.0,
-                                  right: 8.0,
-                                  bottom: 8.0,
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.topRight,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          DetailPage.detailPageRoute(
-                                              state.movieList[index].id),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: state.movieList[index].id,
-                                        child: Image.network(
-                                          "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
-                                          width: 420.0,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return Container(
-                                              color: const Color(0xff322043),
-                                              alignment: Alignment.center,
-                                              child: const Icon(
-                                                Icons.person,
-                                                color: Colors.white,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    cartButton(
-                                      context,
-                                      state.movieList[index],
-                                      movieCartModel.contains(
-                                        CartRepoModel(
-                                          id: state.movieList[index].id,
-                                          title: state.movieList[index].title!,
-                                          price: state.movieList[index].price!,
-                                          image: state.movieList[index].poster,
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 0,
-                                      child: wishButton(
-                                        context,
-                                        state.movieList[index],
-                                        findMovie.isNotEmpty,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+          child: RawScrollbar(
+            thumbColor: Colors.deepPurple,
+            radius: const Radius.circular(25),
+            isAlwaysShown: true,
+            controller: _scrollController,
+            child: CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                const SliverToBoxAdapter(child: SearchPage()),
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 60,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        DropdownButton<int>(
+                          underline: Container(
+                            height: 2,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                        );
-                      },
+                          elevation: 0,
+                          icon: const Icon(Icons.date_range),
+                          iconDisabledColor: Colors.grey,
+                          iconEnabledColor: Colors.white,
+                          iconSize: 18.0,
+                          // isExpanded: true,
+                          borderRadius: BorderRadius.circular(20.0),
+                          dropdownColor: const Color(0xff14141c),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          value: state.selectedYear ?? 2022,
+                          items: numOfYears.map((items) {
+                            return DropdownMenuItem(
+                                value: items, child: Text(items.toString()));
+                          }).toList(),
+                          onChanged: (newValue) {
+                            if (newValue != null) {
+                              BlocProvider.of<MovieBloc>(context).add(
+                                MovieSelectedReleaseYear(
+                                  int.parse(newValue.toString()),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                        DropdownButton(
+                          underline: Container(
+                            height: 2,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          elevation: 0,
+                          icon: const Icon(Icons.category),
+                          iconDisabledColor: Colors.grey,
+                          iconEnabledColor: Colors.white,
+                          iconSize: 18.0,
+                          // isExpanded: true,
+                          borderRadius: BorderRadius.circular(20.0),
+                          dropdownColor: const Color(0xff14141c),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          value: state.selectedGenre?.name ?? 'Any',
+                          items: genreList.map((String items) {
+                            return DropdownMenuItem(
+                                value: items, child: Text(items));
+                          }).toList(),
+                          onChanged: (newValue) {
+                            final dropDownGenre = newValue.toString();
+                            if (newValue != 'Any') {
+                              final selectedGenre = state.genreList!.firstWhere(
+                                  (element) => element.name == dropDownGenre);
+
+                              BlocProvider.of<MovieBloc>(context)
+                                  .add(MovieGenre(selectedGenre));
+                            }
+                          },
+                        ),
+                        SortButton(
+                          scrollController: _scrollController,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 400,
+                    childAspectRatio: 0.67,
+                    mainAxisSpacing: 10,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      if (context
+                              .read<AccountBloc>()
+                              .state
+                              .deleteFromWishListStatus ==
+                          DeleteFromWishListStatus.loaded) {
+                        context.read<AccountBloc>().add(
+                              SetDeleteWishToInitial(),
+                            );
+                      }
+                      final findMovie = movieAccountModel
+                          .where((element) =>
+                              element.id == state.movieList[index].id)
+                          .toList();
+                      // if (findMovie.isNotEmpty) {
+                      //   print(findMovie.first);
+                      // }
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 300),
+                        child: SlideAnimation(
+                          child: a.FadeInAnimation(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 8.0,
+                                right: 8.0,
+                                bottom: 8.0,
+                              ),
+                              child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        DetailPage.detailPageRoute(
+                                            state.movieList[index].id),
+                                      );
+                                    },
+                                    child: Hero(
+                                      tag: state.movieList[index].id,
+                                      child: Image.network(
+                                        "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
+                                        width: 420.0,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Container(
+                                            color: const Color(0xff322043),
+                                            alignment: Alignment.center,
+                                            child: const Icon(
+                                              Icons.person,
+                                              color: Colors.white,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  cartButton(
+                                    context,
+                                    state.movieList[index],
+                                    movieCartModel.contains(
+                                      CartRepoModel(
+                                        id: state.movieList[index].id,
+                                        title: state.movieList[index].title!,
+                                        price: state.movieList[index].price!,
+                                        image: state.movieList[index].poster,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 0,
+                                    child: wishButton(
+                                      context,
+                                      state.movieList[index],
+                                      findMovie.isNotEmpty,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    childCount: state.movieList.length,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
