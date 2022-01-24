@@ -36,13 +36,16 @@ class RegisterMobileColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'START FOR FREE',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
+            // const Text(
+            //   'START FOR FREE',
+            //   style: TextStyle(
+            //     color: Colors.grey,
+            //     fontSize: 20,
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
+            const SizedBox(
+              height: 20,
             ),
             RichText(
               text: const TextSpan(
@@ -69,7 +72,7 @@ class RegisterMobileColumn extends StatelessWidget {
                 const Text(
                   'Already A Member?',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     color: Colors.grey,
                     fontWeight: FontWeight.w500,
                   ),
@@ -81,7 +84,7 @@ class RegisterMobileColumn extends StatelessWidget {
                   child: const Text(
                     'Log In',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       color: Colors.purple,
                       fontWeight: FontWeight.w500,
                     ),
@@ -120,31 +123,34 @@ class RegisterMobileColumn extends StatelessWidget {
                     icon: Icons.password,
                   ),
                   const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushNamed(
-                          context,
-                          HomeScreen.homePageRoute,
-                        );
-                      }
-                    },
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(
-                        const Size(160, 40),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.pushNamed(
+                            context,
+                            HomeScreen.homePageRoute,
+                          );
+                        }
+                      },
+                      style: ButtonStyle(
+                        fixedSize: MaterialStateProperty.all<Size>(
+                          const Size(160, 40),
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                       ),
-                    ),
-                    child: const Text(
-                      'Create Account',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
+                      child: const Text(
+                        'Create Account',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
