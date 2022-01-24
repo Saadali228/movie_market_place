@@ -1,218 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:movie_market_place/account/widgets/review_grid.dart';
 
 class MyReviews extends StatelessWidget {
   const MyReviews({Key? key}) : super(key: key);
 
-  Widget starIcon() {
-    return const Icon(
-      Icons.star,
-      color: Colors.yellow,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    double _mobile = 1100;
-    final isMobile = size.width < _mobile ? true : false;
-    Widget buildColumn() {
-      return Column(
-        crossAxisAlignment: size.width > 600
-            ? CrossAxisAlignment.start
-            : CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: const [
-              Text(
-                'Sold by',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                'Movie Mart',
-                style: TextStyle(
-                  color: Colors.white70,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            'Your Seller review',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Image.network(
-                'https://laz-img-cdn.alicdn.com/tfs/TB1JWNYdLDH8KJjy1XcXXcpdXXa-48-48.png',
-                scale: 2,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text(
-                'Positive',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-    }
-
-    Widget buildReview(
-      purchased,
-      imageUrl,
-      movieName,
-      reviewText, {
-      rating = false,
-    }) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: SizedBox(
-          height: isMobile ? 350 : 225,
-          // height: 225,
-          width: isMobile ? size.width * 0.78 : size.width * 0.75,
-          child: Card(
-            color: const Color(0xff361F41),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: size.width > 600
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        purchased,
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Your product rating & review:',
-                        style: TextStyle(
-                          color: Colors.white70,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          size.width >= 600
-                              ? Image.network(
-                                  imageUrl,
-                                  scale: 4,
-                                )
-                              : Container(),
-                          if (size.width > 500)
-                            const SizedBox(
-                              width: 20,
-                            ),
-                          Column(
-                            crossAxisAlignment: size.width > 600
-                                ? CrossAxisAlignment.start
-                                : CrossAxisAlignment.center,
-                            children: [
-                              size.width < 600
-                                  ? Image.network(
-                                      imageUrl,
-                                      scale: 4,
-                                    )
-                                  : Container(),
-                              Text(
-                                movieName,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  starIcon(),
-                                  starIcon(),
-                                  starIcon(),
-                                  rating
-                                      ? const Icon(
-                                          Icons.star_border,
-                                          color: Colors.yellow,
-                                        )
-                                      : starIcon(),
-                                  rating
-                                      ? const Icon(
-                                          Icons.star_border,
-                                          color: Colors.yellow,
-                                        )
-                                      : starIcon(),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      reviewText,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              if (isMobile) buildColumn(),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  if (!isMobile)
-                    const SizedBox(
-                      width: 300,
-                    ),
-                  if (!isMobile) buildColumn(),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: size.width > 600
-            ? CrossAxisAlignment.start
-            : CrossAxisAlignment.center,
-        children: [
-          const Text(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          Text(
             'My Reviews',
             style: TextStyle(
               color: Colors.white,
@@ -220,18 +19,36 @@ class MyReviews extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          buildReview(
-            'Purchased on 10 Jan 2022',
-            'https://image.tmdb.org/t/p/w500/c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg',
-            'Eternals',
-            'Excellent',
+          SizedBox(height: 20),
+          ReviewGrid(
+            purchasedOn: '31/12/2021',
+            image: 'c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg',
+            title: 'Eternals',
+            star: '⭐⭐⭐⭐',
+            remarks: 'Good',
+            soldBy: 'DVD Bank',
+            emoji: '😀',
+            sellerReview: 'Positive',
           ),
-          buildReview(
-            'Purchased on 20 Dec 2021',
-            'https://image.tmdb.org/t/p/w500/nlysrDR67rnt0DGW3FmnhC1lOdq.jpg',
-            'Jack Reacher',
-            'Good',
-            rating: true,
+          ReviewGrid(
+            purchasedOn: '19/11/2021',
+            image: '1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg',
+            title: 'Spider-Man: No Way Home',
+            star: '⭐⭐⭐⭐⭐',
+            remarks: 'Excellent',
+            soldBy: 'Jumbo Shop',
+            emoji: '😀',
+            sellerReview: 'Positive',
+          ),
+          ReviewGrid(
+            purchasedOn: '06/09/2021',
+            image: 'mFbS5TwN95BcSEfiztdchLgTQ0v.jpg',
+            title: 'The Last Duel',
+            star: '⭐⭐',
+            remarks: 'Bad',
+            soldBy: 'Daw Mart',
+            emoji: '😞',
+            sellerReview: 'Negative',
           ),
         ],
       ),
