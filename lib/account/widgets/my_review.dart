@@ -17,7 +17,9 @@ class MyReviews extends StatelessWidget {
     final isMobile = size.width < _mobile ? true : false;
     Widget buildColumn() {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: size.width > 600
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.start,
         children: [
           Row(
             children: const [
@@ -81,7 +83,7 @@ class MyReviews extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: SizedBox(
-          height: isMobile ? 275 : 225,
+          height: isMobile ? 350 : 225,
           // height: 225,
           width: isMobile ? size.width * 0.78 : size.width * 0.75,
           child: Card(
@@ -91,101 +93,111 @@ class MyReviews extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          purchased,
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: size.width > 600
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        purchased,
+                        style: const TextStyle(
+                          color: Colors.white,
                         ),
-                        const SizedBox(
-                          height: 20,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Your product rating & review:',
+                        style: TextStyle(
+                          color: Colors.white70,
                         ),
-                        const Text(
-                          'Your product rating & review:',
-                          style: TextStyle(
-                            color: Colors.white70,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            Image.network(
-                              imageUrl,
-                              scale: 4,
-                            ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          size.width >= 600
+                              ? Image.network(
+                                  imageUrl,
+                                  scale: 4,
+                                )
+                              : Container(),
+                          if (size.width > 500)
                             const SizedBox(
                               width: 20,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  movieName,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
+                          Column(
+                            crossAxisAlignment: size.width > 600
+                                ? CrossAxisAlignment.start
+                                : CrossAxisAlignment.center,
+                            children: [
+                              size.width < 600
+                                  ? Image.network(
+                                      imageUrl,
+                                      scale: 4,
+                                    )
+                                  : Container(),
+                              Text(
+                                movieName,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  starIcon(),
+                                  starIcon(),
+                                  starIcon(),
+                                  rating
+                                      ? const Icon(
+                                          Icons.star_border,
+                                          color: Colors.yellow,
+                                        )
+                                      : starIcon(),
+                                  rating
+                                      ? const Icon(
+                                          Icons.star_border,
+                                          color: Colors.yellow,
+                                        )
+                                      : starIcon(),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    starIcon(),
-                                    starIcon(),
-                                    starIcon(),
-                                    rating
-                                        ? const Icon(
-                                            Icons.star_border,
-                                            color: Colors.yellow,
-                                          )
-                                        : starIcon(),
-                                    rating
-                                        ? const Icon(
-                                            Icons.star_border,
-                                            color: Colors.yellow,
-                                          )
-                                        : starIcon(),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Text(
-                                        reviewText,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                        ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      reviewText,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 13,
                                       ),
                                     ),
-                                  ],
-                                ),
-                                if (isMobile) buildColumn(),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    if (!isMobile)
-                      const SizedBox(
-                        width: 300,
+                                  ),
+                                ],
+                              ),
+                              if (isMobile) buildColumn(),
+                            ],
+                          ),
+                        ],
                       ),
-                    if (!isMobile) buildColumn(),
-                  ],
-                ),
+                    ],
+                  ),
+                  if (!isMobile)
+                    const SizedBox(
+                      width: 300,
+                    ),
+                  if (!isMobile) buildColumn(),
+                ],
               ),
             ),
           ),
@@ -196,7 +208,9 @@ class MyReviews extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: size.width > 600
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.center,
         children: [
           const Text(
             'My Reviews',
