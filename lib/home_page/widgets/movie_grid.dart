@@ -76,88 +76,129 @@ class _MovieGridState extends State<MovieGrid> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 200,
-                        child: DropdownButton<int>(
-                          underline: Container(
-                            height: 2,
-                            decoration: BoxDecoration(
+                      Row(
+                        children: [
+                          const Text(
+                            'Year:',
+                            style: TextStyle(
                               color: Colors.grey,
-                              borderRadius: BorderRadius.circular(20),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                          elevation: 0,
-                          icon: const Icon(Icons.date_range),
-                          iconDisabledColor: Colors.grey,
-                          iconEnabledColor: Colors.white,
-                          iconSize: 18.0,
-                          isExpanded: true,
-                          borderRadius: BorderRadius.circular(20.0),
-                          dropdownColor: const Color(0xff14141c),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          value: state.selectedYear ?? 2022,
-                          items: numOfYears.map((items) {
-                            return DropdownMenuItem(
-                                value: items, child: Text(items.toString()));
-                          }).toList(),
-                          onChanged: (newValue) {
-                            if (newValue != null) {
-                              BlocProvider.of<MovieBloc>(context).add(
-                                MovieSelectedReleaseYear(
-                                  int.parse(newValue.toString()),
+                          const SizedBox(width: 16.0),
+                          SizedBox(
+                            width: 200,
+                            child: DropdownButton<int>(
+                              underline: Container(
+                                height: 2,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: DropdownButton(
-                          underline: Container(
-                            height: 2,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(20),
+                              ),
+                              elevation: 0,
+                              icon: const Icon(Icons.date_range),
+                              iconDisabledColor: Colors.grey,
+                              iconEnabledColor: Colors.white,
+                              iconSize: 16.0,
+                              isExpanded: true,
+                              borderRadius: BorderRadius.circular(20.0),
+                              dropdownColor: const Color(0xff14141c),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              value: state.selectedYear ?? 2022,
+                              items: numOfYears.map((items) {
+                                return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items.toString()));
+                              }).toList(),
+                              onChanged: (newValue) {
+                                if (newValue != null) {
+                                  BlocProvider.of<MovieBloc>(context).add(
+                                    MovieSelectedReleaseYear(
+                                      int.parse(newValue.toString()),
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                           ),
-                          elevation: 0,
-                          icon: const Icon(Icons.category),
-                          iconDisabledColor: Colors.grey,
-                          iconEnabledColor: Colors.white,
-                          iconSize: 18.0,
-                          isExpanded: true,
-                          borderRadius: BorderRadius.circular(20.0),
-                          dropdownColor: const Color(0xff14141c),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          value: state.selectedGenre?.name ?? 'Any',
-                          items: genreList.map((String items) {
-                            return DropdownMenuItem(
-                                value: items, child: Text(items));
-                          }).toList(),
-                          onChanged: (newValue) {
-                            final dropDownGenre = newValue.toString();
-                            if (newValue != 'Any') {
-                              final selectedGenre = state.genreList!.firstWhere(
-                                  (element) => element.name == dropDownGenre);
-
-                              BlocProvider.of<MovieBloc>(context)
-                                  .add(MovieGenre(selectedGenre));
-                            }
-                          },
-                        ),
+                        ],
                       ),
-                      const SizedBox(
-                        width: 200,
-                        child: SortButton(),
+                      Row(
+                        children: [
+                          const Text(
+                            'Genre:',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(width: 8.0),
+                          SizedBox(
+                            width: 200,
+                            child: DropdownButton(
+                              underline: Container(
+                                height: 2,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              elevation: 0,
+                              icon: const Icon(Icons.category),
+                              iconDisabledColor: Colors.grey,
+                              iconEnabledColor: Colors.white,
+                              iconSize: 18.0,
+                              isExpanded: true,
+                              borderRadius: BorderRadius.circular(20.0),
+                              dropdownColor: const Color(0xff14141c),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              value: state.selectedGenre?.name ?? 'Any',
+                              items: genreList.map((String items) {
+                                return DropdownMenuItem(
+                                    value: items, child: Text(items));
+                              }).toList(),
+                              onChanged: (newValue) {
+                                final dropDownGenre = newValue.toString();
+                                if (newValue != 'Any') {
+                                  final selectedGenre = state.genreList!
+                                      .firstWhere((element) =>
+                                          element.name == dropDownGenre);
+
+                                  BlocProvider.of<MovieBloc>(context)
+                                      .add(MovieGenre(selectedGenre));
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: const [
+                          Text(
+                            'Sort:',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: 16.0),
+                          SizedBox(
+                            width: 200,
+                            child: SortButton(),
+                          ),
+                        ],
                       ),
                     ],
                   ),

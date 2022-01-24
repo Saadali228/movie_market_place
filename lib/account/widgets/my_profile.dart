@@ -40,29 +40,34 @@ class MyProfile extends StatelessWidget {
                           'Vendian',
                           'Birthday',
                           '01/01/2012',
+                          context,
                         ),
                         buildColumn(
                           'Email Address',
                           'venture@venturedive.com',
                           'Gender',
                           'Male',
+                          context,
                         ),
                         buildColumn(
                           'Mobile',
                           '+923343586878',
                           'Account Type',
                           'Standard',
+                          context,
                         ),
                       ],
                     )
                   : SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           buildColumn(
                             'Full Name',
                             'Vendian',
                             'Birthday',
                             '01/01/2012',
+                            context,
                           ),
                           const SizedBox(
                             height: 20,
@@ -72,6 +77,7 @@ class MyProfile extends StatelessWidget {
                             'venture@venturedive.com',
                             'Gender',
                             'Male',
+                            context,
                           ),
                           const SizedBox(
                             height: 20,
@@ -81,6 +87,7 @@ class MyProfile extends StatelessWidget {
                             '+923343586878',
                             'Account Type',
                             'Standard',
+                            context,
                           ),
                         ],
                       ),
@@ -97,8 +104,12 @@ class MyProfile extends StatelessWidget {
     msg2,
     msg3,
     msg4,
+    BuildContext context,
   ) {
     return Column(
+      crossAxisAlignment: MediaQuery.of(context).size.width > _screen
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.center,
       children: [
         Text(
           msg1,

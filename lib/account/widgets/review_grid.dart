@@ -133,7 +133,7 @@ class ReviewGrid extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              emoji,
+              '$emoji ',
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
@@ -201,7 +201,7 @@ class ReviewGrid extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          star,
+                          '$star ',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -250,7 +250,7 @@ class ReviewGrid extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    emoji,
+                    '$emoji ',
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,

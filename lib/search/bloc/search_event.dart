@@ -11,3 +11,11 @@ class SearchItemsLoaded extends SearchEvent {
   List<Object?> get props => [text];
   
 }
+
+class SearchItemInitial extends SearchEvent {
+  SearchItemInitial();
+
+  @override
+  List<Object?> get props => [];
+  
+}

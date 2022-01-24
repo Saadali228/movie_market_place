@@ -53,86 +53,88 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (context) => MovieBloc(
         RepositoryProvider.of(context),
       ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xff1F0C3F),
-        appBar: AppBar(
-          title: Row(
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: const Color(0xff1F0C3F),
+          appBar: AppBar(
+            title: Row(
+              children: [
+                if (size.width > 400)
+                  SizedBox(
+                    width: 3 * SizeConfig.blockSizeHorizontal!,
+                  ),
+                const LogoWidget(),
+              ],
+            ),
+            actions: [
+              controller.hasClients && controller.page != 0
+                  ? Container()
+                  : SearchButton(
+                      onTap: () => controller.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                      ),
+                    ),
+              SizedBox(
+                width: 1 * SizeConfig.blockSizeHorizontal!,
+              ),
+              AccountButton(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AccountPage.accountPageRoute,
+                  );
+                },
+              ),
+              SizedBox(
+                width: 1 * SizeConfig.blockSizeHorizontal!,
+              ),
+              Builder(
+                builder: (context) {
+                  return CartButton(
+                    onTap: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                  );
+                },
+              ),
+              SizedBox(
+                width: 1 * SizeConfig.blockSizeHorizontal!,
+              ),
+              LogoutButton(
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                    context,
+                    LoginPage.loginPageRoute,
+                  );
+                },
+              ),
+              SizedBox(
+                width: 3 * SizeConfig.blockSizeHorizontal!,
+              ),
+            ],
+            centerTitle: false,
+            automaticallyImplyLeading: false,
+            backgroundColor: controller.hasClients && controller.page == 1
+                ? const Color(0xff1F0C3F)
+                : Colors.transparent,
+            elevation: 0,
+          ),
+          endDrawer: const CartDrawer(),
+          extendBodyBehindAppBar: true,
+          body: PageView(
+            controller: controller,
+            scrollDirection: Axis.vertical,
             children: [
-              if (size.width > 400)
-                SizedBox(
-                  width: 3 * SizeConfig.blockSizeHorizontal!,
-                ),
-              const LogoWidget(),
+              HomeBanner(
+                controller: controller,
+              ),
+              MovieGrid(
+                pageController: controller,
+              ),
             ],
           ),
-          actions: [
-            controller.hasClients && controller.page != 0
-                ? Container()
-                : SearchButton(
-                    onTap: () => controller.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeOut,
-                    ),
-                  ),
-            SizedBox(
-              width: 1 * SizeConfig.blockSizeHorizontal!,
-            ),
-            AccountButton(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AccountPage.accountPageRoute,
-                );
-              },
-            ),
-            SizedBox(
-              width: 1 * SizeConfig.blockSizeHorizontal!,
-            ),
-            Builder(
-              builder: (context) {
-                return CartButton(
-                  onTap: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                );
-              },
-            ),
-            SizedBox(
-              width: 1 * SizeConfig.blockSizeHorizontal!,
-            ),
-            LogoutButton(
-              onTap: () {
-                Navigator.pushReplacementNamed(
-                  context,
-                  LoginPage.loginPageRoute,
-                );
-              },
-            ),
-            SizedBox(
-              width: 3 * SizeConfig.blockSizeHorizontal!,
-            ),
-          ],
-          centerTitle: false,
-          automaticallyImplyLeading: false,
-          backgroundColor: controller.hasClients && controller.page == 1
-              ? const Color(0xff1F0C3F)
-              : Colors.transparent,
-          elevation: 0,
-        ),
-        endDrawer: const CartDrawer(),
-        extendBodyBehindAppBar: true,
-        body: PageView(
-          controller: controller,
-          scrollDirection: Axis.vertical,
-          children: [
-            HomeBanner(
-              controller: controller,
-            ),
-            MovieGrid(
-              pageController: controller,
-            ),
-          ],
         ),
       ),
     );

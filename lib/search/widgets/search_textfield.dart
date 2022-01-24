@@ -21,7 +21,9 @@ class SearchTextField extends StatelessWidget {
                   text: text,
                 ),
               )
-            : null;
+            : BlocProvider.of<SearchBloc>(context).add(
+                SearchItemInitial(),
+              );
       },
       decoration: InputDecoration(
         isDense: true,

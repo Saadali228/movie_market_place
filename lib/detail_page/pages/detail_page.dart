@@ -35,27 +35,29 @@ class DetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff2d2d2d),
-      body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
-        builder: (context, state) {
-          switch (state.movieDetailStatus) {
-            case MovieDetailStatus.initial:
-              context.read<MovieDetailBloc>().add(
-                    MovieDetailFetched(),
-                  );
-              return const _MovieDetailInitial();
-            case MovieDetailStatus.loading:
-              return const _MovieDetailLoading();
-            case MovieDetailStatus.loaded:
-              return _MovieDetailLoaded(
-                movieDetail: state.movieDetails!,
-              );
-            case MovieDetailStatus.error:
-            default:
-              return const _MovieDetailError();
-          }
-        },
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xff2d2d2d),
+        body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
+          builder: (context, state) {
+            switch (state.movieDetailStatus) {
+              case MovieDetailStatus.initial:
+                context.read<MovieDetailBloc>().add(
+                      MovieDetailFetched(),
+                    );
+                return const _MovieDetailInitial();
+              case MovieDetailStatus.loading:
+                return const _MovieDetailLoading();
+              case MovieDetailStatus.loaded:
+                return _MovieDetailLoaded(
+                  movieDetail: state.movieDetails!,
+                );
+              case MovieDetailStatus.error:
+              default:
+                return const _MovieDetailError();
+            }
+          },
+        ),
       ),
     );
   }

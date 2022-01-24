@@ -34,5 +34,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         }
       },
     );
+
+    on<SearchItemInitial>(
+      (event, emit) {
+        emit(
+          state.copyWith(
+            searchStatus: SearchStatus.initial,
+          ),
+        );
+      },
+    );
   }
 }
