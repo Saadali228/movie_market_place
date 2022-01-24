@@ -33,14 +33,14 @@ class RegisterColumn extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'START FOR FREE',
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 30,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        // const Text(
+        //   'START FOR FREE',
+        //   style: TextStyle(
+        //     color: Colors.grey,
+        //     fontSize: 30,
+        //     fontWeight: FontWeight.w500,
+        //   ),
+        // ),
         RichText(
           text: const TextSpan(
             style: TextStyle(
@@ -66,7 +66,7 @@ class RegisterColumn extends StatelessWidget {
             const Text(
               'Already A Member?',
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 25.0,
                 color: Colors.grey,
                 fontWeight: FontWeight.w500,
               ),
@@ -78,7 +78,7 @@ class RegisterColumn extends StatelessWidget {
               child: const Text(
                 'Log In',
                 style: TextStyle(
-                  fontSize: 30.0,
+                  fontSize: 25.0,
                   color: Colors.purple,
                   fontWeight: FontWeight.w500,
                 ),
@@ -124,31 +124,33 @@ class RegisterColumn extends StatelessWidget {
                 icon: Icons.password,
               ),
               const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(
-                      context,
-                      HomeScreen.homePageRoute,
-                    );
-                  }
-                },
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all<Size>(
-                    const Size(160, 40),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushNamed(
+                        context,
+                        HomeScreen.homePageRoute,
+                      );
+                    }
+                  },
+                  style: ButtonStyle(
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(160, 40),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
-                ),
-                child: const Text(
-                  'Create Account',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
+                  child: const Text(
+                    'Create Account',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),

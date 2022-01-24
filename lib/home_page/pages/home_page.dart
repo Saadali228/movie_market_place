@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     SizeConfig().init(context);
     return BlocProvider(
       create: (context) => MovieBloc(
@@ -58,9 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Row(
             children: [
-              SizedBox(
-                width: 3 * SizeConfig.blockSizeHorizontal!,
-              ),
+              if (size.width > 400)
+                SizedBox(
+                  width: 3 * SizeConfig.blockSizeHorizontal!,
+                ),
               const LogoWidget(),
             ],
           ),

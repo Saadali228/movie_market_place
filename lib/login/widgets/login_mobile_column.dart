@@ -30,6 +30,9 @@ class LoginMobileColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 50,
+            ),
             const Text(
               'Welcome',
               style: TextStyle(
@@ -102,31 +105,34 @@ class LoginMobileColumn extends StatelessWidget {
                     icon: Icons.password,
                   ),
                   const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushNamed(
-                          context,
-                          HomeScreen.homePageRoute,
-                        );
-                      }
-                    },
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(
-                        const Size(160, 40),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.pushNamed(
+                            context,
+                            HomeScreen.homePageRoute,
+                          );
+                        }
+                      },
+                      style: ButtonStyle(
+                        fixedSize: MaterialStateProperty.all<Size>(
+                          const Size(160, 40),
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                       ),
-                    ),
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),

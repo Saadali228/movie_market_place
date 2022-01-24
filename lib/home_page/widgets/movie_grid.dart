@@ -42,6 +42,9 @@ class _MovieGridState extends State<MovieGrid> {
 
   @override
   Widget build(BuildContext context) {
+    double _mobile = 400;
+    final size = MediaQuery.of(context).size;
+
     List<CartRepoModel> movieCartModel =
         context.watch<CartBloc>().state.cartList;
     List<AccountRepoModel> movieAccountModel =
@@ -54,8 +57,8 @@ class _MovieGridState extends State<MovieGrid> {
           genreList.add(state.genreList![i].name);
         }
         return Padding(
-          padding: const EdgeInsets.only(
-            top: 80,
+          padding: EdgeInsets.only(
+            top: size.width < _mobile ? 130 : 80,
             left: 40,
             right: 40,
           ),
@@ -75,13 +78,13 @@ class _MovieGridState extends State<MovieGrid> {
                           icon: const Icon(Icons.date_range),
                           iconDisabledColor: Colors.grey,
                           iconEnabledColor: Colors.white,
-                          iconSize: 20.0,
+                          iconSize: 18.0,
                           // isExpanded: true,
                           borderRadius: BorderRadius.circular(20.0),
                           dropdownColor: const Color(0xff14141c),
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.w500,
                           ),
                           value: state.selectedYear ?? 2022,
@@ -106,13 +109,13 @@ class _MovieGridState extends State<MovieGrid> {
                           icon: const Icon(Icons.category),
                           iconDisabledColor: Colors.grey,
                           iconEnabledColor: Colors.white,
-                          iconSize: 20.0,
+                          iconSize: 18.0,
                           // isExpanded: true,
                           borderRadius: BorderRadius.circular(20.0),
                           dropdownColor: const Color(0xff14141c),
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.w500,
                           ),
                           value: state.selectedGenre?.name ?? 'Any',
@@ -367,7 +370,7 @@ class _MovieGridState extends State<MovieGrid> {
                         ),
                       ),
                     );
-                    print(inWishList);
+                print(inWishList);
               },
             )
           : IconButton(

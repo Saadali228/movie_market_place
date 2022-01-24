@@ -31,7 +31,7 @@ class LoginColumn extends StatelessWidget {
           'Welcome',
           style: TextStyle(
             color: Colors.grey,
-            fontSize: 30,
+            fontSize: 25,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -60,7 +60,7 @@ class LoginColumn extends StatelessWidget {
             const Text(
               'Need An Account?',
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 25.0,
                 color: Colors.grey,
                 fontWeight: FontWeight.w500,
               ),
@@ -99,31 +99,33 @@ class LoginColumn extends StatelessWidget {
                 icon: Icons.password,
               ),
               const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(
-                      context,
-                      HomeScreen.homePageRoute,
-                    );
-                  }
-                },
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all<Size>(
-                    const Size(160, 40),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushNamed(
+                        context,
+                        HomeScreen.homePageRoute,
+                      );
+                    }
+                  },
+                  style: ButtonStyle(
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(160, 40),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
-                ),
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
