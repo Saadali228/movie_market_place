@@ -159,99 +159,102 @@ class _MovieGridState extends State<MovieGrid> {
                   ),
                 ),
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
-                SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 400,
-                    childAspectRatio: 0.67,
-                    mainAxisSpacing: 10,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      if (context
-                              .read<AccountBloc>()
-                              .state
-                              .deleteFromWishListStatus ==
-                          DeleteFromWishListStatus.loaded) {
-                        context.read<AccountBloc>().add(
-                              SetDeleteWishToInitial(),
-                            );
-                      }
-                      final findMovie = movieAccountModel
-                          .where((element) =>
-                              element.id == state.movieList[index].id)
-                          .toList();
-                      // if (findMovie.isNotEmpty) {
-                      //   print(findMovie.first);
-                      // }
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 300),
-                        child: SlideAnimation(
-                          child: a.FadeInAnimation(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                left: 8.0,
-                                right: 8.0,
-                                bottom: 8.0,
-                              ),
-                              child: Stack(
-                                alignment: Alignment.topRight,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        DetailPage.detailPageRoute(
-                                            state.movieList[index].id),
-                                      );
-                                    },
-                                    child: Hero(
-                                      tag: state.movieList[index].id,
-                                      child: Image.network(
-                                        "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
-                                        width: 420.0,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Container(
-                                            color: const Color(0xff322043),
-                                            alignment: Alignment.center,
-                                            child: const Icon(
-                                              Icons.person,
-                                              color: Colors.white,
-                                            ),
-                                          );
-                                        },
+                AnimationLimiter(
+                  child: SliverGrid(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 400,
+                      childAspectRatio: 0.67,
+                      mainAxisSpacing: 10,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        if (context
+                                .read<AccountBloc>()
+                                .state
+                                .deleteFromWishListStatus ==
+                            DeleteFromWishListStatus.loaded) {
+                          context.read<AccountBloc>().add(
+                                SetDeleteWishToInitial(),
+                              );
+                        }
+                        final findMovie = movieAccountModel
+                            .where((element) =>
+                                element.id == state.movieList[index].id)
+                            .toList();
+                        // if (findMovie.isNotEmpty) {
+                        //   print(findMovie.first);
+                        // }
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 300),
+                          child: SlideAnimation(
+                            child: a.FadeInAnimation(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 8.0,
+                                  right: 8.0,
+                                  bottom: 8.0,
+                                ),
+                                child: Stack(
+                                  alignment: Alignment.topRight,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          DetailPage.detailPageRoute(
+                                              state.movieList[index].id),
+                                        );
+                                      },
+                                      child: Hero(
+                                        tag: state.movieList[index].id,
+                                        child: Image.network(
+                                          "https://image.tmdb.org/t/p/w500/${state.movieList[index].poster}",
+                                          width: 420.0,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Container(
+                                              color: const Color(0xff322043),
+                                              alignment: Alignment.center,
+                                              child: const Icon(
+                                                Icons.person,
+                                                color: Colors.white,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  cartButton(
-                                    context,
-                                    state.movieList[index],
-                                    movieCartModel.contains(
-                                      CartRepoModel(
-                                        id: state.movieList[index].id,
-                                        title: state.movieList[index].title!,
-                                        price: state.movieList[index].price!,
-                                        image: state.movieList[index].poster,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 0,
-                                    child: wishButton(
+                                    cartButton(
                                       context,
                                       state.movieList[index],
-                                      findMovie.isNotEmpty,
+                                      movieCartModel.contains(
+                                        CartRepoModel(
+                                          id: state.movieList[index].id,
+                                          title: state.movieList[index].title!,
+                                          price: state.movieList[index].price!,
+                                          image: state.movieList[index].poster,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Positioned(
+                                      left: 0,
+                                      child: wishButton(
+                                        context,
+                                        state.movieList[index],
+                                        findMovie.isNotEmpty,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                    childCount: state.movieList.length,
+                        );
+                      },
+                      childCount: state.movieList.length,
+                    ),
                   ),
                 ),
               ],
