@@ -38,42 +38,54 @@ class WishlistGrid extends StatelessWidget {
                       scale: 3,
                     ),
                     Flexible(
-                      child: Text(
-                        'Title: ${item.title}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      child: SizedBox(
+                        width: 300,
+                        child: Text(
+                          'Title: ${item.title}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
                     Flexible(
-                      child: Text(
-                        'Price: ${item.price}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      child: SizedBox(
+                        width: 100,
+                        child: Text(
+                          'Price: ${item.price}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
                     const Flexible(
-                      child: Text(
-                        'Status: In Stock',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      child: SizedBox(
+                        width: 150,
+                        child: Text(
+                          'Status: In Stock',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
                     const Flexible(
-                      child: Text(
-                        'Added on: 26/01/22',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      child: SizedBox(
+                        width: 200,
+                        child: Text(
+                          'Added on: 26/01/22',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),

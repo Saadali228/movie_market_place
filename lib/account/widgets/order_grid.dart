@@ -77,33 +77,41 @@ class OrderGrid extends StatelessWidget {
                             scale: 3,
                           ),
                           Flexible(
-                            child: Text(
-                              'Title: $title',
-                              // textWidthBasis: TextWidthBasis.parent,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                            child: SizedBox(
+                              width: 300,
+                              child: Text(
+                                'Title: $title',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
                           Flexible(
-                            child: Text(
-                              'Status: $status',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                            child: SizedBox(
+                              width: 150,
+                              child: Text(
+                                'Status: $status',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
                           Flexible(
-                            child: Text(
-                              date,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                            child: SizedBox(
+                              width: 200,
+                              child: Text(
+                                date,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
@@ -120,7 +128,7 @@ class OrderGrid extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(
                             'Title: $title',
-                              textAlign: TextAlign.center,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -130,7 +138,7 @@ class OrderGrid extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(
                             'Status: $status',
-                              textAlign: TextAlign.center,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -140,7 +148,7 @@ class OrderGrid extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(
                             date,
-                              textAlign: TextAlign.center,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
