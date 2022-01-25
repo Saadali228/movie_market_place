@@ -31,7 +31,7 @@ class WishlistGrid extends StatelessWidget {
           child: size.width > _mobile
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.network(
                       'https://image.tmdb.org/t/p/w185/${item.image}',
@@ -90,32 +90,34 @@ class WishlistGrid extends StatelessWidget {
                       ),
                     ),
                     IconButton(
+                      iconSize: 40,
                       onPressed: onDelete,
                       icon: const Icon(
                         Icons.remove_circle,
                         color: Colors.red,
-                        size: 40,
                       ),
                     ),
                   ],
                 )
               : Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.network(
                       'https://image.tmdb.org/t/p/w185/${item.image}',
                       scale: 3,
                     ),
+                    const SizedBox(height: 8.0),
                     Text(
                       'Title: ${item.title}',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 17,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    const SizedBox(height: 8.0),
                     Text(
                       'Price: ${item.price}',
                       textAlign: TextAlign.center,
@@ -125,6 +127,7 @@ class WishlistGrid extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    const SizedBox(height: 4.0),
                     const Text(
                       'Status: In Stock',
                       textAlign: TextAlign.center,
@@ -134,6 +137,7 @@ class WishlistGrid extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    const SizedBox(height: 4.0),
                     const Text(
                       'Added on: 26/01/22',
                       textAlign: TextAlign.center,
@@ -143,6 +147,7 @@ class WishlistGrid extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    const SizedBox(height: 4.0),
                     IconButton(
                       onPressed: onDelete,
                       icon: const Icon(

@@ -6,27 +6,28 @@ class AccountGrid extends StatelessWidget {
     required this.heading,
     required this.title,
     required this.subTitle,
+    this.phoneNo,
   }) : super(key: key);
 
   final String heading;
   final String title;
   final String subTitle;
+  final String? phoneNo;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 350,
-      height: 160,
       child: Card(
         color: const Color(0xff361F41),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 heading,
@@ -53,6 +54,15 @@ class AccountGrid extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
+              if (phoneNo != null)
+                Text(
+                  phoneNo!,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
             ],
           ),
         ),

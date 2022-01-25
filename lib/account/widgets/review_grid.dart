@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_market_place/account/widgets/stars.dart';
 
 double _mobile = 760;
 
@@ -18,7 +19,7 @@ class ReviewGrid extends StatelessWidget {
   final String purchasedOn;
   final String image;
   final String title;
-  final String star;
+  final int star;
   final String remarks;
   final String soldBy;
   final String emoji;
@@ -68,46 +69,29 @@ class ReviewGrid extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.network(
-              'https://image.tmdb.org/t/p/w185/$image',
-              scale: 2,
-            ),
-            const SizedBox(width: 8.0),
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    star,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    remarks,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+        Image.network(
+          'https://image.tmdb.org/t/p/w185/$image',
+          scale: 1,
+        ),
+        const SizedBox(height: 8.0),
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        Stars(star),
+        const SizedBox(height: 4.0),
+        Text(
+          remarks,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         const SizedBox(height: 8.0),
         Text(
@@ -186,7 +170,7 @@ class ReviewGrid extends StatelessWidget {
                   'https://image.tmdb.org/t/p/w185/$image',
                   scale: 2,
                 ),
-                const SizedBox(width: 8.0),
+                const SizedBox(width: 16.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -198,15 +182,11 @@ class ReviewGrid extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    const SizedBox(height: 6.0),
                     Row(
                       children: [
-                        Text(
-                          '$star ',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Stars(star),
+                        const SizedBox(width: 4),
                         Text(
                           remarks,
                           style: const TextStyle(

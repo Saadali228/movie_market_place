@@ -31,14 +31,14 @@ class MyAccount extends StatelessWidget {
             children: const [
               AccountGrid(
                 heading: 'Personal Profile',
-                title: 'Vendian',
-                subTitle: 'venidan@venturedive.com',
+                title: 'Talha Javed',
+                subTitle: 'talha.khan@venturedive.com',
+                phoneNo: '+923343586878',
               ),
               AccountGrid(
                 heading: 'Address Book',
-                title: 'Vendian',
-                subTitle:
-                    'Dilkusha Forum, 12th Floor, Tariq Rd, Delhi CHS PECHS, Sindh, Karachi',
+                title: 'Associate Software Engineer',
+                subTitle: 'House#A-312, Block 1, Gulistan-e-Jauhar, Karachi',
               ),
             ],
           ),

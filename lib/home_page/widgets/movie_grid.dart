@@ -69,6 +69,7 @@ class _MovieGridState extends State<MovieGrid> {
             controller: _scrollController,
             child: CustomScrollView(
               controller: _scrollController,
+              physics: const BouncingScrollPhysics(),
               slivers: [
                 const SliverToBoxAdapter(child: SearchPage()),
                 const SliverToBoxAdapter(child: SizedBox(height: 10)),
