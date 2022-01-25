@@ -119,12 +119,14 @@ class MyProfile extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Text(
-          msg2,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+        FittedBox(
+          child: Text(
+            msg2,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         const SizedBox(
