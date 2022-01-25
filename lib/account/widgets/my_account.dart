@@ -23,7 +23,7 @@ class MyAccount extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 30.0),
           Wrap(
             spacing: 20,
             runSpacing: 20,

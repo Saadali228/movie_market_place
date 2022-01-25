@@ -19,7 +19,7 @@ class MyOrders extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20.0),
+          SizedBox(height: 30.0),
           OrderGrid(
             orderNo: '319',
             placedOn: '31/12/21',

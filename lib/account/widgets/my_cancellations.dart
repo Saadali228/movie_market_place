@@ -19,7 +19,7 @@ class MyCancellations extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20.0),
+          SizedBox(height: 30.0),
           OrderGrid(
             orderNo: '241',
             placedOn: '28/08/2021',

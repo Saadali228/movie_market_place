@@ -21,7 +21,7 @@ class MyWishlist extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 20.0),
+        const SizedBox(height: 30.0),
         BlocBuilder<AccountBloc, AccountState>(
           buildWhen: (previous, current) =>
               previous.accountStatus != current.accountStatus ||

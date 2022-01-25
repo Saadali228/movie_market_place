@@ -19,7 +19,7 @@ class MyReviews extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 30),
           ReviewGrid(
             purchasedOn: '31/12/2021',
             image: 'c6H7Z4u73ir3cIoCteuhJh7UCAR.jpg',
