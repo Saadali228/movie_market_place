@@ -349,7 +349,6 @@ class _MovieGridState extends State<MovieGrid> {
                   const EdgeInsets.all(0),
                 ),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                //backgroundColor: null,
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -384,6 +383,10 @@ class _MovieGridState extends State<MovieGrid> {
                 minimumSize: MaterialStateProperty.all<Size>(
                   const Size(140, 35),
                 ),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                  const EdgeInsets.all(0),
+                ),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 backgroundColor: MaterialStateProperty.all(Colors.green),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
